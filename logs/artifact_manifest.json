@@ -1,0 +1,78 @@
+{
+  "blender/Bunker_Blockout_v001.blend": {
+    "bytes": 533513,
+    "sha256": "803cece68d85bd8efbf626ccff8db4479df72f93fa55ea9a1f039af06b8d2cd7"
+  },
+  "exports/Bunker_Blockout_v001.glb": {
+    "bytes": 212680,
+    "sha256": "e147eb89d85f2a5dd231f8d867591684ab21d7ea69bc279e6c91cc782c478f82"
+  },
+  "exports/navigation.json": {
+    "bytes": 172129,
+    "sha256": "92a5cecf35fddf63539652e5d35744953e55455a5357ba414d5094153997b67f"
+  },
+  "exports/Bunker_Blockout_v001.fbx": {
+    "bytes": 4120492,
+    "sha256": "33107a1a30eb6701366f43a20535dca0bea630ecb6cf0b3b90d8edd806058966"
+  },
+  "exports/Scale_1m.fbx": {
+    "bytes": 15276,
+    "sha256": "8904de6e4a6abed0924c8a1c19df4594e37191f8f7c6a22e4351fb45cd66ea09"
+  },
+  "screenshots/CAM_Top.png": {
+    "bytes": 1442380,
+    "sha256": "52d3c4f88d231bc996a9d6a6fb99e4afe0d93e8e05d3268fae22954db1bbe601"
+  },
+  "screenshots/CAM_CommonRoom.png": {
+    "bytes": 1450700,
+    "sha256": "d31466aab724425bf26651e38fe44f7325599871eca4ca07709c9dacc5740faa"
+  },
+  "screenshots/CAM_Storage.png": {
+    "bytes": 1388158,
+    "sha256": "c53fd5a605a938f99aeea9c2e1df094b20f3622dbce41e4f2eeddfd0e9f3f7d8"
+  },
+  "screenshots/CAM_Corridor.png": {
+    "bytes": 1439330,
+    "sha256": "2000f5367d1695e634ec00b85e69464c847b987fa79505d4cca4bdd154d9049c"
+  },
+  "screenshots/CAM_Entrance.png": {
+    "bytes": 1434887,
+    "sha256": "3da4d209e9765f523daff4c411eea9e02ee7ff8f07ac68342fca74516db242cc"
+  },
+  "scripts/create_bunker_blockout.py": {
+    "bytes": 20623,
+    "sha256": "96ca4aaa8648aaa497d0ea9fdc85a6a18b2e6b1612ac1dfd17599788529f68d1"
+  },
+  "scripts/walk_bunker.py": {
+    "bytes": 3324,
+    "sha256": "96794b02c5d04b77431ad3d7ca18d1abc16aea29662980b525a9dc0381e15f45"
+  },
+  "scripts/check_exports.py": {
+    "bytes": 1417,
+    "sha256": "e5d5b63708c32b1f83ad5945aa9f10e1294d16662d3512646c64f595a744ff54"
+  },
+  "scripts/check_idempotence.py": {
+    "bytes": 1102,
+    "sha256": "65d4267267ee0aa8bfb30454edfd771f0ac48d484a3410322487c106a27952b2"
+  },
+  "scripts/validate_bunker.py": {
+    "bytes": 6446,
+    "sha256": "f8fe3b36c56c49dcc9416dcdbaaad7b971bfe2b44d947eec789eeee5357122af"
+  },
+  "scripts/write_report.py": {
+    "bytes": 8407,
+    "sha256": "6a9bbf49751c94010c7fb07a3c5c2fbfa784fc7d15ceebc343d298a91f0075ee"
+  },
+  "docs/BLOCKOUT_REPORT.md": {
+    "bytes": 7631,
+    "sha256": "7bdb7bf3f204b8feaa67bbec23442eb859f0e43f56d6d20cd1c4f517778ed6b0"
+  },
+  "docs/NAVIGATION.md": {
+    "bytes": 2017,
+    "sha256": "77d382b368c92cc652fcd2d4dd8810d137cfa53958449df91e35f5bbb193919c"
+  },
+  "docs/ENVIRONMENT_REPORT.md": {
+    "bytes": 949,
+    "sha256": "f48e4ffd71cac7e7ab81ff887b024230bdda860635b0a353598b3196169a38f6"
+  }
+}

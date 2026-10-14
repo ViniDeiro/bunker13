@@ -1,0 +1,335 @@
+{
+  "blender": "5.2.2 LTS",
+  "objects": 1618,
+  "mesh_data_blocks": 888,
+  "rooms": {
+    "Convivencia": {
+      "clear_dimensions_m": [
+        9,
+        7.0,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Cozinha": {
+      "clear_dimensions_m": [
+        5,
+        5.0,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Despensa": {
+      "clear_dimensions_m": [
+        6,
+        5,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Dormitorio": {
+      "clear_dimensions_m": [
+        6.0,
+        5.000000000000001,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Enfermaria": {
+      "clear_dimensions_m": [
+        4.0,
+        4,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Radio_Comando": {
+      "clear_dimensions_m": [
+        4.0,
+        4,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Oficina": {
+      "clear_dimensions_m": [
+        5,
+        4,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Gerador": {
+      "clear_dimensions_m": [
+        5.0,
+        4.0,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Sanitario": {
+      "clear_dimensions_m": [
+        3.0,
+        3.0,
+        3
+      ],
+      "reachable_capsule_r030": true
+    },
+    "Antecamara": {
+      "clear_dimensions_m": [
+        5,
+        6.0,
+        3
+      ],
+      "reachable_capsule_r030": true
+    }
+  },
+  "doors": [
+    {
+      "name": "ConvivenciaN",
+      "center": [
+        11.5,
+        7.3999999999999995,
+        0
+      ],
+      "width": 1.8,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "ConvivenciaW",
+      "center": [
+        6.9,
+        1.8,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "CozinhaN",
+      "center": [
+        19.5,
+        5.3999999999999995,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "DespensaS",
+      "center": [
+        25,
+        11.9,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "DormitorioN",
+      "center": [
+        4.8,
+        8.9,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "EnfermariaS",
+      "center": [
+        2.3,
+        11.9,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "Radio_ComandoS",
+      "center": [
+        7.5,
+        11.9,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "OficinaS",
+      "center": [
+        13.5,
+        11.9,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "OficinaN",
+      "center": [
+        13.5,
+        16.1,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "GeradorS",
+      "center": [
+        19.3,
+        15.6,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "SanitarioE",
+      "center": [
+        3.4,
+        1.8,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": false
+    },
+    {
+      "name": "AntecamaraS",
+      "center": [
+        25.5,
+        0.19999999999999998,
+        0
+      ],
+      "width": 1.8,
+      "height": 2.4,
+      "sealed": false
+    },
+    {
+      "name": "AntecamaraN",
+      "center": [
+        25.5,
+        6.3999999999999995,
+        0
+      ],
+      "width": 1.8,
+      "height": 2.4,
+      "sealed": false
+    },
+    {
+      "name": "Ala_Medica_Lacrada",
+      "center": [
+        2.5,
+        20.08,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": true
+    },
+    {
+      "name": "Vigilancia_Lacrada",
+      "center": [
+        7,
+        20.08,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": true
+    },
+    {
+      "name": "Tunel_Emergencia",
+      "center": [
+        12,
+        20.08,
+        0
+      ],
+      "width": 1.1,
+      "height": 2.2,
+      "sealed": true
+    }
+  ],
+  "main_corridor_clear_width_m": 2,
+  "route_entry_common_m": 22.6,
+  "walking_speed_assumed_m_s": 1.4,
+  "walk_frames": 705,
+  "collection_counts": {
+    "ARCH_Walls": 333,
+    "ARCH_Floors": 152,
+    "ARCH_Ceilings": 140,
+    "ARCH_Doors": 80,
+    "ARCH_Stairs": 33,
+    "PROPS_Blockout": 55,
+    "LIGHTS_Preview": 19,
+    "COLLISION": 777,
+    "REFERENCE": 23
+  },
+  "furniture": [
+    "SM_Mesa_Social",
+    "SM_Cadeira_0",
+    "SM_Cadeira_1",
+    "SM_Cadeira_2",
+    "SM_Cadeira_3",
+    "SM_Cadeira_4",
+    "SM_Cadeira_5",
+    "SM_Sofa",
+    "SM_TV_Antiga",
+    "SM_Mesa_Cartas",
+    "SM_Radio_Social",
+    "SM_Estante_Social",
+    "SM_Quadro_Avisos",
+    "SM_Cozinha_Bancada",
+    "SM_Pia",
+    "SM_Fogao",
+    "SM_Geladeira",
+    "SM_Mesa_Cozinha",
+    "SM_Despensa_Estante_0",
+    "SM_Despensa_Estante_1",
+    "SM_Despensa_Estante_Fundo",
+    "SM_Esconderijo_Visual",
+    "SM_Galao_0",
+    "SM_Galao_1",
+    "SM_Galao_2",
+    "SM_Cama_1",
+    "SM_Armario_Pessoal_1",
+    "SM_Cama_2",
+    "SM_Armario_Pessoal_2",
+    "SM_Cama_3",
+    "SM_Armario_Pessoal_3",
+    "SM_Cama_4",
+    "SM_Armario_Pessoal_4",
+    "SM_Maca",
+    "SM_Medicamentos",
+    "SM_Bancada_Medica",
+    "SM_Radio_Console",
+    "SM_Transmissor",
+    "SM_Arquivo_Expedicoes",
+    "SM_Bancada_Oficina",
+    "SM_Sucata",
+    "SM_Gerador",
+    "SM_Combustivel",
+    "SM_Painel_Eletrico",
+    "SM_Filtro",
+    "SM_Tanque_Agua",
+    "SM_Vaso",
+    "SM_Pia_Sanitaria",
+    "SM_Ducha",
+    "SM_EPI",
+    "SM_Inspecao",
+    "SM_Ducha_Descontaminacao",
+    "SM_Status"
+  ]
+}

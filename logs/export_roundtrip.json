@@ -1,0 +1,18 @@
+{
+  "glb": {
+    "missing": [],
+    "wrong_dimensions": [],
+    "missing_materials": [],
+    "imported_meshes": 777,
+    "collision_meshes": 0,
+    "pass": true
+  },
+  "fbx": {
+    "missing": [],
+    "wrong_dimensions": [],
+    "missing_materials": [],
+    "imported_meshes": 1554,
+    "collision_meshes": 777,
+    "pass": true
+  }
+}

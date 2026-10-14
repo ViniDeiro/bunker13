@@ -1,0 +1,6 @@
+blender/
+exports/
+screenshots/
+logs/*.log
+*.blend1
+__pycache__/
