@@ -40,6 +40,16 @@ for collection_name in COLLECTIONS:
     for obj in sorted(collection.objects, key=lambda item: item.name):
         if obj.type != "MESH" or obj.hide_render:
             continue
+        # These B1 masses have been replaced by constructed furniture in UE.
+        # Keeping them creates solid blocks inside the new tables and sofa.
+        replaced = ('SM_Mesa_Social', 'SM_Cadeira_', 'SM_Sofa', 'SM_TV_Antiga',
+                    'SM_Cozinha_Bancada', 'SM_Pia', 'SM_Fogao', 'SM_Geladeira',
+                    'SM_Mesa_Cozinha', 'SM_Maca', 'SM_Medicamentos',
+                    'SM_Bancada_Medica', 'SM_Radio_Console', 'SM_Transmissor',
+                    'SM_Arquivo_Expedicoes', 'SM_Bancada_Oficina', 'SM_Sucata',
+                    'SM_Vaso', 'SM_EPI')
+        if collection_name == 'PROPS_Blockout' and obj.name.startswith(replaced):
+            continue
         source_objects.append(obj.name)
         evaluated = obj.evaluated_get(depsgraph)
         mesh = evaluated.to_mesh()

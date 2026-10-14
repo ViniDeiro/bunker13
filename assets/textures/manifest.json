@@ -1,0 +1,11 @@
+{
+  "resolution": 512,
+  "surfaces": 6,
+  "maps_per_surface": [
+    "BaseColor",
+    "Normal",
+    "ORM"
+  ],
+  "seed": 13,
+  "license": "Original procedural assets authored for Deiros Dev"
+}

@@ -1,0 +1,6 @@
+{
+  "materials": 16,
+  "textures": 18,
+  "mapping": "world-space triplanar",
+  "resolution": 512
+}

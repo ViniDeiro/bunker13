@@ -22,6 +22,12 @@
 
 ## Passe de design interno
 
+### Superfícies texturizadas
+
+Seis conjuntos originais de materiais PBR substituem as cores lisas: concreto poroso com juntas, metal pintado e oxidado, madeira, trama de tecido, piso industrial e aço escovado. Cada conjunto contém mapas BaseColor, Normal e ORM (oclusão, rugosidade e metalicidade), com resolução de 512px. São aplicados a 16 materiais por projeção triplanar em escala mundial, evitando esticamento nas primitivas e na arquitetura importada. As fontes ficam em `assets/textures`, com geração reproduzível em `scripts/create_surface_textures.py` e importação em `scripts/apply_surface_materials.py`.
+
+O passe de textura não encerra a arte: silhuetas, bordas, sinalização, narrativa ambiental e iluminação ainda exigem revisão. O estado completo do restante do jogo está em `docs/PRODUCTION_STATUS.md`.
+
 - Corredor principal com nervuras estruturais, dutos retangulares, tubulação de água e energia, juntas técnicas e faixa de orientação no piso.
 - Dormitório com quatro conjuntos de cama, cabeceiras, cobertores, travesseiros, sapatos, luminárias pessoais e quatro armários numerados visualmente.
 - Sala de convivência com mesa comunitária para seis lugares, cadeiras construídas, sofá com almofadas, tapete, televisão antiga e mural de avisos.

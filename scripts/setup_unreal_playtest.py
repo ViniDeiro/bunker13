@@ -564,3 +564,8 @@ result = {
 }
 REPORT.write_text(json.dumps(result, indent=2), encoding="utf-8")
 unreal.log_warning("CONDOMINIO13_SETUP_OK " + json.dumps(result))
+
+# Regenerating the map must preserve the authored surface pass.
+if (ROOT / 'assets/textures/T_Concrete_BaseColor.png').exists():
+    import runpy
+    runpy.run_path(str(ROOT / 'scripts/apply_surface_materials.py'))

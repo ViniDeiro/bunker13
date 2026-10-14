@@ -1,9 +1,9 @@
 {
   "source": "blender/Bunker_Blockout_v001.blend",
   "output": "exports/Bunker_Playtest_Merged.fbx",
-  "source_objects": 777,
-  "vertices": 6216,
-  "faces": 4662,
+  "source_objects": 752,
+  "vertices": 6016,
+  "faces": 4512,
   "materials": [
     "M_Concrete",
     "M_Floor",
