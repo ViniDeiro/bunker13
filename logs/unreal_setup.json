@@ -19,5 +19,17 @@
     -1000.0,
     110.0
   ],
-  "lights": 15
+  "lights": 27,
+  "functional_beds": 4,
+  "pickup_items": 6,
+  "minigames": [
+    "darts"
+  ],
+  "exterior": [
+    "Mercado Aurora",
+    "parking",
+    "street",
+    "sealed clinic",
+    "forest edge"
+  ]
 }

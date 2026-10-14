@@ -1,0 +1,28 @@
+#include "BunkerInteractable.h"
+#include "Components/StaticMeshComponent.h"
+#include "Net/UnrealNetwork.h"
+#include "UObject/ConstructorHelpers.h"
+
+ABunkerInteractable::ABunkerInteractable()
+{
+    bReplicates = true;
+    SetReplicateMovement(true);
+    Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+    SetRootComponent(Mesh);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> Cube(TEXT("/Engine/BasicShapes/Cube.Cube"));
+    if (Cube.Succeeded()) Mesh->SetStaticMesh(Cube.Object);
+    Mesh->SetCollisionProfileName(TEXT("BlockAllDynamic"));
+    DisplayName = FText::FromString(TEXT("Objeto"));
+    ActionText = FText::FromString(TEXT("usar"));
+}
+
+FString ABunkerInteractable::GetPrompt() const
+{
+    return FString::Printf(TEXT("[E] %s — %s"), *ActionText.ToString(), *DisplayName.ToString());
+}
+
+void ABunkerInteractable::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(ABunkerInteractable, bActive);
+}

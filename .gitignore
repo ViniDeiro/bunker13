@@ -8,6 +8,7 @@ builds/
 builds-fixed/
 builds-final/
 builds-final-lite/
+builds-final-b2/
 unreal/**/Binaries/
 unreal/**/DerivedDataCache/
 unreal/**/Intermediate/
