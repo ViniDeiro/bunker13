@@ -5,6 +5,7 @@
 - Engine: Unreal Engine 5.8.3
 - Plataforma: macOS 14 ou superior, Apple Silicon arm64
 - Aplicativo: `builds/Mac/Condominio13-B1-Playtest.app`
+- Aplicativo otimizado para MacBook: `builds/Mac/Condominio13-B1-Playtest-Lite.app`
 - Configuração: Development, assinada localmente
 - Tamanho: aproximadamente 854 MB
 - Mapa inicial: `/Game/Bunker/Lvl_Bunker`
@@ -19,6 +20,17 @@
 - Contraste quente/frio preservado para distinguir áreas sociais e técnicas.
 - Movimento em primeira pessoa validado no aplicativo empacotado.
 - Assinatura, binário arm64 e contêineres `.pak`, `.ucas` e `.utoc` verificados.
+
+## Perfil MacBook Lite
+
+- Resolução inicial: 1280 × 720 em janela.
+- Limite de 45 FPS com VSync.
+- Resolução interna em 70%.
+- Sombras virtuais, motion blur, bloom, oclusão de ambiente, profundidade de campo, reflexos em tela e névoa volumétrica desativados.
+- Distância de visão em 65%, materiais no nível baixo e pool de texturas limitado a 512 MB.
+- Perfil aplicado pelo `Mac DeviceProfile`, inclusive quando há preferências antigas salvas em qualidade Épica.
+- Sensibilidade horizontal e vertical reduzida para 0,35 na escala final do controlador; suavização do mouse desativada.
+- Aplicativo Lite recompilado, assinado e iniciado com sucesso; o mapa B1 carregou em 0,04 s no teste local, sem erro fatal ou `ensure`.
 
 ## Controles
 
