@@ -1,0 +1,22 @@
+{
+  "source": "blender/Bunker_Blockout_v001.blend",
+  "output": "exports/Bunker_Playtest_Merged.fbx",
+  "source_objects": 777,
+  "vertices": 6216,
+  "faces": 4662,
+  "materials": [
+    "M_Concrete",
+    "M_Floor",
+    "M_Technical",
+    "M_Social",
+    "M_Medical",
+    "M_Door",
+    "M_Steel",
+    "M_Furniture"
+  ],
+  "dimensions_m": [
+    28.8,
+    30.3,
+    7.8809
+  ]
+}

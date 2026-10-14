@@ -4,3 +4,12 @@ screenshots/
 logs/*.log
 *.blend1
 __pycache__/
+builds/
+builds-fixed/
+builds-final/
+unreal/**/Binaries/
+unreal/**/DerivedDataCache/
+unreal/**/Intermediate/
+unreal/**/Saved/
+unreal/**/Build/Mac/FileOpenOrder/
+unreal/**/Build/Mac/*.PackageVersionCounter
