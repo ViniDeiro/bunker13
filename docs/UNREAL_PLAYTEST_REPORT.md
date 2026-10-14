@@ -20,6 +20,19 @@
 - Primeira área externa conectada: Mercado Aurora, estacionamento, rua, clínica selada e borda da floresta.
 - Mercado com vinte módulos de prateleira, quatro caixas e iluminação própria.
 
+## Passe de design interno
+
+- Corredor principal com nervuras estruturais, dutos retangulares, tubulação de água e energia, juntas técnicas e faixa de orientação no piso.
+- Dormitório com quatro conjuntos de cama, cabeceiras, cobertores, travesseiros, sapatos, luminárias pessoais e quatro armários numerados visualmente.
+- Sala de convivência com mesa comunitária para seis lugares, cadeiras construídas, sofá com almofadas, tapete, televisão antiga e mural de avisos.
+- Cozinha com bancada contínua, cinco módulos inferiores, três armários superiores, pia, fogão com quatro queimadores, geladeira e mesa de refeição.
+- Enfermaria com maca construída em camadas, apoio de cabeça, carrinho com rodas, armário médico identificado e monitor iluminado.
+- Rádio e comando com banco de três telas, controles, mesa de mapas e arquivo de expedições.
+- Oficina com bancada reforçada, painel de ferramentas, morsa e caixas de armazenamento.
+- Sala do gerador com três módulos mecânicos, grelhas, escapes, tambores de combustível e piso de advertência.
+- Sanitário com divisória e louças; antecâmara com banco, armários de EPI e arco de descontaminação.
+- Materiais próprios para aço, concreto, madeira, tecido, borracha, porcelana, telas, vermelho de emergência e verde utilitário.
+
 ## Controles e interações
 
 - `W A S D`: caminhar
@@ -42,7 +55,7 @@ Ao mirar em um objeto utilizável a até 3,5 metros, o jogo mostra sua ação. R
 
 ## Validação
 
-- Mapa: 184 atores, 14 objetos interativos e 95 elementos externos.
+- Mapa: 14 objetos interativos, 95 elementos externos e um passe adicional de mobiliário e infraestrutura em nove ambientes internos.
 - Iluminação: 27 luzes; contraste do dormitório e leitura do mercado conferidos no executável.
 - Unreal Map Check: 0 erros e 0 avisos.
 - Cook e empacotamento: concluídos com 0 erros e 0 avisos.

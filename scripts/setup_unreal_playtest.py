@@ -121,8 +121,10 @@ def configure_blockout_materials(mesh):
         emissive = unreal.MaterialEditingLibrary.create_material_expression(
             material, unreal.MaterialExpressionConstant3Vector, -320, 80
         )
+        # A trace emission keeps unlit corners readable on the low-end profile
+        # without making whole walls glow and flattening the room design.
         emissive.set_editor_property(
-            "constant", unreal.LinearColor(rgb[0] * 0.80, rgb[1] * 0.80, rgb[2] * 0.80, 1.0)
+            "constant", unreal.LinearColor(rgb[0] * 0.06, rgb[1] * 0.06, rgb[2] * 0.06, 1.0)
         )
         unreal.MaterialEditingLibrary.connect_material_property(
             emissive, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR
@@ -243,6 +245,11 @@ B2_MATS = {
     "store": make_solid_material("M_EXT_Mercado", (0.22, 0.28, 0.25), roughness=0.82),
     "forest": make_solid_material("M_EXT_Forest", (0.035, 0.11, 0.055), roughness=1.0),
     "warning": make_solid_material("M_EXT_Warning", (0.62, 0.035, 0.02), emissive=0.5, roughness=0.7),
+    "red": make_solid_material("M_B2_EmergencyRed", (0.42, 0.018, 0.012), emissive=0.12, roughness=0.62),
+    "green": make_solid_material("M_B2_UtilityGreen", (0.085, 0.19, 0.13), roughness=0.78),
+    "rubber": make_solid_material("M_B2_Rubber", (0.012, 0.016, 0.017), roughness=0.98),
+    "screen": make_solid_material("M_B2_Screen", (0.015, 0.22, 0.27), emissive=2.8, roughness=0.32),
+    "porcelain": make_solid_material("M_B2_Porcelain", (0.68, 0.71, 0.68), roughness=0.42),
 }
 
 cube_mesh = unreal.load_asset("/Engine/BasicShapes/Cube.Cube")
@@ -274,6 +281,40 @@ def spawn_interactable(label, display, action, kind, location, size_m, material_
     return actor
 
 
+def furniture_box(label, location, size_m, material_key="steel", rotation=None):
+    """Small static detail with collision disabled to keep dense rooms navigable."""
+    actor = spawn_shape(label, location, size_m, material_key, rotation=rotation)
+    actor.static_mesh_component.set_collision_enabled(unreal.CollisionEnabled.NO_COLLISION)
+    return actor
+
+
+def prop_cylinder(label, location, scale, material_key, rotation=None, collision=False):
+    actor = spawn_shape(label, location, scale, material_key, cylinder_mesh, rotation)
+    if not collision:
+        actor.static_mesh_component.set_collision_enabled(unreal.CollisionEnabled.NO_COLLISION)
+    return actor
+
+
+def add_table(label, x, y, z=73, width=150, depth=85, material="wood"):
+    furniture_box(label + "_Top", (x, y, z), (width / 100, depth / 100, .09), material)
+    for ix in (-width * .42, width * .42):
+        for iy in (-depth * .38, depth * .38):
+            furniture_box(label + f"_Leg_{ix}_{iy}", (x + ix, y + iy, z / 2), (.07, .07, z / 100), "steel")
+
+
+def add_chair(label, x, y, yaw=0):
+    furniture_box(label + "_Seat", (x, y, 48), (.48, .48, .10), "wood", unreal.Rotator(yaw=yaw))
+    furniture_box(label + "_Back", (x, y + 20, 78), (.48, .08, .62), "green", unreal.Rotator(yaw=yaw))
+    for ix in (-18, 18):
+        for iy in (-17, 17):
+            furniture_box(label + f"_Leg_{ix}_{iy}", (x + ix, y + iy, 23), (.055, .055, .46), "steel")
+
+
+def add_wall_panel(label, x, y, z, width, height, material="steel", horizontal=True):
+    size = (width / 100, .055, height / 100) if horizontal else (.055, width / 100, height / 100)
+    return furniture_box(label, (x, y, z), size, material)
+
+
 # Repeating white wall modules, dark reveals and inset lighting give the bunker
 # a dense, manufactured silhouette while preserving the validated circulation.
 for x in range(150, 2800, 200):
@@ -285,6 +326,136 @@ for x in (760, 1120, 1480):
     spawn_shape(f"B2_SocialAmber_{x}", (x, -700, 260), (2.2, 0.05, 0.04), "amber")
 for x in (420, 860, 1300, 1740, 2180):
     spawn_shape(f"B2_SafetyBand_{x}", (x, -2010, 112), (1.6, 0.025, 0.12), "orange")
+
+# Architectural finish pass. The old shell remains structural; these pieces
+# create a readable civil-defense facility rather than a room-shaped blockout.
+for x in range(100, 2800, 200):
+    furniture_box(f"B2_MainFloorStrip_{x}", (x, -1030, 2), (1.55, .16, .025), "orange")
+for x in range(100, 2800, 400):
+    furniture_box(f"B2_CorridorRibL_{x}", (x, -925, 145), (.10, .10, 2.75), "steel")
+    furniture_box(f"B2_CorridorRibR_{x}", (x, -1135, 145), (.10, .10, 2.75), "steel")
+    furniture_box(f"B2_CorridorRibTop_{x}", (x, -1030, 274), (.10, 2.15, .10), "steel")
+
+# Rectangular ventilation trunks and color-coded services run continuously
+# through the main axis, with visible drops into technical rooms.
+for x in range(180, 2700, 360):
+    furniture_box(f"B2_Duct_{x}", (x, -1165, 248), (3.1, .34, .32), "steel")
+    furniture_box(f"B2_DuctJoint_{x}", (x, -1165, 248), (.08, .42, .39), "white")
+for x in range(250, 2650, 300):
+    furniture_box(f"B2_WaterPipe_{x}", (x, -865, 238), (2.6, .065, .065), "cyan")
+    furniture_box(f"B2_PowerPipe_{x}", (x, -842, 220), (2.6, .055, .055), "orange")
+
+# DORMITORY — lockers, bunks, privacy shelves, footwear and personal lights.
+for index, y in enumerate((-435, -540, -645, -750), 1):
+    furniture_box(f"Dorm_Locker_{index}", (585, y, 92), (.52, .74, 1.84), "green")
+    furniture_box(f"Dorm_LockerDoor_{index}", (556, y, 102), (.035, .62, 1.48), "steel")
+    furniture_box(f"Dorm_LockerHandle_{index}", (552, y - 20, 104), (.025, .07, .22), "orange")
+for index, (x, y) in enumerate(((100, -500), (300, -500), (100, -750), (300, -750)), 1):
+    furniture_box(f"Dorm_BedHead_{index}", (x, y - 101, 75), (1.1, .07, 1.35), "steel")
+    furniture_box(f"Dorm_Blanket_{index}", (x, y + 35, 66), (.98, 1.25, .07), "green")
+    furniture_box(f"Dorm_Shoe_{index}A", (x - 18, y + 115, 12), (.16, .34, .12), "rubber")
+    furniture_box(f"Dorm_Shoe_{index}B", (x + 18, y + 115, 12), (.16, .34, .12), "rubber")
+add_wall_panel("Dorm_NumberStrip", 300, -380, 220, 480, 26, "orange")
+
+# SOCIAL ROOM — a communal table, mismatched chairs, sofa, old display and
+# notice wall make the bunker feel occupied by four survivors.
+add_table("Social_MainTable", 1140, -370, width=260, depth=120)
+for i, (x, y, yaw) in enumerate(((1035, -275, 180), (1140, -275, 180), (1245, -275, 180),
+                                 (1035, -465, 0), (1140, -465, 0), (1245, -465, 0)), 1):
+    add_chair(f"Social_Chair_{i}", x, y, yaw)
+furniture_box("Social_SofaBase", (805, -420, 38), (.85, 2.55, .55), "green")
+furniture_box("Social_SofaBack", (770, -420, 88), (.18, 2.55, 1.05), "green")
+for y in (-500, -420, -340):
+    furniture_box(f"Social_SofaCushion_{y}", (825, y, 68), (.72, .70, .16), "fabric")
+furniture_box("Social_TVCase", (805, -92, 105), (.92, .38, 1.35), "steel")
+furniture_box("Social_TVScreen", (805, -70, 112), (.70, .035, .82), "screen")
+furniture_box("Social_Rug", (1140, -370, 7), (3.9, 2.7, .035), "rubber")
+add_wall_panel("Social_NoticeBoard", 1430, -35, 160, 180, 110, "wood")
+for i, (x, z, mat) in enumerate(((1385, 175, "white"), (1440, 145, "orange"), (1480, 190, "white"))):
+    furniture_box(f"Social_Notice_{i}", (x, -28, z), (.38, .018, .50), mat)
+
+# KITCHEN — cabinet run, sink, stove controls, upper storage and refrigerator.
+for i, y in enumerate((-90, -165, -240, -315, -390)):
+    furniture_box(f"Kitchen_LowerCab_{i}", (1745, y, 46), (.68, .70, .88), "green")
+    furniture_box(f"Kitchen_CabHandle_{i}", (1710, y, 55), (.025, .24, .035), "orange")
+furniture_box("Kitchen_Counter", (1755, -245, 94), (.82, 3.85, .10), "steel")
+furniture_box("Kitchen_Sink", (1740, -125, 99), (.58, .68, .035), "rubber")
+for i, y in enumerate((-245, -305, -365, -425)):
+    prop_cylinder(f"Kitchen_Burner_{i}", (1740, y, 100), (.24, .24, .025), "rubber")
+for i, y in enumerate((-135, -260, -385)):
+    furniture_box(f"Kitchen_UpperCab_{i}", (1740, y, 205), (.58, 1.05, .70), "white")
+furniture_box("Kitchen_Fridge", (2135, -110, 98), (.85, .82, 1.96), "white")
+furniture_box("Kitchen_FridgeSeal", (2090, -110, 105), (.025, .72, 1.72), "rubber")
+furniture_box("Kitchen_FridgeHandle", (2085, -135, 118), (.025, .055, .52), "orange")
+add_table("Kitchen_Breakfast", 2010, -300, width=130, depth=90, material="steel")
+
+# INFIRMARY — examination bed, bedside trolley, locked medicine cabinet,
+# illuminated monitor and privacy screen supports.
+furniture_box("Medical_BedFrame", (120, -1350, 52), (.88, 2.10, .14), "steel")
+furniture_box("Medical_Mattress", (120, -1350, 68), (.80, 2.00, .16), "porcelain")
+furniture_box("Medical_Headrest", (120, -1435, 83), (.72, .45, .18), "white", unreal.Rotator(pitch=-18))
+furniture_box("Medical_Trolley", (265, -1335, 74), (.55, .72, .08), "steel")
+for x in (245, 285):
+    for y in (-1360, -1310):
+        prop_cylinder(f"Medical_TrolleyWheel_{x}_{y}", (x, y, 15), (.11, .11, .07), "rubber", unreal.Rotator(pitch=90))
+furniture_box("Medical_Cabinet", (380, -1280, 100), (.58, 1.20, 1.90), "white")
+furniture_box("Medical_CabinetCrossV", (348, -1280, 118), (.03, .12, .62), "red")
+furniture_box("Medical_CabinetCrossH", (348, -1280, 118), (.03, .50, .15), "red")
+furniture_box("Medical_Monitor", (300, -1455, 145), (.12, .72, .58), "steel")
+furniture_box("Medical_MonitorScreen", (292, -1455, 148), (.018, .55, .38), "screen")
+
+# RADIO/COMMAND — angled console impression, screen bank, map table and files.
+furniture_box("Radio_ConsoleBase", (600, -1400, 63), (.72, 2.65, 1.15), "steel")
+for i, y in enumerate((-1490, -1400, -1310)):
+    furniture_box(f"Radio_Screen_{i}", (558, y, 135), (.035, .68, .54), "screen")
+    for j in range(3):
+        prop_cylinder(f"Radio_Dial_{i}_{j}", (552, y - 22 + j * 22, 92), (.07, .07, .035), "orange", unreal.Rotator(pitch=90))
+add_table("Radio_MapTable", 790, -1460, width=130, depth=85, material="green")
+furniture_box("Radio_Map", (790, -1460, 79), (1.12, .68, .018), "white")
+for i, y in enumerate((-1310, -1380, -1450)):
+    furniture_box(f"Radio_FileDrawer_{i}", (900, y, 90), (.48, .62, .55), "green")
+    furniture_box(f"Radio_FileHandle_{i}", (873, y, 95), (.025, .20, .05), "orange")
+
+# WORKSHOP — substantial workbench, pegboard, vise, tool silhouettes and crates.
+furniture_box("Workshop_Bench", (1150, -1400, 88), (.78, 3.00, .16), "wood")
+for y in (-1500, -1300):
+    furniture_box(f"Workshop_BenchLeg_{y}", (1150, y, 43), (.14, .14, .86), "steel")
+add_wall_panel("Workshop_Pegboard", 1115, -1400, 180, 250, 110, "green", horizontal=False)
+for i, (y, z, length) in enumerate(((-1480, 190, 55), (-1410, 165, 75), (-1340, 205, 45))):
+    furniture_box(f"Workshop_Tool_{i}", (1108, y, z), (.035, length / 100, .07), "orange")
+furniture_box("Workshop_ViseBase", (1140, -1370, 104), (.34, .40, .22), "steel")
+furniture_box("Workshop_ViseJaw", (1140, -1370, 119), (.42, .12, .16), "orange")
+for i, (x, y) in enumerate(((1460, -1320), (1510, -1410), (1450, -1510))):
+    furniture_box(f"Workshop_Crate_{i}", (x, y, 32), (.72, .72, .62), "green")
+    furniture_box(f"Workshop_CrateBand_{i}", (x, y, 36), (.76, .10, .66), "steel")
+
+# GENERATOR — machine casing, exhaust, coolant pipes, tanks and warning floor.
+for x in (1810, 1920, 2030):
+    furniture_box(f"Generator_Casing_{x}", (x, -1780, 96), (1.02, 1.32, 1.72), "green")
+    furniture_box(f"Generator_Vent_{x}", (x, -1848, 105), (.72, .035, .78), "rubber")
+for y in (-1740, -1820):
+    prop_cylinder(f"Generator_Exhaust_{y}", (2065, y, 205), (.16, .16, 2.1), "steel")
+for i, x in enumerate((1740, 1795, 1850)):
+    prop_cylinder(f"Generator_FuelDrum_{i}", (x, -1910, 55), (.52, .52, 1.10), "red")
+    furniture_box(f"Generator_DrumBand_{i}", (x, -1910, 55), (.56, .56, .06), "steel")
+furniture_box("Generator_HazardFloor", (1930, -1780, 5), (4.8, 2.7, .028), "orange")
+
+# SANITARY AND AIRLOCK — recognisable fixtures, changing bench and decon arch.
+furniture_box("Sanitary_Partition", (165, -145, 108), (.10, 2.25, 2.16), "steel")
+furniture_box("Sanitary_ToiletTank", (90, -105, 72), (.62, .30, .78), "porcelain")
+furniture_box("Sanitary_ToiletSeat", (90, -135, 43), (.58, .72, .12), "porcelain")
+furniture_box("Sanitary_Sink", (260, -75, 88), (.72, .48, .16), "porcelain")
+furniture_box("Sanitary_Mirror", (260, -38, 162), (.75, .025, .92), "screen")
+furniture_box("Airlock_Bench", (2470, -250, 48), (2.3, .55, .12), "wood")
+for x in (2370, 2470, 2570):
+    furniture_box(f"Airlock_BenchLeg_{x}", (x, -250, 23), (.08, .42, .46), "steel")
+for i, y in enumerate((-110, -205, -300, -395)):
+    furniture_box(f"Airlock_EPILocker_{i}", (2340, y, 98), (.62, .78, 1.92), "green")
+furniture_box("Airlock_DeconLeft", (2700, -110, 125), (.16, .16, 2.50), "steel")
+furniture_box("Airlock_DeconRight", (2800, -110, 125), (.16, .16, 2.50), "steel")
+furniture_box("Airlock_DeconTop", (2750, -110, 245), (1.15, .16, .16), "steel")
+for x in (2725, 2750, 2775):
+    prop_cylinder(f"Airlock_Nozzle_{x}", (x, -110, 224), (.08, .08, .18), "orange")
 
 # Four functional sleeping places; slightly raised layers cover the original
 # blockout beds and provide a stronger room identity.
