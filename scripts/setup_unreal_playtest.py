@@ -569,3 +569,6 @@ unreal.log_warning("CONDOMINIO13_SETUP_OK " + json.dumps(result))
 if (ROOT / 'assets/textures/T_Concrete_BaseColor.png').exists():
     import runpy
     runpy.run_path(str(ROOT / 'scripts/apply_surface_materials.py'))
+if (ROOT / 'exports/hero_kit/SM_Hero_Bed.fbx').exists():
+    import runpy
+    runpy.run_path(str(ROOT / 'scripts/install_hero_kit.py'))

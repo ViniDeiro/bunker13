@@ -1,0 +1,30 @@
+{
+  "SM_Hero_Bed": {
+    "dimensions_cm": [
+      111.49999237060547,
+      211.00000762939453,
+      95.00003433227539
+    ],
+    "materials": 4
+  },
+  "SM_Hero_Locker": {
+    "dimensions_cm": [
+      53.500003814697266,
+      81.20001602172852,
+      184.0000209463501
+    ],
+    "materials": 4
+  },
+  "SM_Hero_BlastDoor": {
+    "dimensions_cm": [
+      186.99999904632568,
+      40.50002670288086,
+      240.00001599193212
+    ],
+    "materials": 3
+  },
+  "beds_replaced": 4,
+  "lockers_replaced": 4,
+  "door": "Imported asset; existing baked doors not replaced",
+  "painter_used": false
+}
