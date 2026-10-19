@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "real_processes": 4,
+  "editor": true,
+  "markers": [
+    [
+      "[2026.10.19-17.15.44:790][800]LogTemp: Display: C13_PICKUP player=256 id=49FEEF05F7496D03C96BC9997AF7D2BC count=1",
+      "[2026.10.19-17.15.44:790][800]LogTemp: Display: C13_PROBE_SENT phase=0 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.50:795][172]LogTemp: Display: C13_PROBE_SENT phase=1 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.56:799][544]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.56:799][544]LogTemp: Display: C13_CLIENT_STATE pickupHidden=1 pickupCollision=0 bedOccupied=1 inventory=1",
+      "[2026.10.19-17.16.03:802][978]LogTemp: Display: C13_NET_AUDIT PASS players=4 items=1 unique=1 resting=1 farActive=1"
+    ],
+    [
+      "[2026.10.19-17.15.44:841][684]LogTemp: Display: C13_PROBE_SENT phase=0 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.50:829][ 55]LogTemp: Display: C13_PROBE_SENT phase=1 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.56:832][427]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.56:832][427]LogTemp: Display: C13_CLIENT_STATE pickupHidden=1 pickupCollision=0 bedOccupied=1 inventory=0"
+    ],
+    [
+      "[2026.10.19-17.15.44:821][452]LogTemp: Display: C13_PROBE_SENT phase=0 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.50:825][824]LogTemp: Display: C13_PROBE_SENT phase=1 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.56:828][196]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.56:828][196]LogTemp: Display: C13_CLIENT_STATE pickupHidden=1 pickupCollision=0 bedOccupied=1 inventory=0"
+    ],
+    [
+      "[2026.10.19-17.15.44:834][399]LogTemp: Display: C13_PROBE_SENT phase=0 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.50:843][771]LogTemp: Display: C13_PROBE_SENT phase=1 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.56:829][142]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_0",
+      "[2026.10.19-17.15.56:829][142]LogTemp: Display: C13_CLIENT_STATE pickupHidden=1 pickupCollision=0 bedOccupied=1 inventory=0"
+    ]
+  ],
+  "limits": [
+    "Automated isolated transactions; not four-human playtest or a network endurance test.",
+    "Test-only RPC arranges views/positions; normal ServerInteract RPC performs transactions."
+  ]
+}

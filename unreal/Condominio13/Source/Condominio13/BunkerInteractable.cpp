@@ -25,4 +25,24 @@ void ABunkerInteractable::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(ABunkerInteractable, bActive);
+    DOREPLIFETIME(ABunkerInteractable, ItemId);
+    DOREPLIFETIME(ABunkerInteractable, Interaction);
+    DOREPLIFETIME(ABunkerInteractable, DisplayName);
+    DOREPLIFETIME(ABunkerInteractable, ActionText);
+    DOREPLIFETIME(ABunkerInteractable, Occupant);
+}
+
+void ABunkerInteractable::BeginPlay()
+{
+    Super::BeginPlay();
+    if (HasAuthority() && !ItemId.IsValid()) ItemId = FGuid::NewGuid();
+    OnRep_State();
+}
+void ABunkerInteractable::OnRep_State()
+{
+    if (Interaction == EBunkerInteraction::Pickup)
+    {
+        SetActorHiddenInGame(!bActive);
+        SetActorEnableCollision(bActive);
+    }
 }

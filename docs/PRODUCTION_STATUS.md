@@ -12,12 +12,12 @@ A solicitação atual autoriza avançar no acabamento e nos sistemas do GDD. O d
 
 ## Sistemas
 
-As interações anteriores são protótipos locais. Não representam conclusão do GDD:
+A base de interações passou a usar um controlador por conexão e decisões no servidor. Isso ainda não representa conclusão do GDD:
 
 | Marco | Estado real e trabalho restante |
 |---|---|
-| U1 | Personagem navegável existente; implementar servidor autoritativo, quatro jogadores, portas, transações de itens e testes concorrentes |
-| U2 | Coleta local e cama existentes; faltam inventário com capacidade, consumo, fome/sede/saúde/energia, tempo, combustível, contêineres, salvamento e reconexão |
+| U1 | Base de servidor autoritativo para coleta e camas implementada; quatro pontos de entrada e RPCs por proprietário. Portas replicadas, lobby, circulação conjunta, desconexão e testes completos ainda pendentes; evidências desta entrega em `NETWORK_FOUNDATION_REPORT.md` |
+| U2 | Inventário por jogador com IDs únicos por sessão, 12 espaços e replicação apenas ao dono; cama com reserva no servidor. Faltam peso, descarte/consumo, fome/sede/saúde/energia, tempo, combustível, contêineres, salvamento e reconexão |
 | U3 | Exterior inicial existe; faltam prédio explorável, radiação, equipamento, inimigo, combate, morte, mochila e retorno |
 | U4 | Dardos são uma pontuação aleatória por interação; faltam mira jogável, cartas e três eventos sistêmicos |
 | U5 | Pendente teste de 30–60 min com quatro jogadores, latência e perda de pacotes |
@@ -27,10 +27,14 @@ Map Check verifica a estrutura do mapa; não prova circulação com quatro jogad
 
 ## Ordem de conclusão
 
-1. Validar texturas no executável e refinar os ambientes com evidência visual.
-2. Implementar U1 antes de ampliar transações locais de itens.
+1. Preservar a validação do kit Painter no executável e completar a base cooperativa U1.
+2. Validar portas, saída de camas e sessões com quatro humanos antes de ampliar as transações de itens.
 3. Completar U2 com salvamento e anti-duplicação.
 4. Fechar uma partida de ponta a ponta em U3/U4, incluindo objetivo e encerramento.
 5. Executar U5 e corrigir os problemas antes do conteúdo adicional de U6.
 
 Não há build Windows validada neste Mac. Uma entrega Windows exige compilação e teste em ambiente Windows apropriado. Convites Steam e voz exigem configuração e testes reais das respectivas integrações.
+
+## Meta de calendário
+
+A meta solicitada é 30/11/2026. Sequência e critérios de saída em `RELEASE_TARGET_NOVEMBER.md`. Não há garantia de lançamento nem autorização implícita para remover requisitos do GDD para caber no prazo.

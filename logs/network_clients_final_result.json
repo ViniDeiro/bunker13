@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "real_processes": 4,
+  "players": 4,
+  "remote_only": true,
+  "editor": false,
+  "markers": [
+    [
+      "[2026.10.19-17.22.53:614][804]LogTemp: Display: C13_PICKUP player=257 id=4E35A7EE0749CE8DBEB2279F14F875E9 count=1",
+      "[2026.10.19-17.23.05:573][545]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_2147482341",
+      "[2026.10.19-17.23.05:573][545]LogTemp: Display: C13_CLIENT_STATE pickupHidden=1 pickupCollision=0 bedOccupied=1 inventory=0",
+      "[2026.10.19-17.23.12:585][979]LogTemp: Display: C13_NET_AUDIT PASS players=4 items=1 unique=1 resting=1 farActive=1"
+    ],
+    [
+      "[2026.10.19-17.22.53:647][807]LogTemp: Display: C13_PROBE_SENT phase=0 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.22.59:602][176]LogTemp: Display: C13_PROBE_SENT phase=1 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.23.05:590][547]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.23.05:590][547]LogTemp: Display: C13_CLIENT_STATE pickupHidden=1 pickupCollision=0 bedOccupied=1 inventory=0"
+    ],
+    [
+      "[2026.10.19-17.22.53:605][787]LogTemp: Display: C13_PROBE_SENT phase=0 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.22.59:609][159]LogTemp: Display: C13_PROBE_SENT phase=1 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.23.05:596][530]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.23.05:596][530]LogTemp: Display: C13_CLIENT_STATE pickupHidden=1 pickupCollision=0 bedOccupied=1 inventory=1"
+    ],
+    [
+      "[2026.10.19-17.22.53:661][726]LogTemp: Display: C13_PROBE_SENT phase=0 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.22.59:599][ 94]LogTemp: Display: C13_PROBE_SENT phase=1 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.23.05:603][466]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_2147482342",
+      "[2026.10.19-17.23.05:603][466]LogTemp: Display: C13_CLIENT_STATE pickupHidden=1 pickupCollision=0 bedOccupied=1 inventory=0"
+    ]
+  ],
+  "limits": [
+    "Automated isolated transactions; not four-human playtest or a network endurance test.",
+    "Test-only RPC arranges views/positions; normal ServerInteract RPC performs transactions."
+  ]
+}

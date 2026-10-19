@@ -1,0 +1,21 @@
+{
+  "passed": false,
+  "real_processes": 4,
+  "editor": true,
+  "markers": [
+    [
+      "[2026.10.19-17.13.53:573][233]LogTemp: Display: C13_PROBE_SENT phase=0 client=BunkerPlayerController_0",
+      "[2026.10.19-17.13.58:567][538]LogTemp: Display: C13_PROBE_SENT phase=1 client=BunkerPlayerController_0",
+      "[2026.10.19-17.14.04:570][909]LogTemp: Display: C13_PROBE_SENT phase=2 client=BunkerPlayerController_0",
+      "[2026.10.19-17.14.04:570][909]LogTemp: Display: C13_CLIENT_STATE pickupHidden=0 pickupCollision=1 bedOccupied=0 inventory=0",
+      "[2026.10.19-17.14.14:576][529]LogTemp: Display: C13_NET_AUDIT FAIL players=4 items=0 unique=0 resting=0 farActive=1"
+    ],
+    [],
+    [],
+    []
+  ],
+  "limits": [
+    "Automated isolated transactions; not four-human playtest or a network endurance test.",
+    "Test-only RPC arranges views/positions; normal ServerInteract RPC performs transactions."
+  ]
+}

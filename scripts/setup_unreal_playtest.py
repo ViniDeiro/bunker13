@@ -171,12 +171,10 @@ bunker_actor.static_mesh_component.set_static_mesh(mesh)
 bunker_actor.static_mesh_component.set_editor_property("mobility", unreal.ComponentMobility.STATIC)
 
 # Start in the two-metre main circulation axis, clear of furniture and doors.
-player_start = unreal.EditorLevelLibrary.spawn_actor_from_class(
-    unreal.PlayerStart,
-    unreal.Vector(1800.0, -1000.0, 110.0),
-    unreal.Rotator(roll=0.0, pitch=0.0, yaw=0.0),
-)
-player_start.set_actor_label("PlayerStart_Bunker")
+for i, (x, y) in enumerate(((1800,-1000),(1800,-1120),(1920,-1000),(1920,-1120))):
+    player_start = unreal.EditorLevelLibrary.spawn_actor_from_class(
+        unreal.PlayerStart, unreal.Vector(float(x),float(y),110.0), unreal.Rotator())
+    player_start.set_actor_label(f"PlayerStart_Bunker_{i+1}")
 
 warm = unreal.Color(255, 176, 105, 255)
 neutral = unreal.Color(210, 224, 255, 255)
@@ -536,14 +534,10 @@ for x, y in ((1100, 3500), (2500, 3500), (3900, 3500), (1500, 5200), (3500, 5200
 for x, y in ((6400, 4500), (7300, 5100)):
     add_point_light(unreal.Vector(float(x), float(y), 620.0), neutral, 6000.0, 1500.0)
 
-interaction_manager = unreal.EditorLevelLibrary.spawn_actor_from_class(
-    unreal.BunkerInteractionManager, unreal.Vector(0, 0, 0)
-)
-interaction_manager.set_actor_label("SYS_InteractionManager")
-
 world = unreal.EditorLevelLibrary.get_editor_world()
 settings = world.get_world_settings()
 settings.set_editor_property("kill_z", -2000.0)
+settings.set_editor_property("default_game_mode", unreal.BunkerGameMode)
 
 unreal.EditorLevelLibrary.save_current_level()
 unreal.EditorAssetLibrary.save_directory("/Game/Bunker", only_if_is_dirty=False, recursive=True)
