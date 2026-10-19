@@ -1,0 +1,23 @@
+{
+  "blender/Bunker_Items_v001.blend": "0aec5403df3cd2c0727bdb0000169bd2046d1bc2f296c5348200c39a041ad73f",
+  "exports/items/SM_Item_Battery.fbx": "2f299cefcbb2f060e731488e337eaf8bb638aee4a9107fd984b1f816c47e6437",
+  "exports/items/SM_Item_Food.fbx": "e8532f2d7de4ac86ed1555c008e13322690a79c34698ce663249ceb6f1a9ff78",
+  "exports/items/SM_Item_Medkit.fbx": "a815d46cb42d3713fca89f52cac21faf20618411ff2abbf5f03aa20c3c6e80ab",
+  "exports/items/SM_Item_Tool.fbx": "c6b800c29b5910fcf1b669a164a122d79bc2e4b43547338a1a29daa5eccf4809",
+  "exports/items/SM_Item_Water.fbx": "feb97d8845b16db99dfa91e9903e85f79f8bc8742351bca6d8a35fa7279e524e",
+  "assets/items/T_Item_Battery_BaseColor.png": "b2382509cc6c531d217c40effe21a8b7dbbabcb53cc4eacd928c382a03107d87",
+  "assets/items/T_Item_Battery_Normal.png": "3a147db02a09ed62c67931e7f7e3bad216cd28839f9a020ba52d465b933c218d",
+  "assets/items/T_Item_Battery_ORM.png": "2bfcd2f4e286c6a92964dfb1c54d07cc7bc6fcb11ecaca948440b7b3e7cc814e",
+  "assets/items/T_Item_Food_BaseColor.png": "3257eb34645b1505fb952773c9047717489b35dcea754fa30d39e6db0b384d53",
+  "assets/items/T_Item_Food_Normal.png": "9bd69362924a36134880a62e568362ec6574e2c897b57348967b81a6edddf769",
+  "assets/items/T_Item_Food_ORM.png": "cbdf9e1a5b7e64987a5d4ecab06529bf58a47e7dc0146747696db5127f60e4c0",
+  "assets/items/T_Item_Medkit_BaseColor.png": "c7620b236689e49f58d5a95ae27c16082904f48b07789de5cc50a98ee0051ee1",
+  "assets/items/T_Item_Medkit_Normal.png": "a9c92e8dacaed4c6c34a63be667a949feff4b0a39601fdcb1f7b810e0ca897bb",
+  "assets/items/T_Item_Medkit_ORM.png": "3c8e8f9cd5bbf3a50b6f21dfd2f999f7070863f7cc1b5769e9997a4ad52b6927",
+  "assets/items/T_Item_Tool_BaseColor.png": "73d8535cd2bdd9db48913df5f7f86e28880fcf026c11e92c29c5ee6cf1dee870",
+  "assets/items/T_Item_Tool_Normal.png": "883932036f419c15675d0a08be11e17d0a59e356f72dfe5cd44f2d37bf8ff19a",
+  "assets/items/T_Item_Tool_ORM.png": "05f3e8af291bad4dec157cea06253d64964464c71b560ac34a0471ffa0be5717",
+  "assets/items/T_Item_Water_BaseColor.png": "fd97e09b95d5466f3aadbe8ba28c8195fc37640d188ddd788aedb19a418fb614",
+  "assets/items/T_Item_Water_Normal.png": "3ca467a6f24ebdc8137bba9606dd8806642b380004836d67d694ef9efb63a082",
+  "assets/items/T_Item_Water_ORM.png": "73396e1a1e040c7ad26a76bf871aa49410048d72b33d4affedb05a5c8a4af7f3"
+}

@@ -582,3 +582,8 @@ if (ROOT/'logs/doors_layout.json').exists():
 if unreal.EditorAssetLibrary.does_asset_exist('/Game/Bunker/Data/DA_SurvivalRules'):
     import runpy
     runpy.run_path(str(ROOT/'scripts/install_survival_rules.py'))
+
+# Preserve the original real-scale item meshes when regenerating the level.
+if (ROOT/'exports/items/SM_Item_Water.fbx').exists():
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/install_item_kit.py'))

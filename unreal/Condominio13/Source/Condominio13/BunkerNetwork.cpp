@@ -314,7 +314,13 @@ void ABunkerGameMode::BeginPlay()
         T->Interaction=Phase==1 ? EBunkerInteraction::Bed : EBunkerInteraction::Pickup;
         T->DisplayName=FText::FromString(P.Name.ToString());
         if (Phase==0 && FParse::Param(FCommandLine::Get(),TEXT("C13SurvivalTest"))) T->ItemType=TEXT("Water");
-        T->bAlwaysRelevant=true; T->SetActorScale3D(FVector(.5)); T->ForceNetUpdate();
+        T->bAlwaysRelevant=true; T->SetActorScale3D(FVector(.5));
+        if (Phase==0 && FParse::Param(FCommandLine::Get(),TEXT("C13SurvivalTest")))
+        {
+            T->PickupMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Items/Water/SM_Item_Water.SM_Item_Water"));
+            if (T->PickupMesh) {T->PickupScale=FVector::OneVector;T->OnRep_Visual();}
+        }
+        T->ForceNetUpdate();
     }
     FActorSpawnParameters FP;FP.Name=TEXT("NET_Floor");FP.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     auto* Floor=GetWorld()->SpawnActor<ABunkerInteractable>(FVector(13000,10000,4850),FRotator::ZeroRotator,FP);

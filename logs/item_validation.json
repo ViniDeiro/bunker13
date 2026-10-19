@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "blend_reopened": true,
+  "embedded_images": 15,
+  "assets": [
+    {
+      "asset": "SM_Item_Water",
+      "reopened": true,
+      "dimensions_verified": true,
+      "uv_finite_in_0_1": true,
+      "editable_parts": 32,
+      "export_bytes": 132908
+    },
+    {
+      "asset": "SM_Item_Food",
+      "reopened": true,
+      "dimensions_verified": true,
+      "uv_finite_in_0_1": true,
+      "editable_parts": 14,
+      "export_bytes": 142092
+    },
+    {
+      "asset": "SM_Item_Medkit",
+      "reopened": true,
+      "dimensions_verified": true,
+      "uv_finite_in_0_1": true,
+      "editable_parts": 15,
+      "export_bytes": 55676
+    },
+    {
+      "asset": "SM_Item_Battery",
+      "reopened": true,
+      "dimensions_verified": true,
+      "uv_finite_in_0_1": true,
+      "editable_parts": 7,
+      "export_bytes": 70268
+    },
+    {
+      "asset": "SM_Item_Tool",
+      "reopened": true,
+      "dimensions_verified": true,
+      "uv_finite_in_0_1": true,
+      "editable_parts": 11,
+      "export_bytes": 91036
+    }
+  ],
+  "limit": "Visual manufacture shells overlap intentionally; label overlays are open surfaces, not watertight solids."
+}

@@ -8,6 +8,9 @@
 #include "Misc/Parse.h"
 #include "TimerManager.h"
 #include "UnrealClient.h"
+#include "Camera/CameraActor.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/HUD.h"
 
 void ABunkerPlayerController::SurvivalProbeTick(float DT)
 {
@@ -29,7 +32,9 @@ void ABunkerPlayerController::SurvivalProbeTick(float DT)
         if (!HasAuthority())
             for (TActorIterator<ABunkerPlayerState> It(GetWorld());It;++It)
                 if (*It!=PS && (!It->Inventory.IsEmpty() || It->Water!=100)) Private=false;
-        UE_LOG(LogTemp,Display,TEXT("C13_SURVIVAL_CLIENT inventory=%d water=%.2f private=%d"),PS->Inventory.Num(),PS->Water,Private);
+        bool MeshValid=true;
+        for (const auto& E:PS->Inventory) MeshValid &= GetNameSafe(E.WorldMesh)==TEXT("SM_Item_Water") && E.WorldScale.Equals(FVector::OneVector);
+        UE_LOG(LogTemp,Display,TEXT("C13_SURVIVAL_CLIENT inventory=%d water=%.2f private=%d mesh=%d"),PS->Inventory.Num(),PS->Water,Private,MeshValid);
         SurvivalProbeStage++;
     }
 #endif
@@ -39,13 +44,44 @@ void ABunkerGameMode::StartSurvivalValidation()
 #if !UE_BUILD_SHIPPING
     const bool Test=FParse::Param(FCommandLine::Get(),TEXT("C13SurvivalTest"));
     const bool Visual=FParse::Param(FCommandLine::Get(),TEXT("C13SurvivalVisual"));
+    if (FParse::Param(FCommandLine::Get(),TEXT("C13ItemVisual")))
+    {
+        const TArray<FString> Labels={TEXT("garrafa de água"),TEXT("lata de alimento"),TEXT("kit médico"),TEXT("pilhas"),TEXT("ferramenta")};
+        const TArray<FString> Keys={TEXT("Water"),TEXT("Food"),TEXT("Medkit"),TEXT("Battery"),TEXT("Tool")};
+        for (int32 I=0;I<Labels.Num();I++)
+        {
+            FTimerHandle Frame;
+            GetWorldTimerManager().SetTimer(Frame,FTimerDelegate::CreateWeakLambda(this,[this,Label=Labels[I],Key=Keys[I]]() {
+                auto* PC=UGameplayStatics::GetPlayerController(this,0);if (!PC) return;
+                PC->SetInputMode(FInputModeUIOnly());if (PC->GetHUD()) PC->GetHUD()->bShowHUD=false;
+                for (TActorIterator<ABunkerInteractable> It(GetWorld());It;++It)
+                {
+                    if (It->DisplayName.ToString()!=Label) continue;
+                    auto* Cam=GetWorld()->SpawnActor<ACameraActor>();
+                    const FVector Center=It->Mesh->Bounds.Origin;
+                    const float Size=It->Mesh->Bounds.BoxExtent.GetMax()*2;
+                    Cam->SetActorLocation(Center+FVector(Size*.9f,FMath::Max(45.f,Size*2.5f),FMath::Max(20.f,Size)));
+                    Cam->SetActorRotation((Center-Cam->GetActorLocation()).Rotation());Cam->GetCameraComponent()->SetFieldOfView(50);
+                    PC->SetViewTarget(Cam);
+                    UE_LOG(LogTemp,Display,TEXT("C13_ITEM_VISUAL %s mesh=%s scale=%s"),*Key,*GetNameSafe(It->Mesh->GetStaticMesh()),*It->GetActorScale3D().ToString());
+                    break;
+                }
+            }),3.f+I*4.f,false);
+            FTimerHandle Picture;
+            GetWorldTimerManager().SetTimer(Picture,FTimerDelegate::CreateWeakLambda(this,[Key=Keys[I]]() {FScreenshotRequest::RequestScreenshot(TEXT("item_game_")+Key+TEXT(".png"),true,false);}),5.f+I*4.f,false);
+        }
+        FTimerHandle Quit;GetWorldTimerManager().SetTimer(Quit,FTimerDelegate::CreateWeakLambda(this,[](){FGenericPlatformMisc::RequestExit(false);}),24,false);
+    }
     if (!Test && !Visual) return;
     if (Test)
     {
         FActorSpawnParameters P;P.Name=TEXT("NET_Second");P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         auto* Item=GetWorld()->SpawnActor<ABunkerInteractable>(FVector(10000,10500,5000),FRotator::ZeroRotator,P);
         Item->ItemType=TEXT("Water");Item->DisplayName=FText::FromString(TEXT("NET_Second"));Item->bAlwaysRelevant=true;
-        Item->SetActorScale3D(FVector(.22,.22,.48));Item->ForceNetUpdate();
+        Item->PickupMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Items/Water/SM_Item_Water.SM_Item_Water"));
+        if (Item->PickupMesh) {Item->PickupScale=FVector::OneVector;Item->OnRep_Visual();}
+        else Item->SetActorScale3D(FVector(.22,.22,.48));
+        Item->ForceNetUpdate();
         FTimerHandle Used;
         GetWorldTimerManager().SetTimer(Used,FTimerDelegate::CreateWeakLambda(this,[this]() {
             int Count=0,Hydrated=0;
@@ -65,7 +101,11 @@ void ABunkerGameMode::StartSurvivalValidation()
                 for (const auto& E:It->Inventory) {Count++;IDs.Add(E.Id);}
             for (TActorIterator<ABunkerInteractable> It(GetWorld());It;++It)
                 if (It->DisplayName.ToString()==TEXT("NET_Second") && It->bActive) Active++;
-            const bool Pass=Count==1 && IDs.Num()==1 && Dropped->IsValid() && IDs.Contains(*Dropped) && Active==0;
+            bool MeshPreserved=false;
+            for (TActorIterator<ABunkerPlayerState> It(GetWorld());It;++It)
+                for (const auto& E:It->Inventory) MeshPreserved=GetNameSafe(E.WorldMesh)==TEXT("SM_Item_Water") && E.WorldScale.Equals(FVector::OneVector);
+            const bool Pass=Count==1 && IDs.Num()==1 && Dropped->IsValid() && IDs.Contains(*Dropped) && Active==0 && MeshPreserved;
+            UE_LOG(LogTemp,Display,TEXT("C13_ITEM_MESH_AUDIT %s"),MeshPreserved?TEXT("PASS"):TEXT("FAIL"));
             UE_LOG(LogTemp,Display,TEXT("C13_SURVIVAL_AUDIT %s items=%d active=%d sameGuid=%d"),Pass?TEXT("PASS"):TEXT("FAIL"),Count,Active,Dropped->IsValid() && IDs.Contains(*Dropped));
         }),85,false);
     }

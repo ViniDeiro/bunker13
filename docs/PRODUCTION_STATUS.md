@@ -38,3 +38,7 @@ Não há build Windows validada neste Mac. Uma entrega Windows exige compilaçã
 ## Meta de calendário
 
 A meta solicitada é 30/11/2026. Sequência e critérios de saída em `RELEASE_TARGET_NOVEMBER.md`. Não há garantia de lançamento nem autorização implícita para remover requisitos do GDD para caber no prazo.
+
+## Objetos físicos do inventário — 19/10/2026
+
+Cinco modelos próprios (água, lata, kit médico, pilha e chave) criados no Blender com peças editáveis, UVs e texturas originais. Aplicados aos seis recursos existentes do mapa. Fonte, renders e limites estão em `ITEM_ART_REPORT.md`; não substituem a produção dos demais tipos, mãos ou animações de uso.

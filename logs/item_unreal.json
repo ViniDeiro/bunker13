@@ -1,0 +1,75 @@
+{
+  "assets": [
+    {
+      "type": "Water",
+      "mesh": "/Game/Bunker/Items/Water/SM_Item_Water",
+      "dimensions_cm": [
+        7.060000419616699,
+        7.060002326965332,
+        21.44999924660044
+      ],
+      "material_slots": 1,
+      "normal": "DirectX",
+      "uv_channel": 0
+    },
+    {
+      "type": "Food",
+      "mesh": "/Game/Bunker/Items/Food/SM_Item_Food",
+      "dimensions_cm": [
+        8.699999809265137,
+        8.70000171661377,
+        12.600001016860404
+      ],
+      "material_slots": 1,
+      "normal": "DirectX",
+      "uv_channel": 0
+    },
+    {
+      "type": "Medkit",
+      "mesh": "/Game/Bunker/Items/Medkit/SM_Item_Medkit",
+      "dimensions_cm": [
+        28.0,
+        12.250000476837158,
+        20.600001082028598
+      ],
+      "material_slots": 1,
+      "normal": "DirectX",
+      "uv_channel": 0
+    },
+    {
+      "type": "Battery",
+      "mesh": "/Game/Bunker/Items/Battery/SM_Item_Battery",
+      "dimensions_cm": [
+        3.4800000190734863,
+        3.4800009727478027,
+        6.250000263868458
+      ],
+      "material_slots": 1,
+      "normal": "DirectX",
+      "uv_channel": 0
+    },
+    {
+      "type": "Tool",
+      "mesh": "/Game/Bunker/Items/Tool/SM_Item_Tool",
+      "dimensions_cm": [
+        7.584695816040039,
+        26.850000381469727,
+        2.579998791217804
+      ],
+      "material_slots": 1,
+      "normal": "DirectX",
+      "uv_channel": 0
+    }
+  ],
+  "world_pickups": [
+    "INT_Water_01",
+    "INT_Water_02",
+    "INT_Can_01",
+    "INT_Medkit",
+    "INT_Battery",
+    "INT_Tool"
+  ],
+  "scale": "FBX meters to UE cm; actor scale 1",
+  "physics": "No rigid-body for critical items",
+  "materials": "Original procedural PBR atlases; not Painter exports"
+}
