@@ -1,0 +1,151 @@
+{
+  "asset": "SM_Hero_Bed",
+  "revision": 2,
+  "project": "/Users/vini_deiro/bankers/painter/SM_Hero_Bed.spp",
+  "bake": "Success",
+  "resolution": 1024,
+  "sets": [
+    {
+      "set": "M_Hero_Fabric",
+      "smart_material": "Fabric Canvas Creased",
+      "layers": [
+        {
+          "name": "C13 / Fabric / Fabric Canvas Creased",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Sharpen",
+          "type": "PaintLayerNode"
+        },
+        {
+          "name": "Dust",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Edges Folds",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Folds",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Fibers",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Pattern and Color Adjustment",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Base",
+          "type": "FillLayerNode"
+        }
+      ]
+    },
+    {
+      "set": "M_Hero_Linen",
+      "smart_material": "Fabric Linen Worn",
+      "layers": [
+        {
+          "name": "C13 / Linen / Fabric Linen Worn",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Tears",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Worn Edges",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Fabric Creased",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Creases",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Lighter Fibers",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Fibers Pattern",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Fabric Base",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Base",
+          "type": "FillLayerNode"
+        }
+      ]
+    },
+    {
+      "set": "M_Hero_Paint",
+      "smart_material": "Steel Painted Scraped Green",
+      "layers": [
+        {
+          "name": "C13 / Paint / Steel Painted Scraped Green",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Sharpen",
+          "type": "PaintLayerNode"
+        },
+        {
+          "name": "Dirt",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Edges Damages",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Surface Details",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Base Metal",
+          "type": "FillLayerNode"
+        }
+      ]
+    },
+    {
+      "set": "M_Hero_Steel",
+      "smart_material": "Steel Dark Aged",
+      "layers": [
+        {
+          "name": "C13 / Steel / Steel Dark Aged",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Scratches",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Metal",
+          "type": "FillLayerNode"
+        }
+      ]
+    }
+  ],
+  "textures": [
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Fabric_BaseColor.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Fabric_Normal.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Fabric_ORM.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Linen_BaseColor.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Linen_Normal.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Linen_ORM.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Paint_BaseColor.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Paint_Normal.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Paint_ORM.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Steel_BaseColor.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Steel_Normal.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_Bed/M_Hero_Steel_ORM.png"
+  ]
+}

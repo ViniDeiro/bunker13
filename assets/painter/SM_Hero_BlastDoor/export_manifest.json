@@ -1,0 +1,118 @@
+{
+  "asset": "SM_Hero_BlastDoor",
+  "revision": 2,
+  "project": "/Users/vini_deiro/bankers/painter/SM_Hero_BlastDoor.spp",
+  "bake": "Success",
+  "resolution": 1024,
+  "sets": [
+    {
+      "set": "M_Hero_Paint",
+      "smart_material": "Steel Painted Scraped Green",
+      "layers": [
+        {
+          "name": "C13 / Paint / Steel Painted Scraped Green",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Sharpen",
+          "type": "PaintLayerNode"
+        },
+        {
+          "name": "Dirt",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Edges Damages",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Surface Details",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Base Metal",
+          "type": "FillLayerNode"
+        }
+      ]
+    },
+    {
+      "set": "M_Hero_Safety",
+      "smart_material": "Steel Painted Worn",
+      "layers": [
+        {
+          "name": "C13 / Safety / Steel Painted Worn",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Sharpen",
+          "type": "PaintLayerNode"
+        },
+        {
+          "name": "Rust Occlusion",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Rust Stain",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Paint",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Cracks",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Worn Paint",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Shiny Paint",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Rust",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Occlusion Dirt",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Metal",
+          "type": "FillLayerNode"
+        }
+      ]
+    },
+    {
+      "set": "M_Hero_Steel",
+      "smart_material": "Steel Dark Aged",
+      "layers": [
+        {
+          "name": "C13 / Steel / Steel Dark Aged",
+          "type": "GroupLayerNode"
+        },
+        {
+          "name": "Scratches",
+          "type": "FillLayerNode"
+        },
+        {
+          "name": "Metal",
+          "type": "FillLayerNode"
+        }
+      ]
+    }
+  ],
+  "textures": [
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Paint_BaseColor.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Paint_Normal.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Paint_ORM.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Safety_BaseColor.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Safety_Normal.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Safety_ORM.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Steel_BaseColor.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Steel_Normal.png",
+    "/Users/vini_deiro/bankers/assets/painter/SM_Hero_BlastDoor/M_Hero_Steel_ORM.png"
+  ]
+}

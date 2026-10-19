@@ -1,8 +1,10 @@
 # Kit de acabamento — Condomínio 13
 
-## Estado verificado em 18/10/2026
+## Estado atualizado em 19/10/2026
 
-O Creative Cloud está instalado e conectado. A página Substance 3D Painter 12.1.5 mostra “Teste grátis” e “Comprar”; o executável do Painter não foi encontrado em Applications nem pelo índice do macOS. Nenhum teste ou assinatura foi ativado pelo agente. A etapa de licença depende do titular da conta.
+O Painter 12.1.5 está instalado e operacional. Após a ativação informada pelo usuário, a API criou, editou, salvou e reabriu três projetos `.spp`; a barreira anterior de instalação/licença foi resolvida.
+
+Os projetos são `painter/SM_Hero_Bed.spp`, `painter/SM_Hero_Locker.spp` e `painter/SM_Hero_BlastDoor.spp`. Os 33 mapas de textura ficam em `assets/painter/`, separados por modelo. As fontes editáveis grandes permanecem salvas localmente, fora do Git; os scripts, mapas exportados e relatórios são versionados.
 
 ## Entregáveis
 
@@ -22,16 +24,18 @@ As partes têm bordas biseladas, materiais separados e UVs gerados e verificados
 
 ## Build Mac desta revisão
 
-O cook terminou com zero erros e zero avisos, BuildCookRun retornou sucesso e a assinatura do aplicativo atualizado passou em `codesign --verify --deep --strict`. O aplicativo foi atualizado em `builds/Mac/Condominio13-VerticalSlice.app`. A tentativa de inspeção da janela pelo controle de interface retornou “screen capture size is invalid (0.0, 0.0)”; a validação visual em execução e o teste de deitar/levantar desta revisão permanecem pendentes. O render do kit não substitui esses testes.
+Na revisão final de 19/10, o cook terminou com zero erros e zero avisos, BuildCookRun retornou sucesso e a assinatura do aplicativo atualizado passou em `codesign --verify --deep --strict`. O aplicativo foi atualizado em `builds/Mac/Condominio13-VerticalSlice.app`. A captura nativa da janela voltou a funcionar: o dormitório foi conferido no executável, sem os blocos B1 sob as camas, e as ações E/F foram executadas e observadas. Esse teste confirma entrada/saída do estado de descanso; não confirma animação corporal nem recuperação real de energia, que ainda são sistemas pendentes.
 
-## Trabalho no Painter após a ativação
+## Trabalho executado no Painter
 
-1. Criar projeto por modelo com o FBX correspondente, normal DirectX e resolução inicial 1024.
-2. Fazer bake de normal, world-space normal, AO, curvature e position; conferir artefatos em cada conjunto de textura.
-3. Aplicar aço nas partes expostas e pintura verde desbotada nas chapas. Restringir desgaste às bordas e áreas de uso; ferrugem em fixações e regiões de acúmulo, evitando cobertura uniforme.
-4. Cama: tecido de trama fina, costuras e manchas discretas; armário: placa de identificação, riscos próximos ao puxador e poeira nas venezianas; porta: borracha da vedação, marca de inspeção e desgaste no volante.
-5. Exportar mapas para Unreal em BaseColor, Normal DirectX e ORM. Validar resolução e canais antes de substituir os materiais provisórios.
-6. Salvar os projetos `.spp` e validar os modelos dentro do executável. Nenhum `.spp` foi criado nesta etapa.
+1. Três projetos em 1024px, normal DirectX e materiais separados pelo FBX.
+2. Bake concluído de normal, world-space normal, AO, curvature e position nos onze conjuntos de textura.
+3. Materiais inteligentes locais do Painter, com ajustes de cor e redução das camadas de dano: aço pintado verde, aço escuro, lona, linho e borracha. A camada de rasgos foi desativada para manter o tecido habitável.
+4. Exportação própria BaseColor/Normal/ORM, 33 arquivos PNG de 1024 × 1024, todos abertos e verificados.
+5. Onze materiais na Unreal usam UV0 dos modelos e os mapas exportados; color space e compressão apropriados por mapa.
+6. Três `.spp` reabertos e verificados quanto a conjuntos, mapas de bake e camadas C13. Relatórios: `logs/painter_production.json`, `logs/painter_verify.json` e `logs/painter_unreal.json`.
+
+A prévia `screenshots/painter_kit_final.png` é um render Blender dos arquivos exportados pelo Painter. A revisão no jogo revelou os blocos B1 antigos sob camas/armários, que foram removidos do exportador arquitetônico. Ainda pendentes neste kit: placas e textos narrativos próprios, costuras modeladas ou pintadas especificamente e substituição funcional das portas existentes.
 
 ## Limites para lançamento
 

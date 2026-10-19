@@ -572,3 +572,8 @@ if (ROOT / 'assets/textures/T_Concrete_BaseColor.png').exists():
 if (ROOT / 'exports/hero_kit/SM_Hero_Bed.fbx').exists():
     import runpy
     runpy.run_path(str(ROOT / 'scripts/install_hero_kit.py'))
+if (ROOT / 'logs/painter_production.json').exists():
+    import runpy
+    painter_batch=json.loads((ROOT/'logs/painter_production.json').read_text())
+    if painter_batch.get('complete'):
+        runpy.run_path(str(ROOT/'scripts/import_painter_kit.py'))

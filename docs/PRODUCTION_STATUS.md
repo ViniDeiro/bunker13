@@ -5,7 +5,9 @@ A solicitação atual autoriza avançar no acabamento e nos sistemas do GDD. O d
 ## Arte
 
 - Arquitetura navegável e mobiliário construído: existentes; muitas silhuetas ainda são primitivas geométricas.
-- Texturas: seis superfícies originais com BaseColor, Normal e ORM em 512px, geração reproduzível e aplicação em escala mundial para evitar esticamento.
+- Texturas do ambiente: seis superfícies procedurais com BaseColor, Normal e ORM em 512px, geração reproduzível e aplicação em escala mundial.
+- Kit refinado: cama, armário e porta com UVs, bordas biseladas e três projetos Painter `.spp`. Onze materiais e 33 mapas de 1024px produzidos no Painter, exportados e aplicados por UV na Unreal. Quatro camas e quatro armários substituídos no dormitório; porta ainda é um asset sem substituição funcional.
+- Em 19/10, o kit foi conferido no executável e E/F testados na cama. Essa validação não aprova a arte do bunker inteiro nem encerra os marcos de gameplay.
 - Ainda pendentes: modelos com bordas e silhuetas refinadas, UVs por asset quando necessários, decalques narrativos, sinalização legível, acabamento externo e aprovação visual em perspectivas representativas.
 
 ## Sistemas

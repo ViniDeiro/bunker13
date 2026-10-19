@@ -47,7 +47,7 @@ for collection_name in COLLECTIONS:
                     'SM_Mesa_Cozinha', 'SM_Maca', 'SM_Medicamentos',
                     'SM_Bancada_Medica', 'SM_Radio_Console', 'SM_Transmissor',
                     'SM_Arquivo_Expedicoes', 'SM_Bancada_Oficina', 'SM_Sucata',
-                    'SM_Vaso', 'SM_EPI')
+                    'SM_Vaso', 'SM_EPI', 'SM_Cama_', 'SM_Armario_Pessoal_')
         if collection_name == 'PROPS_Blockout' and obj.name.startswith(replaced):
             continue
         source_objects.append(obj.name)
