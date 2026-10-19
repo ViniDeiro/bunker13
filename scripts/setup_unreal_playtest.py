@@ -319,7 +319,9 @@ for x in range(150, 2800, 200):
     spawn_shape(f"B2_CeilingSpine_{x}", (x, -1030, 272), (1.45, 0.12, 0.10), "steel")
     spawn_shape(f"B2_CorridorLight_{x}", (x, -1030, 264), (0.72, 0.035, 0.025), "cyan")
 for x in (720, 960, 1200, 1440, 1680, 1920, 2160, 2400, 2640):
-    spawn_shape(f"B2_WhiteModule_{x}", (x, -22, 145), (1.8, 0.07, 2.55), "white")
+    panel_x = 2380 if x == 2400 else 2720 if x == 2640 else x
+    panel_width = 1.4 if x in (2400,2640) else 1.8
+    spawn_shape(f"B2_WhiteModule_{x}", (panel_x, -22, 145), (panel_width, 0.07, 2.55), "white")
 for x in (760, 1120, 1480):
     spawn_shape(f"B2_SocialAmber_{x}", (x, -700, 260), (2.2, 0.05, 0.04), "amber")
 for x in (420, 860, 1300, 1740, 2180):
@@ -329,7 +331,8 @@ for x in (420, 860, 1300, 1740, 2180):
 # create a readable civil-defense facility rather than a room-shaped blockout.
 for x in range(100, 2800, 200):
     furniture_box(f"B2_MainFloorStrip_{x}", (x, -1030, 2), (1.55, .16, .025), "orange")
-for x in range(100, 2800, 400):
+for original_x in range(100, 2800, 400):
+    x = 600 if original_x == 500 else 2600 if original_x == 2500 else original_x
     furniture_box(f"B2_CorridorRibL_{x}", (x, -925, 145), (.10, .10, 2.75), "steel")
     furniture_box(f"B2_CorridorRibR_{x}", (x, -1135, 145), (.10, .10, 2.75), "steel")
     furniture_box(f"B2_CorridorRibTop_{x}", (x, -1030, 274), (.10, 2.15, .10), "steel")
@@ -392,10 +395,10 @@ add_table("Kitchen_Breakfast", 2010, -300, width=130, depth=90, material="steel"
 furniture_box("Medical_BedFrame", (120, -1350, 52), (.88, 2.10, .14), "steel")
 furniture_box("Medical_Mattress", (120, -1350, 68), (.80, 2.00, .16), "porcelain")
 furniture_box("Medical_Headrest", (120, -1435, 83), (.72, .45, .18), "white", unreal.Rotator(pitch=-18))
-furniture_box("Medical_Trolley", (265, -1335, 74), (.55, .72, .08), "steel")
-for x in (245, 285):
+furniture_box("Medical_Trolley", (305, -1335, 74), (.55, .72, .08), "steel")
+for x in (285, 325):
     for y in (-1360, -1310):
-        prop_cylinder(f"Medical_TrolleyWheel_{x}_{y}", (x, y, 15), (.11, .11, .07), "rubber", unreal.Rotator(pitch=90))
+        prop_cylinder(f"Medical_TrolleyWheel_Clear_{x}_{y}", (x, y, 15), (.11, .11, .07), "rubber", unreal.Rotator(pitch=90))
 furniture_box("Medical_Cabinet", (380, -1280, 100), (.58, 1.20, 1.90), "white")
 furniture_box("Medical_CabinetCrossV", (348, -1280, 118), (.03, .12, .62), "red")
 furniture_box("Medical_CabinetCrossH", (348, -1280, 118), (.03, .50, .15), "red")
@@ -436,7 +439,7 @@ for y in (-1740, -1820):
 for i, x in enumerate((1740, 1795, 1850)):
     prop_cylinder(f"Generator_FuelDrum_{i}", (x, -1910, 55), (.52, .52, 1.10), "red")
     furniture_box(f"Generator_DrumBand_{i}", (x, -1910, 55), (.56, .56, .06), "steel")
-furniture_box("Generator_HazardFloor", (1930, -1780, 5), (4.8, 2.7, .028), "orange")
+furniture_box("Generator_HazardFloor", (1930, -1780, 1.5), (4.8, 2.7, .028), "orange")
 
 # SANITARY AND AIRLOCK — recognisable fixtures, changing bench and decon arch.
 furniture_box("Sanitary_Partition", (165, -145, 108), (.10, 2.25, 2.16), "steel")
@@ -571,3 +574,7 @@ if (ROOT / 'logs/painter_production.json').exists():
     painter_batch=json.loads((ROOT/'logs/painter_production.json').read_text())
     if painter_batch.get('complete'):
         runpy.run_path(str(ROOT/'scripts/import_painter_kit.py'))
+
+if (ROOT/'logs/doors_layout.json').exists():
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/install_network_doors.py'))

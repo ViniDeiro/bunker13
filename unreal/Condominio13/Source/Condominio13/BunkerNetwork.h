@@ -50,6 +50,8 @@ private:
     float ProbeTime = 0, ProbePreparedAt = 0;
     bool bProbePrepared = false;
     int ProbeCompleted = -1;
+    bool bProbeReleased = false, bReleaseChecked = false, bDoorOpenChecked = false, bDoorClosedChecked = false;
+    void ProbeKey(FKey Key);
     int32 DartThrows = 0, DartScore = 0;
     void Interact();
     void LeaveBed();
@@ -65,6 +67,7 @@ class CONDOMINIO13_API ABunkerGameMode : public AGameModeBase
     GENERATED_BODY()
 public:
     ABunkerGameMode();
+    void StartDoorValidation();
     virtual void Logout(AController* Exiting) override;
     virtual void BeginPlay() override;
     virtual void PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& Id, FString& Error) override;

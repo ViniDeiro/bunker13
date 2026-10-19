@@ -1,0 +1,97 @@
+[
+  {
+    "name": "StaticMeshActor_38",
+    "label": "B2_WhiteModule_2640",
+    "location": [
+      2640.0,
+      -22.0,
+      145.0
+    ],
+    "bounds_origin": [
+      2640.0,
+      -22.0,
+      145.0
+    ],
+    "bounds_extent": [
+      90.0,
+      3.5,
+      127.5
+    ]
+  },
+  {
+    "name": "StaticMeshActor_64",
+    "label": "B2_CorridorRibL_500",
+    "location": [
+      500.0,
+      -925.0,
+      145.0
+    ],
+    "bounds_origin": [
+      500.0,
+      -925.0,
+      145.0
+    ],
+    "bounds_extent": [
+      5.0,
+      5.0,
+      137.5
+    ]
+  },
+  {
+    "name": "StaticMeshActor_80",
+    "label": "B2_CorridorRibR_2500",
+    "location": [
+      2500.0,
+      -1135.0,
+      145.0
+    ],
+    "bounds_origin": [
+      2500.0,
+      -1135.0,
+      145.0
+    ],
+    "bounds_extent": [
+      5.0,
+      5.0,
+      137.5
+    ]
+  },
+  {
+    "name": "StaticMeshActor_613",
+    "label": "Medical_Trolley",
+    "location": [
+      265.0,
+      -1335.0,
+      74.0
+    ],
+    "bounds_origin": [
+      265.0,
+      -1335.0,
+      74.0
+    ],
+    "bounds_extent": [
+      27.5,
+      36.0,
+      4.0
+    ]
+  },
+  {
+    "name": "StaticMeshActor_677",
+    "label": "Generator_HazardFloor",
+    "location": [
+      1930.0,
+      -1780.0,
+      5.0
+    ],
+    "bounds_origin": [
+      1930.0,
+      -1780.0,
+      5.0
+    ],
+    "bounds_extent": [
+      240.0,
+      135.0,
+      1.4000000000000004
+    ]
+  }
+]

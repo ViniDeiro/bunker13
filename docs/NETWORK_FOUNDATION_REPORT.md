@@ -1,5 +1,7 @@
 # Base cooperativa — 19/10/2026
 
+Este relatório registra a primeira entrega da base. A continuação das portas e dos controles está em `DOORS_AND_INPUT_REPORT.md`; o estado cumulativo está em `PRODUCTION_STATUS.md`.
+
 ## Implementação
 
 - Um controlador por conexão recebe E/F; a ação segue por RPC do proprietário até o servidor. O antigo ator global de interações foi desativado e removido do mapa.

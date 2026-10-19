@@ -32,6 +32,7 @@ face_materials = []
 material_names = []
 material_lookup = {}
 source_objects = []
+door_layout = []
 
 for collection_name in COLLECTIONS:
     collection = bpy.data.collections.get(collection_name)
@@ -39,6 +40,19 @@ for collection_name in COLLECTIONS:
         raise RuntimeError(f"Missing collection: {collection_name}")
     for obj in sorted(collection.objects, key=lambda item: item.name):
         if obj.type != "MESH" or obj.hide_render:
+            continue
+        if collection_name == 'ARCH_Doors' and obj.name.startswith('SM_Door_') and obj.get('state') == 'OPEN_B1':
+            hinge=obj.parent
+            name=obj.name.removeprefix('SM_Door_')
+            vertical=name.endswith(('E','W'))
+            door_layout.append({
+                'name':name,
+                'hinge_cm':[hinge.location.x*100,-hinge.location.y*100,hinge.location.z*100],
+                'opening_width_cm':obj['opening_width_m']*100,
+                'height_cm':obj['opening_height_m']*100,
+                'closed_yaw':-90 if vertical else 0,
+                'open_angle':-90 if name.endswith('S') else 90,
+            })
             continue
         # These B1 masses have been replaced by constructed furniture in UE.
         # Keeping them creates solid blocks inside the new tables and sofa.
@@ -107,5 +121,7 @@ report = {
     "materials": material_names,
     "dimensions_m": [round(value, 4) for value in merged.dimensions],
 }
+(ROOT/'logs/doors_layout.json').write_text(json.dumps(door_layout,indent=2))
+report['movable_leaves_removed']=len(door_layout)
 REPORT.write_text(json.dumps(report, indent=2), encoding="utf-8")
 print("UNREAL_PLAYTEST_EXPORT", json.dumps(report))

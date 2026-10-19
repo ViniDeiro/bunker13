@@ -1,5 +1,9 @@
 #include "BunkerNetwork.h"
 #include "BunkerInteractable.h"
+#include "BunkerDoor.h"
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/PlayerInput.h"
+#include "InputKeyEventArgs.h"
 #include "EngineUtils.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
@@ -88,8 +92,16 @@ void ABunkerPlayerController::PlayerTick(float DT)
         PromptTimer = .15f;
     }
 }
-void ABunkerPlayerController::Interact() { if (Focused.IsValid()) ServerInteract(Focused.Get()); }
-void ABunkerPlayerController::LeaveBed() { ServerLeaveBed(); }
+void ABunkerPlayerController::Interact()
+{
+    UE_LOG(LogTemp,Verbose,TEXT("C13_INPUT_E focused=%s"),*GetNameSafe(Focused.Get()));
+    if (Focused.IsValid()) ServerInteract(Focused.Get());
+}
+void ABunkerPlayerController::LeaveBed()
+{
+    UE_LOG(LogTemp,Verbose,TEXT("C13_INPUT_F"));
+    ServerLeaveBed();
+}
 void ABunkerPlayerController::ClientNotice_Implementation(const FString& Message)
 {
     if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5, FColor(235,205,150), Message);
@@ -117,6 +129,10 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
     if (FVector::DistSquared(Character->GetActorLocation(), Hit.ImpactPoint) > FMath::Square(450.f)) return;
     switch (Target->Interaction)
     {
+    case EBunkerInteraction::Door:
+        if (auto* Door=Cast<ABunkerDoor>(Target))
+            if (!Door->TryToggle()) ClientNotice(TEXT("Aguarde: movimento ocupado ou passagem bloqueada."));
+        break;
     case EBunkerInteraction::Pickup:
     {
         if (!Target->bActive) return;
@@ -194,7 +210,7 @@ namespace {
 bool NetTestEnabled() { return FParse::Param(FCommandLine::Get(), TEXT("C13NetTest")); }
 ABunkerInteractable* FindProbe(UWorld* W, int Phase)
 {
-    const FString Name = Phase == 0 ? TEXT("NET_Pickup") : Phase == 1 ? TEXT("NET_Bed") : TEXT("NET_Far");
+    const FString Name = Phase == 0 ? TEXT("NET_Pickup") : Phase == 1 ? TEXT("NET_Bed") : Phase == 2 ? TEXT("NET_Far") : TEXT("NET_Door");
     for (TActorIterator<ABunkerInteractable> It(W); It; ++It) if (It->DisplayName.ToString() == Name) return *It;
     return nullptr;
 }
@@ -205,15 +221,34 @@ void ABunkerPlayerController::NetProbeTick(float DT)
 #if !UE_BUILD_SHIPPING
     if (!NetTestEnabled() || !IsLocalController() || !GetPawn()) return;
     ProbeTime = GetWorld()->GetGameState() ? GetWorld()->GetGameState()->GetServerWorldTimeSeconds() : ProbeTime+DT;
-    // Each phase uses an actual owner-to-server ServerInteract RPC after arranging the test view.
-    const int Phase = ProbeTime < 18 ? 0 : ProbeTime < 24 ? 1 : 2;
+    if (ProbeTime >= 34 && !bProbeReleased) { ProbeKey(EKeys::F); bProbeReleased=true; }
+    if (ProbeTime >= 39 && !bReleaseChecked)
+    {
+        auto* Bed=FindProbe(GetWorld(),1);auto* PS=GetPlayerState<ABunkerPlayerState>();
+        UE_LOG(LogTemp,Display,TEXT("C13_CLIENT_RELEASE empty=%d resting=%d"), Bed && !Bed->Occupant, PS && PS->RestingBed!=nullptr);
+        bReleaseChecked=true;
+    }
+    auto* Door=Cast<ABunkerDoor>(FindProbe(GetWorld(),3));
+    if (ProbeTime >=48.5f && Door && !bDoorOpenChecked)
+    {
+        UE_LOG(LogTemp,Display,TEXT("C13_CLIENT_DOOR_OPEN state=%d angle=%.1f"),Door->bOpen,Door->CurrentAngle);bDoorOpenChecked=true;
+    }
+    if (ProbeTime >=55 && Door && !bDoorClosedChecked)
+    {
+        UE_LOG(LogTemp,Display,TEXT("C13_CLIENT_DOOR_CLOSED state=%d angle=%.1f"),Door->bOpen,Door->CurrentAngle);bDoorClosedChecked=true;
+    }
+    // E/F go through the engine's input pipeline and the real bound callbacks.
+    // Only the deliberately invalid distant request bypasses focus selection.
+    const int Phase = ProbeTime < 18 ? 0 : ProbeTime < 24 ? 1 : ProbeTime < 44 ? 2 : ProbeTime < 50 ? 3 : 4;
     if (ProbeTime < 12 || Phase == ProbeCompleted) return;
-    if (HasAuthority() && GetNetMode() == NM_ListenServer && Phase < 2 && FParse::Param(FCommandLine::Get(),TEXT("C13RemoteOnly"))) return;
+    if (HasAuthority() && GetNetMode() == NM_ListenServer && Phase != 2 && FParse::Param(FCommandLine::Get(),TEXT("C13RemoteOnly"))) return;
     auto* Target = FindProbe(GetWorld(), Phase);
     if (!Target) return;
     if (!bProbePrepared) { ServerPrepareProbe(Phase); bProbePrepared=true; ProbePreparedAt=ProbeTime; return; }
     if (ProbeTime - ProbePreparedAt < 1) return;
-    ServerInteract(Target); ProbeCompleted=Phase; bProbePrepared=false;
+    if (Phase == 2) ServerInteract(Target);
+    else ProbeKey(EKeys::E);
+    ProbeCompleted=Phase; bProbePrepared=false;
     UE_LOG(LogTemp, Display, TEXT("C13_PROBE_SENT phase=%d client=%s"), Phase, *GetName());
     if (Phase == 2)
     {
@@ -226,24 +261,25 @@ void ABunkerPlayerController::NetProbeTick(float DT)
 void ABunkerPlayerController::ServerPrepareProbe_Implementation(int32 Phase)
 {
 #if !UE_BUILD_SHIPPING
-    if (!NetTestEnabled() || Phase<0 || Phase>2) return;
+    if (!NetTestEnabled() || Phase<0 || Phase>4) return;
     auto* C=Cast<ACharacter>(GetPawn()); auto* PS=GetPlayerState<ABunkerPlayerState>();
     auto* T=FindProbe(GetWorld(),Phase);
     if (!C || !PS || !T) return;
-    if (PS->RestingBed && Phase < 2) return;
-    if (Phase < 2)
+    if (PS->RestingBed && Phase != 2) return;
+    if (Phase != 2)
     {
-        C->SetActorLocation(T->GetActorLocation()+FVector(-220, (PS->GetPlayerId()%4)*35-50, 0), false, nullptr, ETeleportType::TeleportPhysics);
+        C->SetActorLocation(T->GetActorLocation()+FVector(-220, (PS->GetPlayerId()%4)*100-150, 0), false, nullptr, ETeleportType::TeleportPhysics);
         C->GetCharacterMovement()->SetMovementMode(MOVE_Flying);
         C->GetCharacterMovement()->StopMovementImmediately();
     }
     FVector Eye; FRotator R; C->GetActorEyesViewPoint(Eye,R);
-    R=(T->GetActorLocation()-Eye).Rotation(); SetControlRotation(R); ClientSetRotation(R,true);
+    R=(T->Mesh->Bounds.Origin-Eye).Rotation(); SetControlRotation(R); ClientSetRotation(R,true);
 #endif
 }
 void ABunkerGameMode::BeginPlay()
 {
     Super::BeginPlay();
+    StartDoorValidation();
 #if !UE_BUILD_SHIPPING
     if (!NetTestEnabled()) return;
     for (int Phase=0;Phase<3;Phase++)
@@ -255,6 +291,38 @@ void ABunkerGameMode::BeginPlay()
         T->DisplayName=FText::FromString(P.Name.ToString());
         T->bAlwaysRelevant=true; T->SetActorScale3D(FVector(.5)); T->ForceNetUpdate();
     }
+    FActorSpawnParameters FP;FP.Name=TEXT("NET_Floor");FP.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    auto* Floor=GetWorld()->SpawnActor<ABunkerInteractable>(FVector(13000,10000,4850),FRotator::ZeroRotator,FP);
+    Floor->DisplayName=FText::FromString(TEXT("NET_Floor"));Floor->Interaction=EBunkerInteraction::Panel;
+    Floor->bAlwaysRelevant=true;Floor->SetActorScale3D(FVector(90,15,1));Floor->ForceNetUpdate();
+    FActorSpawnParameters DP; DP.Name=TEXT("NET_Door");DP.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    auto* Door=GetWorld()->SpawnActor<ABunkerDoor>(FVector(16000,10000,5000),FRotator::ZeroRotator,DP);
+    Door->DisplayName=FText::FromString(TEXT("NET_Door"));Door->bAlwaysRelevant=true;
+    Door->bOpen=false;Door->CurrentAngle=0;Door->SetActorRotation(FRotator::ZeroRotator);Door->ForceNetUpdate();
+    FTimerHandle ReleaseAudit;
+    GetWorldTimerManager().SetTimer(ReleaseAudit,FTimerDelegate::CreateWeakLambda(this,[this]() {
+        auto* Bed=FindProbe(GetWorld(),1);int Resting=0;
+        for (TActorIterator<ABunkerPlayerState> It(GetWorld());It;++It) Resting+=It->RestingBed!=nullptr;
+        UE_LOG(LogTemp,Display,TEXT("C13_RELEASE_AUDIT %s resting=%d"),Bed && !Bed->Occupant && Resting==0?TEXT("PASS"):TEXT("FAIL"),Resting);
+    }),40,false);
+    FTimerHandle OpenAudit;
+    GetWorldTimerManager().SetTimer(OpenAudit,FTimerDelegate::CreateWeakLambda(this,[this]() {
+        auto* D=Cast<ABunkerDoor>(FindProbe(GetWorld(),3));
+        FHitResult Hit; FCollisionQueryParams Q;
+        const FVector Center=D->GetActorLocation()+FVector(D->Width*.5f,0,D->Height*.5f);
+        GetWorld()->LineTraceSingleByChannel(Hit,Center+FVector(0,-100,0),Center+FVector(0,100,0),ECC_Visibility,Q);
+        const bool Pass=D->bOpen && FMath::IsNearlyEqual(D->CurrentAngle,D->OpenAngle,.5f) && Hit.GetActor()!=D;
+        UE_LOG(LogTemp,Display,TEXT("C13_OPEN_AUDIT %s angle=%.1f passageClear=%d"),Pass?TEXT("PASS"):TEXT("FAIL"),D->CurrentAngle,Hit.GetActor()!=D);
+    }),48,false);
+    FTimerHandle FinalAudit;
+    GetWorldTimerManager().SetTimer(FinalAudit,FTimerDelegate::CreateWeakLambda(this,[this]() {
+        auto* D=Cast<ABunkerDoor>(FindProbe(GetWorld(),3));
+        FHitResult Hit; FCollisionQueryParams Q;
+        const FVector Center=D->GetActorLocation()+FVector(D->Width*.5f,0,D->Height*.5f);
+        GetWorld()->LineTraceSingleByChannel(Hit,Center+FVector(0,-100,0),Center+FVector(0,100,0),ECC_Visibility,Q);
+        const bool Pass=!D->bOpen && FMath::IsNearlyZero(D->CurrentAngle,.5f) && Hit.GetActor()==D;
+        UE_LOG(LogTemp,Display,TEXT("C13_EXTENDED_AUDIT %s angle=%.1f passageBlocked=%d"),Pass?TEXT("PASS"):TEXT("FAIL"),D->CurrentAngle,Hit.GetActor()==D);
+    }),56,false);
     FTimerHandle Audit;
     GetWorldTimerManager().SetTimer(Audit, FTimerDelegate::CreateWeakLambda(this,[this]() {
         int Players=0,Items=0,Resting=0; TSet<FGuid> Ids;
@@ -267,5 +335,17 @@ void ABunkerGameMode::BeginPlay()
         const bool Pass=Players==4 && Items==1 && Ids.Num()==1 && Resting==1 && Pick && !Pick->bActive && Bed && Bed->Occupant && Far && Far->bActive;
         UE_LOG(LogTemp, Display, TEXT("C13_NET_AUDIT %s players=%d items=%d unique=%d resting=%d farActive=%d"), Pass?TEXT("PASS"):TEXT("FAIL"),Players,Items,Ids.Num(),Resting,Far && Far->bActive);
     }),32,false);
+#endif
+}
+
+void ABunkerPlayerController::ProbeKey(FKey Key)
+{
+#if !UE_BUILD_SHIPPING
+    if (!NetTestEnabled()) return;
+    InputKey(FInputKeyEventArgs(nullptr,INPUTDEVICEID_NONE,Key,IE_Pressed,1.f,false,FPlatformTime::Cycles64()));
+    FTimerHandle Release;
+    GetWorldTimerManager().SetTimer(Release,FTimerDelegate::CreateWeakLambda(this,[this,Key]() {
+        InputKey(FInputKeyEventArgs(nullptr,INPUTDEVICEID_NONE,Key,IE_Released,0.f,false,FPlatformTime::Cycles64()));
+    }),.1f,false);
 #endif
 }

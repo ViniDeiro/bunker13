@@ -1,0 +1,17 @@
+{
+  "source_log": "logs/doors_visual.log",
+  "renderer": "packaged Mac executable",
+  "images": [
+    {
+      "path": "screenshots/door_ajar.png",
+      "angle_degrees": 17.5,
+      "state": "opening"
+    },
+    {
+      "path": "screenshots/door_open.png",
+      "angle_degrees": 90,
+      "state": "open"
+    }
+  ],
+  "fully_closed_image_verified": false
+}

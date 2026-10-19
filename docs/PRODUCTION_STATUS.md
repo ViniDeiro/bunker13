@@ -6,7 +6,7 @@ A solicitação atual autoriza avançar no acabamento e nos sistemas do GDD. O d
 
 - Arquitetura navegável e mobiliário construído: existentes; muitas silhuetas ainda são primitivas geométricas.
 - Texturas do ambiente: seis superfícies procedurais com BaseColor, Normal e ORM em 512px, geração reproduzível e aplicação em escala mundial.
-- Kit refinado: cama, armário e porta com UVs, bordas biseladas e três projetos Painter `.spp`. Onze materiais e 33 mapas de 1024px produzidos no Painter, exportados e aplicados por UV na Unreal. Quatro camas e quatro armários substituídos no dormitório; porta ainda é um asset sem substituição funcional.
+- Kit refinado: cama, armário e porta com UVs, bordas biseladas e três projetos Painter `.spp`. Onze materiais e 33 mapas de 1024px produzidos no Painter, exportados e aplicados por UV na Unreal. Quatro camas e quatro armários substituídos no dormitório; porta agora equipa 13 folhas móveis com colisão e movimento replicado; as três lacradas permanecem fixas.
 - Em 19/10, o kit foi conferido no executável e E/F testados na cama. Essa validação não aprova a arte do bunker inteiro nem encerra os marcos de gameplay.
 - Ainda pendentes: modelos com bordas e silhuetas refinadas, UVs por asset quando necessários, decalques narrativos, sinalização legível, acabamento externo e aprovação visual em perspectivas representativas.
 
@@ -16,7 +16,7 @@ A base de interações passou a usar um controlador por conexão e decisões no 
 
 | Marco | Estado real e trabalho restante |
 |---|---|
-| U1 | Base de servidor autoritativo para coleta e camas implementada; quatro pontos de entrada e RPCs por proprietário. Portas replicadas, lobby, circulação conjunta, desconexão e testes completos ainda pendentes; evidências desta entrega em `NETWORK_FOUNDATION_REPORT.md` |
+| U1 | Base de servidor autoritativo para coleta e camas implementada; quatro pontos de entrada e RPCs por proprietário. Treze portas físicas replicadas instaladas; 13/13 travessias passaram com a cápsula real. Lobby, circulação conjunta, desconexão e testes completos ainda pendentes; evidências em `NETWORK_FOUNDATION_REPORT.md` e `DOORS_AND_INPUT_REPORT.md` |
 | U2 | Inventário por jogador com IDs únicos por sessão, 12 espaços e replicação apenas ao dono; cama com reserva no servidor. Faltam peso, descarte/consumo, fome/sede/saúde/energia, tempo, combustível, contêineres, salvamento e reconexão |
 | U3 | Exterior inicial existe; faltam prédio explorável, radiação, equipamento, inimigo, combate, morte, mochila e retorno |
 | U4 | Dardos são uma pontuação aleatória por interação; faltam mira jogável, cartas e três eventos sistêmicos |
@@ -28,7 +28,7 @@ Map Check verifica a estrutura do mapa; não prova circulação com quatro jogad
 ## Ordem de conclusão
 
 1. Preservar a validação do kit Painter no executável e completar a base cooperativa U1.
-2. Validar portas, saída de camas e sessões com quatro humanos antes de ampliar as transações de itens.
+2. Teste ampliado de E/F, portas e saída das camas aprovado no executável; ainda executar sessões com quatro humanos e encerrar as pendências de U1.
 3. Completar U2 com salvamento e anti-duplicação.
 4. Fechar uma partida de ponta a ponta em U3/U4, incluindo objetivo e encerramento.
 5. Executar U5 e corrigir os problemas antes do conteúdo adicional de U6.

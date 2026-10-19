@@ -1,0 +1,158 @@
+[
+  {
+    "name": "AntecamaraN",
+    "hinge_cm": [
+      2460.0000381469727,
+      -640.0000095367432,
+      0.0
+    ],
+    "opening_width_cm": 180.0,
+    "height_cm": 240.0,
+    "closed_yaw": 0,
+    "open_angle": 90
+  },
+  {
+    "name": "AntecamaraS",
+    "hinge_cm": [
+      2460.0000381469727,
+      -20.000000298023224,
+      0.0
+    ],
+    "opening_width_cm": 180.0,
+    "height_cm": 240.0,
+    "closed_yaw": 0,
+    "open_angle": -90
+  },
+  {
+    "name": "ConvivenciaN",
+    "hinge_cm": [
+      1060.0000381469727,
+      -740.0000095367432,
+      0.0
+    ],
+    "opening_width_cm": 180.0,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": 90
+  },
+  {
+    "name": "ConvivenciaW",
+    "hinge_cm": [
+      690.0000095367432,
+      -125.0,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": -90,
+    "open_angle": 90
+  },
+  {
+    "name": "CozinhaN",
+    "hinge_cm": [
+      1895.0000762939453,
+      -540.0000095367432,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": 90
+  },
+  {
+    "name": "DespensaS",
+    "hinge_cm": [
+      2445.0000762939453,
+      -1189.9999618530273,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": -90
+  },
+  {
+    "name": "DormitorioN",
+    "hinge_cm": [
+      425.0,
+      -889.9999618530273,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": 90
+  },
+  {
+    "name": "EnfermariaS",
+    "hinge_cm": [
+      175.0,
+      -1189.9999618530273,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": -90
+  },
+  {
+    "name": "GeradorS",
+    "hinge_cm": [
+      1875.0,
+      -1560.0000381469727,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": -90
+  },
+  {
+    "name": "OficinaN",
+    "hinge_cm": [
+      1294.9999809265137,
+      -1610.0000381469727,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": 90
+  },
+  {
+    "name": "OficinaS",
+    "hinge_cm": [
+      1294.9999809265137,
+      -1189.9999618530273,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": -90
+  },
+  {
+    "name": "Radio_ComandoS",
+    "hinge_cm": [
+      694.9999809265137,
+      -1189.9999618530273,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": 0,
+    "open_angle": -90
+  },
+  {
+    "name": "SanitarioE",
+    "hinge_cm": [
+      340.00000953674316,
+      -125.0,
+      0.0
+    ],
+    "opening_width_cm": 110.00000000000001,
+    "height_cm": 220.00000000000003,
+    "closed_yaw": -90,
+    "open_angle": 90
+  }
+]

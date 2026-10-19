@@ -12,7 +12,8 @@ enum class EBunkerInteraction : uint8
     Darts,
     Generator,
     Radio,
-    Panel
+    Panel,
+    Door
 };
 
 UCLASS(Blueprintable)
