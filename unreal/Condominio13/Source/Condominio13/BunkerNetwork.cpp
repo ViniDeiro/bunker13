@@ -1,6 +1,7 @@
 #include "BunkerNetwork.h"
 #include "BunkerInteractable.h"
 #include "BunkerDoor.h"
+#include "BunkerContainer.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/PlayerInput.h"
 #include "InputKeyEventArgs.h"
@@ -42,7 +43,7 @@ void ABunkerGameMode::PreLogin(const FString& Options, const FString& Address, c
 }
 void ABunkerGameMode::Logout(AController* Exiting)
 {
-    if (auto* PC = Cast<ABunkerPlayerController>(Exiting)) PC->ReleaseBed(true);
+    if (auto* PC = Cast<ABunkerPlayerController>(Exiting)) {PC->ServerContainer=nullptr;PC->ReleaseBed(true);}
     Super::Logout(Exiting);
 }
 ABunkerPlayerController::ABunkerPlayerController() { PrimaryActorTick.bCanEverTick = true; }
@@ -65,6 +66,8 @@ void ABunkerPlayerController::SetupInputComponent()
     InputComponent->BindKey(EKeys::Up,IE_Pressed,this,&ABunkerPlayerController::InventoryUp);
     InputComponent->BindKey(EKeys::Down,IE_Pressed,this,&ABunkerPlayerController::InventoryDown);
     InputComponent->BindKey(EKeys::U,IE_Pressed,this,&ABunkerPlayerController::UseSelected);
+    InputComponent->BindKey(EKeys::Tab,IE_Pressed,this,&ABunkerPlayerController::SwitchContainerSide);
+    InputComponent->BindKey(EKeys::X,IE_Pressed,this,&ABunkerPlayerController::TransferSelected);
     InputComponent->BindKey(EKeys::G,IE_Pressed,this,&ABunkerPlayerController::DropSelected);
     InputComponent->BindAxisKey(EKeys::MouseX, this, &ABunkerPlayerController::LookYaw);
     InputComponent->BindAxisKey(EKeys::MouseY, this, &ABunkerPlayerController::LookPitch);
@@ -86,7 +89,9 @@ void ABunkerPlayerController::PlayerTick(float DT)
     NetProbeTick(DT);
     SurvivalProbeTick(DT);
     HandsProbeTick(DT);
+    StorageProbeTick(DT);
 #endif
+    StorageTick(DT);
     if (!IsLocalController() || !GetPawn() || !PlayerCameraManager) return;
     auto* PS = GetPlayerState<ABunkerPlayerState>();
     if (bInventoryOpen) { Focused.Reset(); return; }
@@ -107,6 +112,7 @@ void ABunkerPlayerController::PlayerTick(float DT)
 }
 void ABunkerPlayerController::Interact()
 {
+    if (ViewedContainer) {ServerCloseContainer();CloseContainerView();return;}
     if (bInventoryOpen) return;
     UE_LOG(LogTemp,Verbose,TEXT("C13_INPUT_E focused=%s"),*GetNameSafe(Focused.Get()));
     if (Focused.IsValid()) ServerInteract(Focused.Get());
@@ -143,6 +149,14 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
     if (FVector::DistSquared(Character->GetActorLocation(), Hit.ImpactPoint) > FMath::Square(450.f)) return;
     switch (Target->Interaction)
     {
+    case EBunkerInteraction::Container:
+        if (auto* Storage=Cast<ABunkerContainer>(Target))
+        {
+            if (!CanAccessContainer(Storage)) return;
+            ServerContainer=Storage;
+            ClientContainerSnapshot(Storage,Storage->Contents,Storage->Revision);
+        }
+        break;
     case EBunkerInteraction::Door:
         if (auto* Door=Cast<ABunkerDoor>(Target))
             if (!Door->TryToggle()) ClientNotice(TEXT("Aguarde: movimento ocupado ou passagem bloqueada."));
@@ -308,6 +322,7 @@ void ABunkerGameMode::BeginPlay()
     StartDoorValidation();
     StartSurvivalValidation();
     StartHandsValidation();
+    StartStorageValidation();
 #if !UE_BUILD_SHIPPING
     if (!NetTestEnabled()) return;
     for (int Phase=0;Phase<3;Phase++)
@@ -376,7 +391,7 @@ void ABunkerGameMode::BeginPlay()
 void ABunkerPlayerController::ProbeKey(FKey Key)
 {
 #if !UE_BUILD_SHIPPING
-    if (!NetTestEnabled() && !FParse::Param(FCommandLine::Get(),TEXT("C13HandsVisual"))) return;
+    if (!NetTestEnabled() && !FParse::Param(FCommandLine::Get(),TEXT("C13HandsVisual")) && !FParse::Param(FCommandLine::Get(),TEXT("C13StorageTest")) && !FParse::Param(FCommandLine::Get(),TEXT("C13StorageVisual"))) return;
     InputKey(FInputKeyEventArgs(nullptr,INPUTDEVICEID_NONE,Key,IE_Pressed,1.f,false,FPlatformTime::Cycles64()));
     FTimerHandle Release;
     GetWorldTimerManager().SetTimer(Release,FTimerDelegate::CreateWeakLambda(this,[this,Key]() {

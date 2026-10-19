@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "packaged_game": true,
+  "moves": [
+    "[2026.10.19-23.27.39:308][350]LogTemp: Display: C13_STORAGE_MOVE take=1 id=885D8CBCE1455CAA5127F7A839B10BA5 revision=1",
+    "[2026.10.19-23.27.41:646][488]LogTemp: Display: C13_STORAGE_MOVE take=0 id=885D8CBCE1455CAA5127F7A839B10BA5 revision=2"
+  ],
+  "markers": [
+    "[2026.10.19-23.27.37:304][236]LogTemp: Display: C13_STORAGE_SNAPSHOT count=2 revision=0",
+    "[2026.10.19-23.27.39:308][350]LogTemp: Display: C13_STORAGE_SNAPSHOT count=1 revision=1",
+    "[2026.10.19-23.27.39:308][350]LogTemp: Display: C13_STORAGE_MOVE take=1 id=885D8CBCE1455CAA5127F7A839B10BA5 revision=1",
+    "[2026.10.19-23.27.41:646][488]LogTemp: Display: C13_STORAGE_SNAPSHOT count=2 revision=2",
+    "[2026.10.19-23.27.41:646][488]LogTemp: Display: C13_STORAGE_MOVE take=0 id=885D8CBCE1455CAA5127F7A839B10BA5 revision=2",
+    "[2026.10.19-23.27.44:291][643]LogTemp: Display: C13_STORAGE_VISUAL_AUDIT PASS"
+  ]
+}

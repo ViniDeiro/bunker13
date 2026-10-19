@@ -4,22 +4,11 @@
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/PlayerState.h"
 #include "BunkerSurvival.h"
+#include "BunkerInventoryTypes.h"
 #include "BunkerNetwork.generated.h"
 class ABunkerInteractable;
+class ABunkerContainer;
 class ABunkerItemPresentation;
-
-USTRUCT(BlueprintType)
-struct FBunkerInventoryEntry
-{
-    GENERATED_BODY()
-    UPROPERTY(BlueprintReadOnly) FGuid Id;
-    UPROPERTY(BlueprintReadOnly) FString Name;
-    UPROPERTY(BlueprintReadOnly) FName ItemType;
-    UPROPERTY(BlueprintReadOnly) float WeightKg = 0;
-    UPROPERTY() TObjectPtr<UStaticMesh> WorldMesh;
-    UPROPERTY() TArray<TObjectPtr<UMaterialInterface>> Materials;
-    UPROPERTY() FVector WorldScale = FVector::OneVector;
-};
 
 UCLASS()
 class CONDOMINIO13_API ABunkerPlayerState : public APlayerState
@@ -60,6 +49,23 @@ public:
     UFUNCTION(Server,Reliable) void ServerDropItem(FGuid Id);
     UFUNCTION(Client,Reliable) void ClientPlayItemAction(const FBunkerInventoryEntry& Entry,bool bConsume);
     UPROPERTY() TObjectPtr<ABunkerItemPresentation> ItemPresentation;
+    UFUNCTION(Server,Reliable) void ServerTransferItem(ABunkerContainer* Container,FGuid Id,bool bTake,int32 Revision);
+    UFUNCTION(Server,Reliable) void ServerCloseContainer();
+    UFUNCTION(Client,Reliable) void ClientContainerSnapshot(ABunkerContainer* Container,const TArray<FBunkerInventoryEntry>& Entries,int32 Revision);
+    UFUNCTION(Client,Reliable) void ClientCloseContainer();
+    UPROPERTY() TObjectPtr<ABunkerContainer> ServerContainer;
+    UPROPERTY() TObjectPtr<ABunkerContainer> ViewedContainer;
+    UPROPERTY() TArray<FBunkerInventoryEntry> ContainerEntries;
+    int32 ContainerRevision=0;
+    bool bContainerSide=true;
+    bool CanAccessContainer(ABunkerContainer* Container) const;
+    void CloseContainerView();
+    void StorageTick(float DT);
+    void StorageProbeTick(float DT);
+    UFUNCTION(Server,Reliable) void ServerPrepareStorageProbe(bool bFar);
+    int32 StorageProbeStage=0;
+    int32 StorageOriginalRevision=0;
+    FGuid StorageProbeId;
     bool bInventoryOpen = false;
     int32 SelectedItem = 0;
     void SurvivalProbeTick(float DT);
@@ -84,6 +90,9 @@ private:
     FGuid UsedProbeId;
     void ToggleInventory();
     void InventoryUp();
+    void SwitchContainerSide();
+    void TransferSelected();
+    float StorageCheckTime=0;
     void InventoryDown();
     void UseSelected();
     void DropSelected();
@@ -104,6 +113,7 @@ public:
     void StartDoorValidation();
     void StartSurvivalValidation();
     void StartHandsValidation();
+    void StartStorageValidation();
     virtual void Logout(AController* Exiting) override;
     virtual void BeginPlay() override;
     virtual void PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& Id, FString& Error) override;

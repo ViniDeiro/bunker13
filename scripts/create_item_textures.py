@@ -7,7 +7,7 @@ OUT=ROOT/'assets/items';OUT.mkdir(parents=True,exist_ok=True)
 FONT='/System/Library/Fonts/Supplemental/Arial Bold.ttf'
 REG='/System/Library/Fonts/Supplemental/Arial.ttf'
 specs={
-'Water':((51,86,76),'ÁGUA','POTÁVEL','500 mL','RESERVA / SANTA AURORA'),
+'Water':((28,77,152),'ÁGUA','POTÁVEL','500 mL','RESERVA / SANTA AURORA'),
 'Food':((145,68,33),'AURORA','FEIJÃO COZIDO','400 g','CONSERVA / PRONTO PARA CONSUMO'),
 'Medkit':((92,107,83),'PRIMEIROS','SOCORROS','KIT 01','DEFESA CIVIL / SANTA AURORA'),
 'Battery':((168,110,30),'AURORA','ENERGIA','1,5 V','PILHA ALCALINA / TIPO D'),

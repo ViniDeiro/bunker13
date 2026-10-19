@@ -41,3 +41,7 @@ Após esse teste foram revisadas somente as normais externas das peças (especia
 ## Limites
 
 Este é o primeiro conjunto de cinco tipos, não os 12–20 tipos do protótipo nem os 50–80 planejados para lançamento. O frasco é plástico opaco: não usa transparência/refração custosa. LODs específicos e benchmark por hardware ainda não foram feitos. A pilha e a ferramenta têm geometria própria, mas seus sistemas de energia/reparo permanecem pendentes. As mãos e animações de abrir/comer/beber ainda precisam ser produzidas; esta etapa entrega os objetos de mundo, a coleta e o descarte.
+
+## Revisão de cor — armazenamento
+
+A garrafa foi alterada para azul por solicitação do usuário, incluindo a variante aberta e as texturas incorporadas nas fontes Blender. O arquivo `screenshots/item_Water.png` foi atualizado com a nova cor.

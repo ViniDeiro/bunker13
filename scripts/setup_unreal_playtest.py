@@ -591,3 +591,8 @@ if (ROOT/'exports/items/SM_Item_Water.fbx').exists():
 if (ROOT/'exports/hands/SM_Hands_Left.fbx').exists():
     import runpy
     runpy.run_path(str(ROOT/'scripts/install_first_person_hands.py'))
+
+# Recreate usable storage after the source locker meshes have been installed.
+if unreal.EditorAssetLibrary.does_asset_exist('/Game/Bunker/HeroKit/SM_Hero_Locker'):
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/install_storage.py'))

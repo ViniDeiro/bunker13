@@ -5,7 +5,7 @@ A meta solicitada permanece 30/11/2026. O estado atual é uma fatia em desenvolv
 | Bloco | Existente | Pendente |
 |---|---|---|
 | Cooperação | Autoridade do servidor; coleta sem duplicação; camas exclusivas; 13 portas replicadas; testes com quatro processos | Lobby/entrada acessível, desconexão/reconexão, circulação conjunta e sessões humanas |
-| Sobrevivência | Base de mochila e descanso; consumo, descarte, peso e necessidades validados com quatro instâncias automatizadas | Contêineres concorrentes, empilhamento, combustível/circuitos, tempo, doenças/radiação, salvamento e reconexão persistente |
+| Sobrevivência | Base de mochila e descanso; consumo, descarte, peso e necessidades; seis contêineres com transferência autoritativa | Empilhamento, combustível/circuitos, tempo, doenças/radiação, salvamento e reconexão persistente |
 | Partida completa | Bunker e exterior inicial | Coleta inicial de 90 segundos, prédio explorável, expedição, equipamento, inimigo, combate, incapacitação/morte, mochila recuperável, retorno e objetivo/final |
 | Atividades e eventos | Dardos ainda aleatórios | Mira e habilidade reais, cartas, eventos sistêmicos e diretor com seed/cooldown persistentes |
 | Arte e som | Kit cama/armário/porta com materiais Painter; superfícies do ambiente; cinco modelos de itens com texturas próprias; primeira versão de gestos locais com mãos enluvadas | Refinamento dos demais modelos, sinalização/decalques, iluminação final, animações articuladas e vistas pelos colegas, sons, música, acabamento exterior e aprovação visual |

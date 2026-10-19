@@ -1,6 +1,7 @@
 #include "BunkerSurvival.h"
 #include "BunkerNetwork.h"
 #include "BunkerInteractable.h"
+#include "BunkerContainer.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/Canvas.h"
 #include "GameFramework/Character.h"
@@ -44,6 +45,7 @@ void ABunkerPlayerState::Tick(float DT)
 }
 void ABunkerPlayerController::ToggleInventory()
 {
+    if (ViewedContainer) {ServerCloseContainer();CloseContainerView();return;}
     bInventoryOpen=!bInventoryOpen;
     SetIgnoreLookInput(bInventoryOpen);
     SetIgnoreMoveInput(bInventoryOpen);
@@ -52,24 +54,24 @@ void ABunkerPlayerController::InventoryUp() { if (bInventoryOpen) SelectedItem=F
 void ABunkerPlayerController::InventoryDown()
 {
     if (auto* PS=GetPlayerState<ABunkerPlayerState>())
-        if (bInventoryOpen) SelectedItem=FMath::Min(PS->Inventory.Num()-1,SelectedItem+1);
+        if (bInventoryOpen) SelectedItem=FMath::Min((ViewedContainer && bContainerSide?ContainerEntries.Num():PS->Inventory.Num())-1,SelectedItem+1);
 }
 void ABunkerPlayerController::UseSelected()
 {
     auto* PS=GetPlayerState<ABunkerPlayerState>();
-    if (!bInventoryOpen || !PS || !PS->Inventory.IsValidIndex(SelectedItem)) return;
+    if (ViewedContainer || !bInventoryOpen || !PS || !PS->Inventory.IsValidIndex(SelectedItem)) return;
     ServerUseItem(PS->Inventory[SelectedItem].Id);
 }
 void ABunkerPlayerController::DropSelected()
 {
     auto* PS=GetPlayerState<ABunkerPlayerState>();
-    if (!bInventoryOpen || !PS || !PS->Inventory.IsValidIndex(SelectedItem)) return;
+    if (ViewedContainer || !bInventoryOpen || !PS || !PS->Inventory.IsValidIndex(SelectedItem)) return;
     ServerDropItem(PS->Inventory[SelectedItem].Id);
 }
 void ABunkerPlayerController::ServerUseItem_Implementation(FGuid Id)
 {
     auto* PS=GetPlayerState<ABunkerPlayerState>();
-    if (!PS || !PS->Rules || PS->Health<=0 || !GetPawn() || GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
+    if (ServerContainer || !PS || !PS->Rules || PS->Health<=0 || !GetPawn() || GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
     NextInventoryTime=GetWorld()->GetTimeSeconds()+PS->Rules->InventoryActionInterval;
     const int32 I=PS->Inventory.IndexOfByPredicate([Id](const FBunkerInventoryEntry& E){return E.Id==Id;});
     if (I==INDEX_NONE) return;
@@ -93,7 +95,7 @@ void ABunkerPlayerController::ServerUseItem_Implementation(FGuid Id)
 void ABunkerPlayerController::ServerDropItem_Implementation(FGuid Id)
 {
     auto* PS=GetPlayerState<ABunkerPlayerState>();auto* C=Cast<ACharacter>(GetPawn());
-    if (!PS || !PS->Rules || !C || PS->RestingBed || PS->Health<=0 || GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
+    if (ServerContainer || !PS || !PS->Rules || !C || PS->RestingBed || PS->Health<=0 || GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
     NextInventoryTime=GetWorld()->GetTimeSeconds()+PS->Rules->InventoryActionInterval;
     const int32 I=PS->Inventory.IndexOfByPredicate([Id](const FBunkerInventoryEntry& E){return E.Id==Id;});
     if (I==INDEX_NONE) return;
@@ -126,7 +128,7 @@ void ABunkerHUD::DrawHUD()
 {
     Super::DrawHUD();
     auto* PC=Cast<ABunkerPlayerController>(PlayerOwner);auto* PS=PC?PC->GetPlayerState<ABunkerPlayerState>():nullptr;
-    if (!Canvas || !PS) return;
+    if (!Canvas || !PS || !PS->Rules) return;
     const float S=FMath::Max(.65f,Canvas->ClipY/720.f);
     auto Text=[this,S](const FString& V,float X,float Y,FLinearColor Color=FLinearColor(.88f,.9f,.85f)) {
         DrawText(V,Color,X,Y,GEngine->GetSmallFont(),1.15f*S,false);
@@ -136,6 +138,30 @@ void ABunkerHUD::DrawHUD()
     Text(PS->RestingBed?TEXT("Descansando — F levantar | I mochila"):TEXT("E interagir | I mochila"),30*S,Canvas->ClipY-39*S);
     if (PS->Health<=0) Text(TEXT("Sem condições de continuar. Resgate e morte ainda em desenvolvimento."),30*S,35*S,FLinearColor(1,.3f,.2f));
     if (!PC->bInventoryOpen) return;
+    if (PC->ViewedContainer)
+    {
+        const float X=(Canvas->ClipX-900*S)/2,Y=(Canvas->ClipY-450*S)/2;
+        DrawRect(FLinearColor(.025f,.045f,.04f,.97f),X,Y,900*S,450*S);
+        Text(PC->ViewedContainer->DisplayName.ToString(),X+24*S,Y+16*S,FLinearColor(.95f,.73f,.4f));
+        for (int32 Side=0;Side<2;Side++)
+        {
+            const bool Storage=Side==0,Active=Storage==PC->bContainerSide;
+            const auto& Entries=Storage?PC->ContainerEntries:PS->Inventory;
+            float Weight=0;for (const auto& E:Entries) Weight+=E.WeightKg;
+            const float C=X+(24+Side*448)*S;
+            Text(FString::Printf(TEXT("%s %s %d/%d | %.1f/%.1f kg"),Active?TEXT(">"):TEXT(" "),Storage?TEXT("ARMÁRIO"):TEXT("MOCHILA"),Entries.Num(),Storage?PC->ViewedContainer->MaxSlots:PS->Rules->MaxSlots,Weight,Storage?PC->ViewedContainer->MaxWeightKg:PS->Rules->MaxWeightKg),C,Y+52*S);
+            if (Active) PC->SelectedItem=FMath::Clamp(PC->SelectedItem,0,FMath::Max(0,Entries.Num()-1));
+            if (Entries.IsEmpty()) Text(TEXT("Vazio"),C,Y+100*S);
+            const int32 First=Active?FMath::Max(0,PC->SelectedItem-9):0;
+            for (int32 I=First;I<FMath::Min(Entries.Num(),First+10);I++)
+            {
+                if (Active && I==PC->SelectedItem) DrawRect(FLinearColor(.22f,.26f,.16f,1),C-4*S,Y+(94+(I-First)*28)*S,416*S,26*S);
+                Text(Entries[I].Name.Left(32),C,Y+(98+(I-First)*28)*S);
+            }
+        }
+        Text(TEXT("TAB trocar lado  |  ↑ ↓ selecionar  |  X guardar/retirar  |  E ou I fechar"),X+24*S,Y+414*S,FLinearColor(.95f,.73f,.4f));
+        return;
+    }
     const float X=(Canvas->ClipX-600*S)/2,Y=(Canvas->ClipY-480*S)/2;
     DrawRect(FLinearColor(.025f,.045f,.04f,.96f),X,Y,600*S,480*S);
     Text(TEXT("DEFESA CIVIL  /  EQUIPAMENTO PESSOAL"),X+24*S,Y+20*S,FLinearColor(.95f,.73f,.4f));
