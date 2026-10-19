@@ -22,11 +22,16 @@ void ABunkerPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME_CONDITION(ABunkerPlayerState, Inventory, COND_OwnerOnly);
     DOREPLIFETIME(ABunkerPlayerState, RestingBed);
+    DOREPLIFETIME_CONDITION(ABunkerPlayerState, Health, COND_OwnerOnly);
+    DOREPLIFETIME_CONDITION(ABunkerPlayerState, Food, COND_OwnerOnly);
+    DOREPLIFETIME_CONDITION(ABunkerPlayerState, Water, COND_OwnerOnly);
+    DOREPLIFETIME_CONDITION(ABunkerPlayerState, Energy, COND_OwnerOnly);
 }
 ABunkerGameMode::ABunkerGameMode()
 {
     PlayerControllerClass = ABunkerPlayerController::StaticClass();
     PlayerStateClass = ABunkerPlayerState::StaticClass();
+    HUDClass = ABunkerHUD::StaticClass();
     static ConstructorHelpers::FClassFinder<APawn> PawnBP(TEXT("/Game/FirstPerson/Blueprints/BP_FirstPersonCharacter"));
     if (PawnBP.Succeeded()) DefaultPawnClass = PawnBP.Class;
 }
@@ -56,6 +61,11 @@ void ABunkerPlayerController::SetupInputComponent()
     Super::SetupInputComponent();
     InputComponent->BindKey(EKeys::E, IE_Pressed, this, &ABunkerPlayerController::Interact);
     InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ABunkerPlayerController::LeaveBed);
+    InputComponent->BindKey(EKeys::I,IE_Pressed,this,&ABunkerPlayerController::ToggleInventory);
+    InputComponent->BindKey(EKeys::Up,IE_Pressed,this,&ABunkerPlayerController::InventoryUp);
+    InputComponent->BindKey(EKeys::Down,IE_Pressed,this,&ABunkerPlayerController::InventoryDown);
+    InputComponent->BindKey(EKeys::U,IE_Pressed,this,&ABunkerPlayerController::UseSelected);
+    InputComponent->BindKey(EKeys::G,IE_Pressed,this,&ABunkerPlayerController::DropSelected);
     InputComponent->BindAxisKey(EKeys::MouseX, this, &ABunkerPlayerController::LookYaw);
     InputComponent->BindAxisKey(EKeys::MouseY, this, &ABunkerPlayerController::LookPitch);
 }
@@ -74,10 +84,12 @@ void ABunkerPlayerController::PlayerTick(float DT)
     Super::PlayerTick(DT);
 #if !UE_BUILD_SHIPPING
     NetProbeTick(DT);
+    SurvivalProbeTick(DT);
 #endif
     if (!IsLocalController() || !GetPawn() || !PlayerCameraManager) return;
     auto* PS = GetPlayerState<ABunkerPlayerState>();
-    if (PS && PS->RestingBed) { Focused.Reset(); return; }
+    if (bInventoryOpen) { Focused.Reset(); return; }
+    if (PS && (PS->RestingBed || PS->Health<=0)) { Focused.Reset(); return; }
     MoveForward(float(IsInputKeyDown(EKeys::W)) - float(IsInputKeyDown(EKeys::S)));
     MoveRight(float(IsInputKeyDown(EKeys::D)) - float(IsInputKeyDown(EKeys::A)));
     FVector Start; FRotator Rot; GetPlayerViewPoint(Start, Rot);
@@ -94,6 +106,7 @@ void ABunkerPlayerController::PlayerTick(float DT)
 }
 void ABunkerPlayerController::Interact()
 {
+    if (bInventoryOpen) return;
     UE_LOG(LogTemp,Verbose,TEXT("C13_INPUT_E focused=%s"),*GetNameSafe(Focused.Get()));
     if (Focused.IsValid()) ServerInteract(Focused.Get());
 }
@@ -111,10 +124,10 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
 {
     auto* PS = GetPlayerState<ABunkerPlayerState>();
     auto* Character = Cast<ACharacter>(GetPawn());
-    if (!IsValid(Target) || !PS || !Character || PS->RestingBed) return;
+    if (!IsValid(Target) || !PS || !Character || PS->RestingBed || PS->Health<=0 || !PS->Rules) return;
     const double Now = GetWorld()->GetTimeSeconds();
     if (Now < NextActionTime) return;
-    NextActionTime = Now + .2;
+    NextActionTime = Now + (PS->Energy < PS->Rules->TiredThreshold ? PS->Rules->TiredActionInterval : PS->Rules->ActionInterval);
     FMinimalViewInfo View;
     Character->CalcCamera(0.f, View);
     const FVector Eye = View.Location;
@@ -136,8 +149,14 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
     case EBunkerInteraction::Pickup:
     {
         if (!Target->bActive) return;
-        if (PS->Inventory.Num() >= 12) { ClientNotice(TEXT("Mochila cheia (12 espaços).")); return; }
+        const auto* Def=PS->Rules->Find(Target->ItemType);
+        if (!Def) { ClientNotice(TEXT("Item sem definição.")); return; }
+        if (PS->Inventory.Num() >= PS->Rules->MaxSlots || PS->Weight()+Def->WeightKg>PS->Rules->MaxWeightKg)
+        { ClientNotice(TEXT("Mochila sem espaço ou acima do limite de peso.")); return; }
         FBunkerInventoryEntry Entry; Entry.Id = Target->ItemId; Entry.Name = Target->DisplayName.ToString();
+        Entry.ItemType=Target->ItemType;Entry.WeightKg=Def->WeightKg;
+        Entry.WorldMesh=Target->Mesh->GetStaticMesh();Entry.WorldScale=Target->GetActorScale3D();
+        for (int32 I=0;I<Target->Mesh->GetNumMaterials();I++) Entry.Materials.Add(Target->Mesh->GetMaterial(I));
         if (PS->Inventory.ContainsByPredicate([&Entry](const FBunkerInventoryEntry& E){return E.Id == Entry.Id;})) return;
         PS->Inventory.Add(Entry);
         Target->bActive = false; Target->OnRep_State(); Target->ForceNetUpdate(); PS->ForceNetUpdate();
@@ -152,7 +171,7 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
         Target->Occupant = PS; PS->RestingBed = Target;
         Character->GetCharacterMovement()->DisableMovement();
         Character->ForceNetUpdate(); Target->ForceNetUpdate(); PS->ForceNetUpdate();
-        ClientNotice(TEXT("Descansando | F levantar. Recuperação de energia ainda em desenvolvimento."));
+        ClientNotice(TEXT("Descansando: energia se recuperando | F levantar"));
         break;
     case EBunkerInteraction::Generator:
         Target->bActive = !Target->bActive; Target->ForceNetUpdate();
@@ -210,8 +229,8 @@ namespace {
 bool NetTestEnabled() { return FParse::Param(FCommandLine::Get(), TEXT("C13NetTest")); }
 ABunkerInteractable* FindProbe(UWorld* W, int Phase)
 {
-    const FString Name = Phase == 0 ? TEXT("NET_Pickup") : Phase == 1 ? TEXT("NET_Bed") : Phase == 2 ? TEXT("NET_Far") : TEXT("NET_Door");
-    for (TActorIterator<ABunkerInteractable> It(W); It; ++It) if (It->DisplayName.ToString() == Name) return *It;
+    const FString Name = Phase == 0 ? TEXT("NET_Pickup") : Phase == 1 ? TEXT("NET_Bed") : Phase == 2 ? TEXT("NET_Far") : Phase>=5 ? TEXT("NET_Second") : TEXT("NET_Door");
+    for (TActorIterator<ABunkerInteractable> It(W); It; ++It) if (It->DisplayName.ToString() == Name && (Phase!=6 || It->bActive)) return *It;
     return nullptr;
 }
 }
@@ -239,7 +258,8 @@ void ABunkerPlayerController::NetProbeTick(float DT)
     }
     // E/F go through the engine's input pipeline and the real bound callbacks.
     // Only the deliberately invalid distant request bypasses focus selection.
-    const int Phase = ProbeTime < 18 ? 0 : ProbeTime < 24 ? 1 : ProbeTime < 44 ? 2 : ProbeTime < 50 ? 3 : 4;
+    int Phase = ProbeTime < 18 ? 0 : ProbeTime < 24 ? 1 : ProbeTime < 44 ? 2 : ProbeTime < 50 ? 3 : 4;
+    if (FParse::Param(FCommandLine::Get(),TEXT("C13SurvivalTest")) && ProbeTime>=66) Phase=ProbeTime<78?5:6;
     if (ProbeTime < 12 || Phase == ProbeCompleted) return;
     if (HasAuthority() && GetNetMode() == NM_ListenServer && Phase != 2 && FParse::Param(FCommandLine::Get(),TEXT("C13RemoteOnly"))) return;
     auto* Target = FindProbe(GetWorld(), Phase);
@@ -261,14 +281,17 @@ void ABunkerPlayerController::NetProbeTick(float DT)
 void ABunkerPlayerController::ServerPrepareProbe_Implementation(int32 Phase)
 {
 #if !UE_BUILD_SHIPPING
-    if (!NetTestEnabled() || Phase<0 || Phase>4) return;
+    if (!NetTestEnabled() || Phase<0 || Phase>6) return;
     auto* C=Cast<ACharacter>(GetPawn()); auto* PS=GetPlayerState<ABunkerPlayerState>();
     auto* T=FindProbe(GetWorld(),Phase);
     if (!C || !PS || !T) return;
     if (PS->RestingBed && Phase != 2) return;
+    if (Phase==0 && FParse::Param(FCommandLine::Get(),TEXT("C13SurvivalTest")))
+    {PS->Water=40;PS->Food=40;PS->Energy=30;PS->Health=60;PS->ForceNetUpdate();}
     if (Phase != 2)
     {
         C->SetActorLocation(T->GetActorLocation()+FVector(-220, (PS->GetPlayerId()%4)*100-150, 0), false, nullptr, ETeleportType::TeleportPhysics);
+        if (Phase==6) {FVector Pos=C->GetActorLocation();Pos.Z=5000;C->SetActorLocation(Pos,false,nullptr,ETeleportType::TeleportPhysics);}
         C->GetCharacterMovement()->SetMovementMode(MOVE_Flying);
         C->GetCharacterMovement()->StopMovementImmediately();
     }
@@ -280,6 +303,7 @@ void ABunkerGameMode::BeginPlay()
 {
     Super::BeginPlay();
     StartDoorValidation();
+    StartSurvivalValidation();
 #if !UE_BUILD_SHIPPING
     if (!NetTestEnabled()) return;
     for (int Phase=0;Phase<3;Phase++)
@@ -289,6 +313,7 @@ void ABunkerGameMode::BeginPlay()
         auto* T=GetWorld()->SpawnActor<ABunkerInteractable>(FVector(10000+Phase*2000,10000,5000),FRotator::ZeroRotator,P);
         T->Interaction=Phase==1 ? EBunkerInteraction::Bed : EBunkerInteraction::Pickup;
         T->DisplayName=FText::FromString(P.Name.ToString());
+        if (Phase==0 && FParse::Param(FCommandLine::Get(),TEXT("C13SurvivalTest"))) T->ItemType=TEXT("Water");
         T->bAlwaysRelevant=true; T->SetActorScale3D(FVector(.5)); T->ForceNetUpdate();
     }
     FActorSpawnParameters FP;FP.Name=TEXT("NET_Floor");FP.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;

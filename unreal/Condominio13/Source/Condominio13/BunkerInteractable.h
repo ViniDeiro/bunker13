@@ -39,6 +39,11 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing=OnRep_State, Category="Interaction")
     bool bActive = true;
 
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated) FName ItemType = TEXT("Generic");
+    UPROPERTY(ReplicatedUsing=OnRep_Visual) TObjectPtr<UStaticMesh> PickupMesh;
+    UPROPERTY(ReplicatedUsing=OnRep_Visual) TArray<TObjectPtr<UMaterialInterface>> PickupMaterials;
+    UPROPERTY(ReplicatedUsing=OnRep_Visual) FVector PickupScale = FVector::OneVector;
+    UFUNCTION() void OnRep_Visual();
     UPROPERTY(Replicated) FGuid ItemId;
     UPROPERTY(ReplicatedUsing=OnRep_State) TObjectPtr<APlayerState> Occupant;
     UFUNCTION() void OnRep_State();

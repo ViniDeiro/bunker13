@@ -1,0 +1,26 @@
+{
+  "data_asset": "/Game/Bunker/Data/DA_SurvivalRules",
+  "parameters": {
+    "max_weight_kg": 20.0,
+    "max_slots": 12,
+    "food_loss_per_minute": 0.6,
+    "water_loss_per_minute": 1.0,
+    "energy_loss_per_minute": 0.4,
+    "rest_gain_per_minute": 15.0,
+    "starvation_damage_per_minute": 4.0,
+    "action_interval": 0.2,
+    "tired_action_interval": 0.6,
+    "tired_threshold": 15.0,
+    "inventory_action_interval": 0.3
+  },
+  "item_types": 6,
+  "typed_world_items": [
+    "INT_Water_01",
+    "INT_Water_02",
+    "INT_Can_01",
+    "INT_Medkit",
+    "INT_Battery",
+    "INT_Tool"
+  ],
+  "balance": "Prototype; not tuned for 60-120 minute sessions"
+}

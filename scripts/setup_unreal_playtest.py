@@ -578,3 +578,7 @@ if (ROOT / 'logs/painter_production.json').exists():
 if (ROOT/'logs/doors_layout.json').exists():
     import runpy
     runpy.run_path(str(ROOT/'scripts/install_network_doors.py'))
+
+if unreal.EditorAssetLibrary.does_asset_exist('/Game/Bunker/Data/DA_SurvivalRules'):
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/install_survival_rules.py'))

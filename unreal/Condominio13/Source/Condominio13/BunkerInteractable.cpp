@@ -26,6 +26,10 @@ void ABunkerInteractable::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(ABunkerInteractable, bActive);
     DOREPLIFETIME(ABunkerInteractable, ItemId);
+    DOREPLIFETIME(ABunkerInteractable, ItemType);
+    DOREPLIFETIME(ABunkerInteractable, PickupMesh);
+    DOREPLIFETIME(ABunkerInteractable, PickupMaterials);
+    DOREPLIFETIME(ABunkerInteractable, PickupScale);
     DOREPLIFETIME(ABunkerInteractable, Interaction);
     DOREPLIFETIME(ABunkerInteractable, DisplayName);
     DOREPLIFETIME(ABunkerInteractable, ActionText);
@@ -45,4 +49,12 @@ void ABunkerInteractable::OnRep_State()
         SetActorHiddenInGame(!bActive);
         SetActorEnableCollision(bActive);
     }
+}
+
+void ABunkerInteractable::OnRep_Visual()
+{
+    if (!PickupMesh) return;
+    Mesh->SetStaticMesh(PickupMesh);
+    SetActorScale3D(PickupScale);
+    for (int32 I=0;I<PickupMaterials.Num();I++) Mesh->SetMaterial(I,PickupMaterials[I]);
 }

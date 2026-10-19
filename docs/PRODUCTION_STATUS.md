@@ -17,7 +17,7 @@ A base de interações passou a usar um controlador por conexão e decisões no 
 | Marco | Estado real e trabalho restante |
 |---|---|
 | U1 | Base de servidor autoritativo para coleta e camas implementada; quatro pontos de entrada e RPCs por proprietário. Treze portas físicas replicadas instaladas; 13/13 travessias passaram com a cápsula real. Lobby, circulação conjunta, desconexão e testes completos ainda pendentes; evidências em `NETWORK_FOUNDATION_REPORT.md` e `DOORS_AND_INPUT_REPORT.md` |
-| U2 | Inventário por jogador com IDs únicos por sessão, 12 espaços e replicação apenas ao dono; cama com reserva no servidor. Faltam peso, descarte/consumo, fome/sede/saúde/energia, tempo, combustível, contêineres, salvamento e reconexão |
+| U2 | Mochila com interface, IDs por sessão, espaços/peso, consumo e descarte; necessidades e recuperação de energia na cama validadas no executável com quatro instâncias automatizadas (SURVIVAL_INVENTORY_REPORT.md). Regras em Data Asset; atributos privados ao dono. Faltam empilhamento, tempo, combustível/circuitos, contêineres, salvamento e reconexão |
 | U3 | Exterior inicial existe; faltam prédio explorável, radiação, equipamento, inimigo, combate, morte, mochila e retorno |
 | U4 | Dardos são uma pontuação aleatória por interação; faltam mira jogável, cartas e três eventos sistêmicos |
 | U5 | Pendente teste de 30–60 min com quatro jogadores, latência e perda de pacotes |
