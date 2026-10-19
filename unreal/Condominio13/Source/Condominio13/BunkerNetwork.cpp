@@ -85,6 +85,7 @@ void ABunkerPlayerController::PlayerTick(float DT)
 #if !UE_BUILD_SHIPPING
     NetProbeTick(DT);
     SurvivalProbeTick(DT);
+    HandsProbeTick(DT);
 #endif
     if (!IsLocalController() || !GetPawn() || !PlayerCameraManager) return;
     auto* PS = GetPlayerState<ABunkerPlayerState>();
@@ -159,6 +160,8 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
         for (int32 I=0;I<Target->Mesh->GetNumMaterials();I++) Entry.Materials.Add(Target->Mesh->GetMaterial(I));
         if (PS->Inventory.ContainsByPredicate([&Entry](const FBunkerInventoryEntry& E){return E.Id == Entry.Id;})) return;
         PS->Inventory.Add(Entry);
+        NextActionTime=Now+FMath::Max(PS->Rules->ActionInterval,PS->Rules->ItemPickupDuration);
+        ClientPlayItemAction(Entry,false);
         Target->bActive = false; Target->OnRep_State(); Target->ForceNetUpdate(); PS->ForceNetUpdate();
         ClientNotice(FString::Printf(TEXT("Guardado: %s | mochila %d/12"), *Entry.Name, PS->Inventory.Num()));
         UE_LOG(LogTemp, Display, TEXT("C13_PICKUP player=%d id=%s count=%d"), PS->GetPlayerId(), *Entry.Id.ToString(), PS->Inventory.Num());
@@ -304,6 +307,7 @@ void ABunkerGameMode::BeginPlay()
     Super::BeginPlay();
     StartDoorValidation();
     StartSurvivalValidation();
+    StartHandsValidation();
 #if !UE_BUILD_SHIPPING
     if (!NetTestEnabled()) return;
     for (int Phase=0;Phase<3;Phase++)
@@ -372,7 +376,7 @@ void ABunkerGameMode::BeginPlay()
 void ABunkerPlayerController::ProbeKey(FKey Key)
 {
 #if !UE_BUILD_SHIPPING
-    if (!NetTestEnabled()) return;
+    if (!NetTestEnabled() && !FParse::Param(FCommandLine::Get(),TEXT("C13HandsVisual"))) return;
     InputKey(FInputKeyEventArgs(nullptr,INPUTDEVICEID_NONE,Key,IE_Pressed,1.f,false,FPlatformTime::Cycles64()));
     FTimerHandle Release;
     GetWorldTimerManager().SetTimer(Release,FTimerDelegate::CreateWeakLambda(this,[this,Key]() {

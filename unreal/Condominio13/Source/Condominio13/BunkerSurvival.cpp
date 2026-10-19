@@ -81,8 +81,12 @@ void ABunkerPlayerController::ServerUseItem_Implementation(FGuid Id)
     const float Health=FMath::Clamp(PS->Health+Def->HealthGain,0.f,100.f);
     if (Food==PS->Food && Water==PS->Water && Health==PS->Health)
     { ClientNotice(TEXT("Você não precisa usar este recurso agora."));return; }
-    const FString Name=PS->Inventory[I].Name;
+    const FBunkerInventoryEntry Used=PS->Inventory[I];
+    const FString Name=Used.Name;
+    NextInventoryTime=GetWorld()->GetTimeSeconds()+FMath::Max(PS->Rules->InventoryActionInterval,PS->Rules->ItemUseDuration);
+    NextActionTime=NextInventoryTime;
     PS->Inventory.RemoveAt(I);PS->Food=Food;PS->Water=Water;PS->Health=Health;PS->ForceNetUpdate();
+    ClientPlayItemAction(Used,true);
     ClientNotice(TEXT("Usado: ")+Name);
     UE_LOG(LogTemp,Display,TEXT("C13_CONSUME id=%s water=%.2f food=%.2f health=%.2f"),*Id.ToString(),Water,Food,Health);
 }

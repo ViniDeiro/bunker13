@@ -31,6 +31,8 @@ public:
     UPROPERTY(EditAnywhere,BlueprintReadWrite) float TiredActionInterval = .6f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) float TiredThreshold = 15;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) float InventoryActionInterval = .3f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float ItemUseDuration = 1.8f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float ItemPickupDuration = .55f;
     const FBunkerItemDefinition* Find(FName Type) const;
 };
 UCLASS()

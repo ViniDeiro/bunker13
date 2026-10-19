@@ -1,0 +1,51 @@
+{
+  "assets": [
+    {
+      "name": "SM_Hands_Left",
+      "triangles": 4696,
+      "parts": 27,
+      "dimensions_m": [
+        0.10723543167114258,
+        0.2145538032054901,
+        0.07502474635839462
+      ],
+      "rig": "Rigid grip pose; runtime procedural transforms, no finger skeleton"
+    },
+    {
+      "name": "SM_Hands_Right",
+      "triangles": 4696,
+      "parts": 27,
+      "dimensions_m": [
+        0.10723543167114258,
+        0.2145538032054901,
+        0.07502474635839462
+      ],
+      "rig": "Rigid grip pose; runtime procedural transforms, no finger skeleton"
+    },
+    {
+      "name": "SM_Hands_Spoon",
+      "triangles": 356,
+      "parts": 2,
+      "dimensions_m": [
+        0.03999999910593033,
+        0.16300000250339508,
+        0.00800000037997961
+      ],
+      "rig": "Rigid grip pose; runtime procedural transforms, no finger skeleton"
+    },
+    {
+      "name": "SM_Hands_Bandage",
+      "triangles": 764,
+      "parts": 2,
+      "dimensions_m": [
+        0.06199999898672104,
+        0.08150000125169754,
+        0.025199998170137405
+      ],
+      "rig": "Rigid grip pose; runtime procedural transforms, no finger skeleton"
+    }
+  ],
+  "units": "meters",
+  "editable_sources": true,
+  "materials": "Authored procedural preview; UE material import is separate"
+}

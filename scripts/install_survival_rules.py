@@ -10,7 +10,7 @@ if created:
     factory=u.DataAssetFactory();factory.set_editor_property('data_asset_class',u.BunkerSurvivalRules)
     rules=u.AssetToolsHelpers.get_asset_tools().create_asset('DA_SurvivalRules',DEST,u.BunkerSurvivalRules,factory)
 assert rules
-values={'max_weight_kg':20.0,'max_slots':12,'food_loss_per_minute':.6,'water_loss_per_minute':1.0,'energy_loss_per_minute':.4,'rest_gain_per_minute':15.0,'starvation_damage_per_minute':4.0,'action_interval':.2,'tired_action_interval':.6,'tired_threshold':15.0,'inventory_action_interval':.3}
+values={'max_weight_kg':20.0,'max_slots':12,'food_loss_per_minute':.6,'water_loss_per_minute':1.0,'energy_loss_per_minute':.4,'rest_gain_per_minute':15.0,'starvation_damage_per_minute':4.0,'action_interval':.2,'tired_action_interval':.6,'tired_threshold':15.0,'inventory_action_interval':.3,'item_use_duration':1.8,'item_pickup_duration':.55}
 if created:
     for key,value in values.items():rules.set_editor_property(key,value)
 else:

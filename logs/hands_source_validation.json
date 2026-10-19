@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "reopened_blends": 2,
+  "assets": [
+    {
+      "name": "SM_Hands_Left",
+      "vertices": 2402,
+      "dimensions_m": [
+        0.10723543167114258,
+        0.2145538032054901,
+        0.07502474635839462
+      ],
+      "uv_valid": true,
+      "fbx_sha256": "16b98365518658a73d9fac2805a5580a20cbede254fdf5b08529f197c4972c05"
+    },
+    {
+      "name": "SM_Hands_Right",
+      "vertices": 2402,
+      "dimensions_m": [
+        0.10723543167114258,
+        0.2145538032054901,
+        0.07502474635839462
+      ],
+      "uv_valid": true,
+      "fbx_sha256": "7d73c91516dfa2bf6ad901d39e4f0b9050763b61b702a9c1f197199f9b92a78c"
+    },
+    {
+      "name": "SM_Hands_Spoon",
+      "vertices": 182,
+      "dimensions_m": [
+        0.03999999910593033,
+        0.16300000250339508,
+        0.00800000037997961
+      ],
+      "uv_valid": true,
+      "fbx_sha256": "299ba60a75b91d99a7b08febde2db8abdfcb264b9a5d4f7e43afdcc57b9d64cd"
+    },
+    {
+      "name": "SM_Hands_Bandage",
+      "vertices": 384,
+      "dimensions_m": [
+        0.06199999898672104,
+        0.08150000125169754,
+        0.025199998170137405
+      ],
+      "uv_valid": true,
+      "fbx_sha256": "cea1cd2f113f0674832a501b4160323923859b085a53ffebca791f8dc4fed841"
+    },
+    {
+      "name": "SM_Use_Water",
+      "vertices": 1450,
+      "dimensions_m": [
+        0.0706000030040741,
+        0.0706000030040741,
+        0.1979999989271164
+      ],
+      "uv_valid": true,
+      "fbx_sha256": "e808dc2bba1e4303da2b5f017cecec3939bff26a7a5ec17373a099b226aece00"
+    },
+    {
+      "name": "SM_Use_Food",
+      "vertices": 2394,
+      "dimensions_m": [
+        0.08699999749660492,
+        0.08699999749660492,
+        0.11999999731779099
+      ],
+      "uv_valid": true,
+      "fbx_sha256": "58be7df2ffcf306429ffc75b28b6270278f58cad74df9ea58692e9f341cfeee3"
+    }
+  ]
+}

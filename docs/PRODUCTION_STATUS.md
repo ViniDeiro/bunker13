@@ -42,3 +42,7 @@ A meta solicitada é 30/11/2026. Sequência e critérios de saída em `RELEASE_T
 ## Objetos físicos do inventário — 19/10/2026
 
 Cinco modelos próprios (água, lata, kit médico, pilha e chave) criados no Blender com peças editáveis, UVs e texturas originais. Aplicados aos seis recursos existentes do mapa. Fonte, renders e limites estão em `ITEM_ART_REPORT.md`; não substituem a produção dos demais tipos, mãos ou animações de uso.
+
+## Primeira pessoa: interações com itens — 19/10/2026
+
+Mãos enluvadas e acessórios próprios, gestos locais de coleta/consumo e variantes abertas de garrafa/lata. A confirmação vem do servidor e a mochila fecha para mostrar a ação. Fonte e limites em `FIRST_PERSON_ITEM_REPORT.md`. Ainda não há rig articulado dos dedos, som de manuseio ou atuação em terceira pessoa.

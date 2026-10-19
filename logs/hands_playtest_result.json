@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "packaged_game": true,
+  "actions": 4,
+  "frames": 5,
+  "checks": [
+    "Real I/U/E input bindings",
+    "Three consumptions plus one pickup",
+    "Repeated used GUID does not replay an action or change stats",
+    "Inventory closes and look is released",
+    "Two glove meshes loaded for each action"
+  ],
+  "markers": [
+    "[2026.10.19-22.59.53:875][187]LogTemp: Display: C13_HAND_ACTION type=Water consume=1 mesh=SM_Item_Water hands=1 local=1",
+    "[2026.10.19-22.59.53:875][187]LogTemp: Display: C13_CONSUME id=A6CC3F8D9444A86EB983C88DD0DB2563 water=74.98 food=39.99 health=40.00",
+    "[2026.10.19-22.59.54:272][211]LogTemp: Display: C13_HAND_FRAME hands_water_raise playing=1 using=1",
+    "[2026.10.19-22.59.54:725][230]LogTemp: Display: C13_HAND_FRAME hands_water_drink playing=1 using=1",
+    "[2026.10.19-22.59.56:869][355]LogTemp: Display: C13_HAND_ACTION type=Food consume=1 mesh=SM_Item_Food hands=1 local=1",
+    "[2026.10.19-22.59.56:869][355]LogTemp: Display: C13_CONSUME id=5168B7D078486836B8193EBA34218CCB water=74.93 food=74.96 health=40.00",
+    "[2026.10.19-22.59.57:717][406]LogTemp: Display: C13_HAND_FRAME hands_food playing=1 using=1",
+    "[2026.10.19-22.59.59:868][530]LogTemp: Display: C13_HAND_ACTION type=Medkit consume=1 mesh=SM_Item_Medkit hands=1 local=1",
+    "[2026.10.19-22.59.59:868][530]LogTemp: Display: C13_CONSUME id=2EC67A43DF4B46BE48CEF88357D204E9 water=74.88 food=74.93 health=80.00",
+    "[2026.10.19-23.00.00:717][581]LogTemp: Display: C13_HAND_FRAME hands_medkit playing=1 using=1",
+    "[2026.10.19-23.00.02:984][711]LogTemp: Display: C13_HAND_ACTION type=Water consume=0 mesh=SM_Item_Water hands=1 local=1",
+    "[2026.10.19-23.00.02:984][711]LogTemp: Display: C13_PICKUP player=256 id=0767F30A0E476B5FD1C258BB7A71312A count=1",
+    "[2026.10.19-23.00.03:217][725]LogTemp: Display: C13_HAND_FRAME hands_pickup playing=1 using=0",
+    "[2026.10.19-23.00.04:728][809]LogTemp: Display: C13_HANDS_AUDIT PASS items=1 food=74.89 water=74.82 health=80.00 lookFree=1"
+  ],
+  "limits": [
+    "Development-only fixture; not a human playtest or third-person animation validation.",
+    "Server applies the accepted consumable at action start; visual interruption does not refund it."
+  ]
+}

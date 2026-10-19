@@ -6,6 +6,7 @@
 #include "BunkerSurvival.h"
 #include "BunkerNetwork.generated.h"
 class ABunkerInteractable;
+class ABunkerItemPresentation;
 
 USTRUCT(BlueprintType)
 struct FBunkerInventoryEntry
@@ -57,9 +58,14 @@ public:
     void ReleaseBed(bool bDisconnect = false);
     UFUNCTION(Server,Reliable) void ServerUseItem(FGuid Id);
     UFUNCTION(Server,Reliable) void ServerDropItem(FGuid Id);
+    UFUNCTION(Client,Reliable) void ClientPlayItemAction(const FBunkerInventoryEntry& Entry,bool bConsume);
+    UPROPERTY() TObjectPtr<ABunkerItemPresentation> ItemPresentation;
     bool bInventoryOpen = false;
     int32 SelectedItem = 0;
     void SurvivalProbeTick(float DT);
+    void HandsProbeTick(float DT);
+    int32 HandsProbeStage=0;
+    FGuid HandsUsedId;
     UFUNCTION(Server, Reliable) void ServerPrepareProbe(int32 Phase);
     void NetProbeTick(float DT);
 private:
@@ -97,6 +103,7 @@ public:
     ABunkerGameMode();
     void StartDoorValidation();
     void StartSurvivalValidation();
+    void StartHandsValidation();
     virtual void Logout(AController* Exiting) override;
     virtual void BeginPlay() override;
     virtual void PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& Id, FString& Error) override;

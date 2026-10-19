@@ -8,7 +8,7 @@ A meta solicitada permanece 30/11/2026. O estado atual é uma fatia em desenvolv
 | Sobrevivência | Base de mochila e descanso; consumo, descarte, peso e necessidades validados com quatro instâncias automatizadas | Contêineres concorrentes, empilhamento, combustível/circuitos, tempo, doenças/radiação, salvamento e reconexão persistente |
 | Partida completa | Bunker e exterior inicial | Coleta inicial de 90 segundos, prédio explorável, expedição, equipamento, inimigo, combate, incapacitação/morte, mochila recuperável, retorno e objetivo/final |
 | Atividades e eventos | Dardos ainda aleatórios | Mira e habilidade reais, cartas, eventos sistêmicos e diretor com seed/cooldown persistentes |
-| Arte e som | Kit cama/armário/porta com materiais Painter; superfícies do ambiente; cinco modelos de itens com texturas próprias | Refinamento dos demais modelos, sinalização/decalques, iluminação final, animações, sons, música, acabamento exterior e aprovação visual |
+| Arte e som | Kit cama/armário/porta com materiais Painter; superfícies do ambiente; cinco modelos de itens com texturas próprias; primeira versão de gestos locais com mãos enluvadas | Refinamento dos demais modelos, sinalização/decalques, iluminação final, animações articuladas e vistas pelos colegas, sons, música, acabamento exterior e aprovação visual |
 | Comunicação e distribuição | Executável Mac de desenvolvimento | Voz por proximidade/rádio e controles de privacidade, Steam/convites, build e teste Windows, acessibilidade e conteúdo completo de lançamento |
 | Qualidade | Testes automatizados de interações e passagens | 30–60 min com quatro humanos, latência/perda, save/load/reconexão, benchmark no hardware alvo e correções de regressão |
 

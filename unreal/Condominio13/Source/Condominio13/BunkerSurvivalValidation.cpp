@@ -21,7 +21,7 @@ void ABunkerPlayerController::SurvivalProbeTick(float DT)
     if (T>=60 && SurvivalProbeStage==0) { ProbeKey(EKeys::I);if (!PS->Inventory.IsEmpty()) UsedProbeId=PS->Inventory[0].Id;SurvivalProbeStage++; }
     if (T>=61 && SurvivalProbeStage==1) { ProbeKey(EKeys::U);SurvivalProbeStage++; }
     if (T>=62 && SurvivalProbeStage==2) { if (UsedProbeId.IsValid()) ServerUseItem(UsedProbeId);SurvivalProbeStage++; }
-    if (T>=63 && SurvivalProbeStage==3) { ProbeKey(EKeys::I);SurvivalProbeStage++; }
+    if (T>=63 && SurvivalProbeStage==3) { if (bInventoryOpen) ProbeKey(EKeys::I);SurvivalProbeStage++; }
     if (T>=74 && SurvivalProbeStage==4) { ProbeKey(EKeys::I);UsedProbeId.Invalidate();if (!PS->Inventory.IsEmpty()) UsedProbeId=PS->Inventory[0].Id;SurvivalProbeStage++; }
     if (T>=75 && SurvivalProbeStage==5) { ProbeKey(EKeys::G);SurvivalProbeStage++; }
     if (T>=76 && SurvivalProbeStage==6) { if (UsedProbeId.IsValid()) ServerDropItem(UsedProbeId);SurvivalProbeStage++; }
