@@ -42,9 +42,11 @@ public:
     UFUNCTION(Server, Reliable) void ServerInteract(ABunkerInteractable* Target);
     UFUNCTION(Server, Reliable) void ServerLeaveBed();
     UFUNCTION(Client, Reliable) void ClientNotice(const FString& Message);
+    UFUNCTION(Exec) void C13Save();
     UFUNCTION(Exec) void C13Host();
     UFUNCTION(Exec) void C13Join(const FString& Address);
     void ReleaseBed(bool bDisconnect = false);
+    FVector CheckpointLocation() const;
     UFUNCTION(Server,Reliable) void ServerUseItem(FGuid Id);
     UFUNCTION(Server,Reliable) void ServerDropItem(FGuid Id);
     UFUNCTION(Client,Reliable) void ClientPlayItemAction(const FBunkerInventoryEntry& Entry,bool bConsume);
@@ -110,6 +112,15 @@ class CONDOMINIO13_API ABunkerGameMode : public AGameModeBase
     GENERATED_BODY()
 public:
     ABunkerGameMode();
+    void StartPersistence();
+    void C13AutoSave();
+    bool SaveCheckpoint();
+    bool LoadCheckpoint();
+    void PersistenceProbe();
+    bool bPersistenceReady=false, bPersistenceBlocked=false;
+    int64 SaveSequence=0;
+    FString SavePrefix;
+    FTimerHandle PersistenceTimer;
     void StartDoorValidation();
     void StartSurvivalValidation();
     void StartHandsValidation();

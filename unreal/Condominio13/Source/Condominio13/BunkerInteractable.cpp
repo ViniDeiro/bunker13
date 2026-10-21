@@ -39,6 +39,7 @@ void ABunkerInteractable::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 void ABunkerInteractable::BeginPlay()
 {
     Super::BeginPlay();
+    if (HasAnyFlags(RF_WasLoaded)) WorldKey = GetFName().ToString();
     if (HasAuthority() && !ItemId.IsValid()) ItemId = FGuid::NewGuid();
     OnRep_State();
 }

@@ -17,7 +17,7 @@ A base de interações passou a usar um controlador por conexão e decisões no 
 | Marco | Estado real e trabalho restante |
 |---|---|
 | U1 | Base de servidor autoritativo para coleta e camas implementada; quatro pontos de entrada e RPCs por proprietário. Treze portas físicas replicadas instaladas; 13/13 travessias passaram com a cápsula real. Lobby, circulação conjunta, desconexão e testes completos ainda pendentes; evidências em `NETWORK_FOUNDATION_REPORT.md` e `DOORS_AND_INPUT_REPORT.md` |
-| U2 | Mochila com interface, IDs por sessão, espaços/peso, consumo e descarte; necessidades e recuperação de energia na cama validadas no executável com quatro instâncias automatizadas (SURVIVAL_INVENTORY_REPORT.md). Regras em Data Asset; atributos privados ao dono. Faltam empilhamento, tempo, combustível/circuitos, salvamento e reconexão |
+| U2 | Mochila com interface, IDs preservados no checkpoint solo, espaços/peso, consumo e descarte; necessidades e recuperação de energia na cama validadas no executável com quatro instâncias automatizadas (SURVIVAL_INVENTORY_REPORT.md). Regras em Data Asset; atributos privados ao dono. Salvamento solo implementado; ver `PERSISTENCE_REPORT.md`. Faltam empilhamento, tempo, combustível/circuitos, salvamento cooperativo e reconexão |
 | U3 | Exterior inicial existe; faltam prédio explorável, radiação, equipamento, inimigo, combate, morte, mochila e retorno |
 | U4 | Dardos são uma pontuação aleatória por interação; faltam mira jogável, cartas e três eventos sistêmicos |
 | U5 | Pendente teste de 30–60 min com quatro jogadores, latência e perda de pacotes |
@@ -37,7 +37,7 @@ Não há build Windows validada neste Mac. Uma entrega Windows exige compilaçã
 
 ## Meta de calendário
 
-A meta solicitada é 30/11/2026. Sequência e critérios de saída em `RELEASE_TARGET_NOVEMBER.md`. Não há garantia de lançamento nem autorização implícita para remover requisitos do GDD para caber no prazo.
+A meta solicitada agora é dezembro de 2026, sem dia definido. Sequência e critérios de saída em `RELEASE_TARGET_DECEMBER.md`. Não há garantia de lançamento nem autorização implícita para remover requisitos do GDD para caber no prazo.
 
 ## Objetos físicos do inventário — 19/10/2026
 
@@ -50,3 +50,7 @@ Mãos enluvadas e acessórios próprios, gestos locais de coleta/consumo e varia
 ## Armários e despensa — 19/10/2026
 
 Seis contêineres físicos, transferências com ID preservado, validação de revisão/capacidade/acesso e vistas privadas por jogador. A garrafa passou a azul. Evidências e limites em `STORAGE_REPORT.md`; o armazenamento é da sessão atual, com salvamento/reconexão ainda pendentes.
+
+## Persistência solo — 21/10/2026
+
+Mochila, necessidades, contêineres, recursos do mapa, itens largados e portas passaram a compor um checkpoint versionado, com duas cópias alternadas. F5, gravação automática e encerramento normal; restauração ao iniciar. Evidências e limites em `PERSISTENCE_REPORT.md`. Isso não conclui o salvamento de sessões cooperativas nem a reconexão.

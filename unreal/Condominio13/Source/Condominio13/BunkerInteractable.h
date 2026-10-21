@@ -45,6 +45,8 @@ public:
     UPROPERTY(ReplicatedUsing=OnRep_Visual) TArray<TObjectPtr<UMaterialInterface>> PickupMaterials;
     UPROPERTY(ReplicatedUsing=OnRep_Visual) FVector PickupScale = FVector::OneVector;
     UFUNCTION() void OnRep_Visual();
+    // Authored actors keep their cooked map name; dynamic drops have no world key.
+    UPROPERTY() FString WorldKey;
     UPROPERTY(Replicated) FGuid ItemId;
     UPROPERTY(ReplicatedUsing=OnRep_State) TObjectPtr<APlayerState> Occupant;
     UFUNCTION() void OnRep_State();

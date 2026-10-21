@@ -60,6 +60,7 @@ void ABunkerPlayerController::BeginPlay()
 void ABunkerPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
+    InputComponent->BindKey(EKeys::F5, IE_Pressed, this, &ABunkerPlayerController::C13Save);
     InputComponent->BindKey(EKeys::E, IE_Pressed, this, &ABunkerPlayerController::Interact);
     InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ABunkerPlayerController::LeaveBed);
     InputComponent->BindKey(EKeys::I,IE_Pressed,this,&ABunkerPlayerController::ToggleInventory);
@@ -319,6 +320,7 @@ void ABunkerPlayerController::ServerPrepareProbe_Implementation(int32 Phase)
 void ABunkerGameMode::BeginPlay()
 {
     Super::BeginPlay();
+    StartPersistence();
     StartDoorValidation();
     StartSurvivalValidation();
     StartHandsValidation();

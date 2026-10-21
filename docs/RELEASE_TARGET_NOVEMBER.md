@@ -1,5 +1,7 @@
 # Meta de entrega — 30 de novembro de 2026
 
+**Histórico: substituído em 21/10/2026 pela meta de dezembro, descrita em `RELEASE_TARGET_DECEMBER.md`.**
+
 Meta solicitada pelo criador em 19/10. Não constitui garantia de lançamento: cada etapa depende dos critérios abaixo. A referência de produto continua sendo o GDD integral; requisitos sem implementação não serão declarados concluídos.
 
 | Período alvo | Entrega | Critério de saída |

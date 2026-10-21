@@ -1,14 +1,25 @@
 # Condomínio 13 — Deiros Dev
 
-Primeiro blockout B1 do bunker; fonte de especificação em references/Condominio_13_GDD_Codex.md.
+Jogo cooperativo de sobrevivência em desenvolvimento na Unreal Engine 5. Especificação: [GDD](references/Condominio_13_GDD_Codex.md). A versão atual é uma fatia jogável; ainda não contém a partida completa nem está aprovada para lançamento.
 
-- Mestre: blender/Bunker_Blockout_v001.blend
-- Geração: scripts/create_bunker_blockout.py
-- Inspeção em primeira pessoa: scripts/walk_bunker.py
-- Validação independente: scripts/validate_bunker.py
-- Instruções: docs/NAVIGATION.md
-- Resultados: docs/BLOCKOUT_REPORT.md
-- Auditoria: docs/ENVIRONMENT_REPORT.md
-- Gate Unreal: unreal/IMPORT_CHECKLIST.md
+## Executável local
 
-Somente B0/B1. Arte final, interação, multiplayer, supermercado e exterior não implementados. Binários locais fora do Git; adotar LFS/armazenamento de assets antes de compartilhar o projeto.
+`builds/Mac/Condominio13-VerticalSlice.app` — versão Mac de desenvolvimento. WASD move, mouse olha, E interage, F levanta da cama, I abre a mochila. Na mochila: setas selecionam, U usa e G larga. Em armários: TAB troca o lado e X transfere.
+
+No modo solo, F5 salva (Fn + F5 conforme a configuração do Mac), há gravação automática a cada minuto e no encerramento normal; a próxima execução retoma o checkpoint válido. Salvamento cooperativo e reconexão ainda estão pendentes. Consulte [persistência](docs/PERSISTENCE_REPORT.md).
+
+## Produção e evidências
+
+- [Estado atual](docs/PRODUCTION_STATUS.md) e [pendências para lançamento](docs/REMAINING_FOR_RELEASE.md).
+- [Meta de dezembro de 2026](docs/RELEASE_TARGET_DECEMBER.md), sem dia definido nem redução autorizada do GDD.
+- [Inventário e sobrevivência](docs/SURVIVAL_INVENTORY_REPORT.md), [armários e garrafa azul](docs/STORAGE_REPORT.md), [mãos e uso de itens](docs/FIRST_PERSON_ITEM_REPORT.md).
+- [Rede](docs/NETWORK_FOUNDATION_REPORT.md) e [portas/circulação](docs/DOORS_AND_INPUT_REPORT.md).
+
+Quatro processos automatizados não substituem quatro pessoas jogando. O executável Mac não valida a plataforma Windows prevista no GDD. Binários, projetos Blender/Painter e exportações ficam localmente fora do Git; precisam de armazenamento de assets apropriado antes de compartilhar a produção.
+
+## Fontes do bunker
+
+- Mestre inicial: `blender/Bunker_Blockout_v001.blend`.
+- Geração: `scripts/create_bunker_blockout.py`; validação: `scripts/validate_bunker.py`.
+- [Navegação do blockout](docs/NAVIGATION.md), [relatório B1](docs/BLOCKOUT_REPORT.md) e [auditoria inicial](docs/ENVIRONMENT_REPORT.md).
+- Projeto jogável: `unreal/Condominio13/Condominio13.uproject`.

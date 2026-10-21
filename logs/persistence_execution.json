@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-21",
+  "engine": "Unreal Engine 5.8.3",
+  "platform": "Mac Development",
+  "binary": "/Users/vini_deiro/bankers/builds/Mac/Condominio13-VerticalSlice.app/Contents/MacOS/Condominio13",
+  "binary_sha256": "1dcacb6d8f0ffbb38c8bd896b85b36b87c4c7c6da04a7b546cdb52ea55880e86",
+  "packaging_log": "logs/persistence_package_final.log",
+  "packaging_passed": true,
+  "tests": {
+    "persistence_result": true,
+    "persistence_storage_regression_result": true,
+    "persistence_hands_regression_result": true
+  },
+  "network_tests_did_not_access_checkpoints": true,
+  "native_visual_inspected": "screenshots/persistence_water_hud.png",
+  "passed": true,
+  "release_ready": false,
+  "remaining_persistence": [
+    "Cooperative checkpoint and authenticated reconnect",
+    "Campaign menu and save migration"
+  ],
+  "release_target": "December 2026; no day specified"
+}

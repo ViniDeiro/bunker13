@@ -135,7 +135,7 @@ void ABunkerHUD::DrawHUD()
     };
     DrawRect(FLinearColor(.015f,.025f,.025f,.8f),20*S,Canvas->ClipY-70*S,650*S,50*S);
     Text(FString::Printf(TEXT("Saúde %.0f   Alimentação %.0f   Hidratação %.0f   Energia %.0f"),PS->Health,PS->Food,PS->Water,PS->Energy),30*S,Canvas->ClipY-60*S);
-    Text(PS->RestingBed?TEXT("Descansando — F levantar | I mochila"):TEXT("E interagir | I mochila"),30*S,Canvas->ClipY-39*S);
+    Text(PS->RestingBed?TEXT("Descansando — F levantar | I mochila"):(GetNetMode()==NM_Standalone?TEXT("E interagir | I mochila | F5 salvar"):TEXT("E interagir | I mochila")),30*S,Canvas->ClipY-39*S);
     if (PS->Health<=0) Text(TEXT("Sem condições de continuar. Resgate e morte ainda em desenvolvimento."),30*S,35*S,FLinearColor(1,.3f,.2f));
     if (!PC->bInventoryOpen) return;
     if (PC->ViewedContainer)
