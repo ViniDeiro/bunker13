@@ -22,7 +22,7 @@ void ABunkerContainer::RefreshViewers()
 bool ABunkerPlayerController::CanAccessContainer(ABunkerContainer* Storage) const
 {
     auto* PS=GetPlayerState<ABunkerPlayerState>();auto* C=Cast<ACharacter>(GetPawn());
-    if (!IsValid(Storage) || !PS || !PS->Rules || !C || PS->Health<=0 || PS->RestingBed) return false;
+    if (!IsValid(Storage) || !PS || !PS->bSessionReady || !PS->Rules || !C || PS->Health<=0 || PS->RestingBed) return false;
     FVector Eye;FRotator Rot;C->GetActorEyesViewPoint(Eye,Rot);
     const FVector Center=Storage->Mesh->Bounds.Origin;
     if (FVector::DistSquared(Eye,Center)>FMath::Square(350.f)) return false;

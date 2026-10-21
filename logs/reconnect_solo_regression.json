@@ -1,0 +1,172 @@
+{
+  "passed": true,
+  "packaged_game": true,
+  "separate_processes": 17,
+  "isolated_slots": "C13_AutomatedCheckpoint_A/B",
+  "steps": [
+    {
+      "phase": "seed",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.39.50:719][123]LogTemp: Display: C13_SAVE_COMMIT sequence=1 actors=34",
+        "[2026.10.21-13.39.50:733][124]LogTemp: Display: C13_SAVE_COMMIT sequence=2 actors=34",
+        "[2026.10.21-13.39.50:926][136]LogTemp: Display: C13_SAVE_PROBE PASS phase=seed sequence=2 input=F5"
+      ]
+    },
+    {
+      "phase": "load",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.39.53:924][124]LogTemp: Display: C13_SAVE_LOAD sequence=2 position=1 inventory=1",
+        "[2026.10.21-13.39.53:924][124]LogTemp: Display: C13_SAVE_CONTENT bag=1 box=1 drop=1 tombstones=3 doors=1",
+        "[2026.10.21-13.39.53:925][124]LogTemp: Display: C13_SAVE_COMMIT sequence=3 actors=34",
+        "[2026.10.21-13.39.53:925][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=load sequence=3"
+      ]
+    },
+    {
+      "phase": "roundtrip",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.39.56:866][123]LogTemp: Display: C13_SAVE_LOAD sequence=3 position=1 inventory=1",
+        "[2026.10.21-13.39.56:867][123]LogTemp: Display: C13_SAVE_CONTENT bag=1 box=1 drop=1 tombstones=3 doors=1",
+        "[2026.10.21-13.39.56:867][123]LogTemp: Display: C13_SAVE_PROBE PASS phase=roundtrip sequence=3"
+      ]
+    },
+    {
+      "phase": "shutdown",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.39.59:849][124]LogTemp: Display: C13_SAVE_LOAD sequence=3 position=1 inventory=1",
+        "[2026.10.21-13.39.59:849][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=shutdown sequence=3",
+        "[2026.10.21-13.39.59:851][125]LogTemp: Display: C13_SAVE_COMMIT sequence=4 actors=34"
+      ]
+    },
+    {
+      "phase": "shutdownload",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.02:966][124]LogTemp: Display: C13_SAVE_LOAD sequence=4 position=1 inventory=1",
+        "[2026.10.21-13.40.02:966][124]LogTemp: Display: C13_SAVE_CONTENT bag=1 box=1 drop=1 tombstones=3 doors=1",
+        "[2026.10.21-13.40.02:966][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=shutdownload sequence=4"
+      ]
+    },
+    {
+      "phase": "seed",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.05:997][124]LogTemp: Display: C13_SAVE_COMMIT sequence=1 actors=34",
+        "[2026.10.21-13.40.06:012][125]LogTemp: Display: C13_SAVE_COMMIT sequence=2 actors=34",
+        "[2026.10.21-13.40.06:193][136]LogTemp: Display: C13_SAVE_PROBE PASS phase=seed sequence=2 input=F5"
+      ]
+    },
+    {
+      "phase": "corrupt",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.09:104][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=corrupt sequence=0"
+      ]
+    },
+    {
+      "phase": "backup",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.12:000][125]LogTemp: Display: C13_SAVE_LOAD sequence=1 position=1 inventory=1",
+        "[2026.10.21-13.40.12:000][125]LogTemp: Display: C13_SAVE_CONTENT bag=1 box=1 drop=1 tombstones=3 doors=1",
+        "[2026.10.21-13.40.12:000][125]LogTemp: Display: C13_SAVE_PROBE PASS phase=backup sequence=1"
+      ]
+    },
+    {
+      "phase": "version",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.14:882][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=version sequence=0"
+      ]
+    },
+    {
+      "phase": "backup",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.17:776][125]LogTemp: Display: C13_SAVE_LOAD sequence=1 position=1 inventory=1",
+        "[2026.10.21-13.40.17:776][125]LogTemp: Display: C13_SAVE_CONTENT bag=1 box=1 drop=1 tombstones=3 doors=1",
+        "[2026.10.21-13.40.17:776][125]LogTemp: Display: C13_SAVE_PROBE PASS phase=backup sequence=1"
+      ]
+    },
+    {
+      "phase": "layout",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.20:668][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=layout sequence=0"
+      ]
+    },
+    {
+      "phase": "backup",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.23:570][124]LogTemp: Display: C13_SAVE_LOAD sequence=1 position=1 inventory=1",
+        "[2026.10.21-13.40.23:570][124]LogTemp: Display: C13_SAVE_CONTENT bag=1 box=1 drop=1 tombstones=3 doors=1",
+        "[2026.10.21-13.40.23:570][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=backup sequence=1"
+      ]
+    },
+    {
+      "phase": "duplicate",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.26:478][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=duplicate sequence=0"
+      ]
+    },
+    {
+      "phase": "backup",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.29:344][123]LogTemp: Display: C13_SAVE_LOAD sequence=1 position=1 inventory=1",
+        "[2026.10.21-13.40.29:344][123]LogTemp: Display: C13_SAVE_CONTENT bag=1 box=1 drop=1 tombstones=3 doors=1",
+        "[2026.10.21-13.40.29:344][123]LogTemp: Display: C13_SAVE_PROBE PASS phase=backup sequence=1"
+      ]
+    },
+    {
+      "phase": "position",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.32:257][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=position sequence=0"
+      ]
+    },
+    {
+      "phase": "safe_spawn",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.35:175][124]LogTemp: Display: C13_SAVE_LOAD sequence=2 position=0 inventory=1",
+        "[2026.10.21-13.40.35:175][124]LogTemp: Display: C13_SAVE_CONTENT bag=1 box=1 drop=1 tombstones=3 doors=1",
+        "[2026.10.21-13.40.35:175][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=safe_spawn sequence=2"
+      ]
+    },
+    {
+      "phase": "blocked",
+      "passed": true,
+      "exit_code": 0,
+      "markers": [
+        "[2026.10.21-13.40.38:129][124]LogTemp: Display: C13_SAVE_LOAD none blocked=1",
+        "[2026.10.21-13.40.38:129][124]LogTemp: Display: C13_SAVE_PROBE PASS phase=blocked sequence=0"
+      ]
+    }
+  ],
+  "limits": [
+    "Authoritative fixture prepares bags/storage and invokes actual drop; production checkpoint code performs all serialization/validation/restoration.",
+    "Solo only: no cooperative reconnect claim; normal engine shutdown tested, not forced termination or power loss."
+  ]
+}

@@ -5,6 +5,7 @@
 #include "GameFramework/PlayerState.h"
 #include "BunkerSurvival.h"
 #include "BunkerInventoryTypes.h"
+#include "BunkerSaveGame.h"
 #include "BunkerNetwork.generated.h"
 class ABunkerInteractable;
 class ABunkerContainer;
@@ -21,6 +22,8 @@ public:
     UPROPERTY(Replicated,BlueprintReadOnly) float Food = 100;
     UPROPERTY(Replicated,BlueprintReadOnly) float Water = 100;
     UPROPERTY(Replicated,BlueprintReadOnly) float Energy = 100;
+    UPROPERTY(ReplicatedUsing=OnRep_SessionReady) bool bSessionReady=true;
+    UFUNCTION() void OnRep_SessionReady();
     UPROPERTY() TObjectPtr<UBunkerSurvivalRules> Rules;
     float Weight() const;
     virtual void BeginPlay() override;
@@ -37,12 +40,25 @@ class CONDOMINIO13_API ABunkerPlayerController : public APlayerController
 public:
     ABunkerPlayerController();
     virtual void BeginPlay() override;
+    virtual void Destroyed() override;
     virtual void SetupInputComponent() override;
     virtual void PlayerTick(float DeltaSeconds) override;
     UFUNCTION(Server, Reliable) void ServerInteract(ABunkerInteractable* Target);
     UFUNCTION(Server, Reliable) void ServerLeaveBed();
     UFUNCTION(Client, Reliable) void ClientNotice(const FString& Message);
     UFUNCTION(Exec) void C13Save();
+    UFUNCTION(Client,Reliable) void ClientRequestReconnect(FGuid Campaign);
+    UFUNCTION(Client,Reliable) void ClientStoreReconnect(FGuid Campaign,const FString& Ticket);
+    UFUNCTION(Server,Reliable) void ServerResumeSession(const FString& Ticket);
+    UFUNCTION(Server,Reliable) void ServerReconnectStored(bool bStored);
+    FGuid SessionPlayerKey;
+    bool bReconnectAttempted=false;
+    bool bNewReconnectRecord=false;
+    void ReconnectProbeTick(float DT);
+    UFUNCTION(Server,Reliable) void ServerReconnectProbe(int32 ProbeIndex);
+    int32 ReconnectProbeStage=0;
+    float ReconnectProbeTime=0;
+
     UFUNCTION(Exec) void C13Host();
     UFUNCTION(Exec) void C13Join(const FString& Address);
     void ReleaseBed(bool bDisconnect = false);
@@ -121,6 +137,18 @@ public:
     int64 SaveSequence=0;
     FString SavePrefix;
     FTimerHandle PersistenceTimer;
+    bool UsesCoopPersistence() const;
+    void RequestReconnect(ABunkerPlayerController* PC);
+    void ResumePlayer(ABunkerPlayerController* PC,const FString& Ticket);
+    void ConfirmReconnect(ABunkerPlayerController* PC,bool bStored);
+    void CaptureDisconnected(ABunkerPlayerController* PC);
+    void CaptureRoster();
+    void StartReconnectValidation();
+    UPROPERTY() TArray<FBunkerSavedPlayer> RemotePlayers;
+    FGuid CampaignId;
+    bool bCheckpointEnding=false;
+    virtual void PostLogin(APlayerController* NewPlayer) override;
+
     void StartDoorValidation();
     void StartSurvivalValidation();
     void StartHandsValidation();

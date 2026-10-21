@@ -6,7 +6,7 @@ Jogo cooperativo de sobrevivência em desenvolvimento na Unreal Engine 5. Especi
 
 `builds/Mac/Condominio13-VerticalSlice.app` — versão Mac de desenvolvimento. WASD move, mouse olha, E interage, F levanta da cama, I abre a mochila. Na mochila: setas selecionam, U usa e G larga. Em armários: TAB troca o lado e X transfere.
 
-No modo solo, F5 salva (Fn + F5 conforme a configuração do Mac), há gravação automática a cada minuto e no encerramento normal; a próxima execução retoma o checkpoint válido. Salvamento cooperativo e reconexão ainda estão pendentes. Consulte [persistência](docs/PERSISTENCE_REPORT.md).
+No modo solo e no host, F5 salva (Fn + F5 conforme a configuração do Mac), há gravação automática a cada minuto e no encerramento normal; a próxima execução retoma o checkpoint válido. A hospedagem também preserva os três participantes remotos, que retornam com seus perfis privados locais. Consulte [persistência solo](docs/PERSISTENCE_REPORT.md) e [checkpoint/reconexão cooperativa](docs/COOP_RECONNECT_REPORT.md). Lobby e identidade Steam continuam pendentes.
 
 ## Produção e evidências
 

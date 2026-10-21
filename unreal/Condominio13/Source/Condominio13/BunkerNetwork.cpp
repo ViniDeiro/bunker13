@@ -21,6 +21,7 @@
 void ABunkerPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME_CONDITION(ABunkerPlayerState, bSessionReady, COND_OwnerOnly);
     DOREPLIFETIME_CONDITION(ABunkerPlayerState, Inventory, COND_OwnerOnly);
     DOREPLIFETIME(ABunkerPlayerState, RestingBed);
     DOREPLIFETIME_CONDITION(ABunkerPlayerState, Health, COND_OwnerOnly);
@@ -43,10 +44,16 @@ void ABunkerGameMode::PreLogin(const FString& Options, const FString& Address, c
 }
 void ABunkerGameMode::Logout(AController* Exiting)
 {
-    if (auto* PC = Cast<ABunkerPlayerController>(Exiting)) {PC->ServerContainer=nullptr;PC->ReleaseBed(true);}
+    if (auto* PC = Cast<ABunkerPlayerController>(Exiting)) {CaptureDisconnected(PC);PC->ServerContainer=nullptr;PC->ReleaseBed(true);}
     Super::Logout(Exiting);
 }
 ABunkerPlayerController::ABunkerPlayerController() { PrimaryActorTick.bCanEverTick = true; }
+void ABunkerPlayerController::Destroyed()
+{
+    // APlayerController destroys/unpossesses its pawn before AController calls Logout.
+    if (HasAuthority()) if (auto* GM=GetWorld()->GetAuthGameMode<ABunkerGameMode>()) GM->CaptureDisconnected(this);
+    Super::Destroyed();
+}
 void ABunkerPlayerController::BeginPlay()
 {
     Super::BeginPlay();
@@ -91,8 +98,15 @@ void ABunkerPlayerController::PlayerTick(float DT)
     SurvivalProbeTick(DT);
     HandsProbeTick(DT);
     StorageProbeTick(DT);
+    ReconnectProbeTick(DT);
 #endif
     StorageTick(DT);
+    if (auto* State=GetPlayerState<ABunkerPlayerState>())
+        if (!State->bSessionReady)
+        {
+            if (HasAuthority()) if (auto* Character=Cast<ACharacter>(GetPawn())) Character->GetCharacterMovement()->DisableMovement();
+            return;
+        }
     if (!IsLocalController() || !GetPawn() || !PlayerCameraManager) return;
     auto* PS = GetPlayerState<ABunkerPlayerState>();
     if (bInventoryOpen) { Focused.Reset(); return; }
@@ -132,7 +146,7 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
 {
     auto* PS = GetPlayerState<ABunkerPlayerState>();
     auto* Character = Cast<ACharacter>(GetPawn());
-    if (!IsValid(Target) || !PS || !Character || PS->RestingBed || PS->Health<=0 || !PS->Rules) return;
+    if (!IsValid(Target) || !PS || !PS->bSessionReady || !Character || PS->RestingBed || PS->Health<=0 || !PS->Rules) return;
     const double Now = GetWorld()->GetTimeSeconds();
     if (Now < NextActionTime) return;
     NextActionTime = Now + (PS->Energy < PS->Rules->TiredThreshold ? PS->Rules->TiredActionInterval : PS->Rules->ActionInterval);

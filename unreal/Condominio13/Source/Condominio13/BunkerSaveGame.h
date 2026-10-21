@@ -17,6 +17,31 @@ struct FBunkerSavedActor
     UPROPERTY() TArray<FBunkerInventoryEntry> Contents;
 };
 
+USTRUCT()
+struct FBunkerSavedPlayer
+{
+    GENERATED_BODY()
+    UPROPERTY() FGuid Key;
+    UPROPERTY() FString TicketHash;
+    UPROPERTY() TArray<FBunkerInventoryEntry> Inventory;
+    UPROPERTY() float Health=100;
+    UPROPERTY() float Food=100;
+    UPROPERTY() float Water=100;
+    UPROPERTY() float Energy=100;
+    UPROPERTY() FVector Location;
+    UPROPERTY() FRotator Rotation;
+};
+
+UCLASS()
+class CONDOMINIO13_API UBunkerReconnectProfile : public USaveGame
+{
+    GENERATED_BODY()
+public:
+    UPROPERTY() int32 Version=1;
+    UPROPERTY() int64 Generation=0;
+    UPROPERTY() TMap<FString,FString> Tickets;
+};
+
 // Explicit version boundary: incompatible layouts are rejected before world mutation.
 UCLASS()
 class CONDOMINIO13_API UBunkerSaveGame : public USaveGame
@@ -26,6 +51,8 @@ public:
     UPROPERTY() int32 Version=1;
     UPROPERTY() int64 Sequence=0;
     UPROPERTY() FString Layout;
+    UPROPERTY() FGuid CampaignId;
+    UPROPERTY() TArray<FBunkerSavedPlayer> RemotePlayers;
     UPROPERTY() TArray<FBunkerInventoryEntry> Inventory;
     UPROPERTY() float Health=100;
     UPROPERTY() float Food=100;

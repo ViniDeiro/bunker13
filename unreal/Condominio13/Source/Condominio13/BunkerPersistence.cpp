@@ -65,7 +65,7 @@ bool Write(UBunkerSaveGame* S,const FString& Slot)
 bool Point(FVector V) {return !V.ContainsNaN() && V.GetAbsMax()<100000;}
 bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
 {
-    if (!S || S->Version!=1 || (S->Sequence<1 || S->Sequence>=MAX_int64-1) || S->Layout!=Layout(W) || !PS || !PS->Rules || S->Actors.Num()>1024 ||
+    if (!S || S->Version!=(W->GetNetMode()==NM_ListenServer?2:1) || (S->Sequence<1 || S->Sequence>=MAX_int64-1) || S->Layout!=Layout(W) || !PS || !PS->Rules || S->Actors.Num()>1024 ||
         !Point(S->PlayerLocation) || S->PlayerRotation.ContainsNaN()) return false;
     for (float Value:{S->Health,S->Food,S->Water,S->Energy})
         if (!FMath::IsFinite(Value) || Value<0 || Value>100) return false;
@@ -87,6 +87,18 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
         return Weight<=MaxWeight+.001f;
     };
     if (!Items(S->Inventory,PS->Rules->MaxSlots,PS->Rules->MaxWeightKg)) return false;
+    const bool Coop=W->GetNetMode()==NM_ListenServer;
+    if ((!Coop && (!S->RemotePlayers.IsEmpty() || S->CampaignId.IsValid())) || S->RemotePlayers.Num()>3 || (Coop && !S->CampaignId.IsValid())) return false;
+    TSet<FGuid> PlayerKeys;TSet<FString> TicketHashes;
+    for (const auto& R:S->RemotePlayers)
+    {
+        if (!R.Key.IsValid() || PlayerKeys.Contains(R.Key) || R.TicketHash.Len()!=64 || TicketHashes.Contains(R.TicketHash) ||
+            !Point(R.Location) || R.Rotation.ContainsNaN()) return false;
+        for (TCHAR C:R.TicketHash) if (!FChar::IsHexDigit(C)) return false;
+        for (float V:{R.Health,R.Food,R.Water,R.Energy}) if (!FMath::IsFinite(V) || V<0 || V>100) return false;
+        if (!Items(R.Inventory,PS->Rules->MaxSlots,PS->Rules->MaxWeightKg)) return false;
+        PlayerKeys.Add(R.Key);TicketHashes.Add(R.TicketHash);
+    }
     TMap<FString,ABunkerInteractable*> Authored;
     for (TActorIterator<ABunkerInteractable> It(W);It;++It) if (!It->WorldKey.IsEmpty()) Authored.Add(It->WorldKey,*It);
     TSet<FString> Seen;
@@ -116,7 +128,7 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
     }
     return Seen.Num()==Authored.Num();
 }
-ABunkerPlayerController* Local(UWorld* W) {return Cast<ABunkerPlayerController>(W->GetFirstPlayerController());}
+ABunkerPlayerController* Local(UWorld* W) {for(TActorIterator<ABunkerPlayerController> It(W);It;++It) if(It->IsLocalController()) return *It;return nullptr;}
 }
 
 FVector ABunkerPlayerController::CheckpointLocation() const
@@ -128,19 +140,35 @@ FVector ABunkerPlayerController::CheckpointLocation() const
 void ABunkerPlayerController::C13Save()
 {
     auto* GM=GetWorld()->GetAuthGameMode<ABunkerGameMode>();
-    ClientNotice(GM && GM->SaveCheckpoint()?TEXT("Partida solo salva."):TEXT("Não foi possível salvar. Salvamento disponível nesta etapa apenas no modo solo; veja os avisos de integridade."));
+    ClientNotice(GM && GM->SaveCheckpoint()?TEXT("Partida salva."):TEXT("Não foi possível salvar. Apenas o host pode gravar; confira os avisos de integridade."));
 }
 void ABunkerGameMode::StartPersistence()
 {
+#if !UE_BUILD_SHIPPING
+    if (FParse::Param(FCommandLine::Get(),TEXT("C13ReconnectTest")) && GetNetMode()!=NM_ListenServer) return;
+#endif
     SavePrefix=Probe()?TEXT("C13_AutomatedCheckpoint"):TEXT("C13_SoloCheckpoint");
     // All older test fixtures must remain independent of a real player's campaign.
     const TCHAR* Flags[]={TEXT("C13NetTest"),TEXT("C13SurvivalTest"),TEXT("C13StorageTest"),TEXT("C13StorageVisual"),
         TEXT("C13HandsVisual"),TEXT("C13DoorAudit"),TEXT("C13DoorVisual"),TEXT("C13ItemVisual"),TEXT("C13SurvivalVisual")};
     for (const TCHAR* Flag:Flags) if (FParse::Param(FCommandLine::Get(),Flag)) return;
-    if (GetNetMode()!=NM_Standalone) return;
+    if (GetNetMode()!=NM_Standalone && !UsesCoopPersistence()) return;
+    if (UsesCoopPersistence())
+    {
+        SavePrefix=TEXT("C13_CoopCheckpoint");CampaignId=FGuid::NewGuid();
+#if !UE_BUILD_SHIPPING
+        if (FParse::Param(FCommandLine::Get(),TEXT("C13ReconnectTest")))
+        {
+            SavePrefix=TEXT("C13_TestCoopCheckpoint");
+            if (FParse::Param(FCommandLine::Get(),TEXT("C13ReconnectReset")))
+            {UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_A"),0);UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_B"),0);}
+        }
+#endif
+        for(TActorIterator<ABunkerPlayerState> It(GetWorld());It;++It) {It->bSessionReady=false;It->ForceNetUpdate();}
+    }
     if (!Probe() || FParse::Param(FCommandLine::Get(),TEXT("C13SaveExit")))
         FWorldDelegates::OnWorldBeginTearDown.AddWeakLambda(this,[this](UWorld* World)
-        {if (World==GetWorld()) SaveCheckpoint();});
+        {if (World==GetWorld()) {SaveCheckpoint();bCheckpointEnding=true;}});
     FTimerHandle Start;
     GetWorldTimerManager().SetTimer(Start,FTimerDelegate::CreateWeakLambda(this,[this]()
     {
@@ -148,6 +176,15 @@ void ABunkerGameMode::StartPersistence()
         if (Probe()) {PersistenceProbe();return;}
 #endif
         LoadCheckpoint();bPersistenceReady=true;
+        if (UsesCoopPersistence())
+        {
+            auto* Host=Local(GetWorld());auto* PS=Host?Host->GetPlayerState<ABunkerPlayerState>():nullptr;
+            if (!PS || bPersistenceBlocked) return;
+            PS->bSessionReady=true;PS->OnRep_SessionReady();PS->ForceNetUpdate();
+            if (!SaveCheckpoint()) {PS->bSessionReady=false;bPersistenceBlocked=true;return;}
+            for(TActorIterator<ABunkerPlayerController> It(GetWorld());It;++It) RequestReconnect(*It);
+            StartReconnectValidation();
+        }
         GetWorldTimerManager().SetTimer(PersistenceTimer,this,&ABunkerGameMode::C13AutoSave,60,true);
     }),2,false);
 }
@@ -156,8 +193,15 @@ void ABunkerGameMode::C13AutoSave() {SaveCheckpoint();}
 bool ABunkerGameMode::SaveCheckpoint()
 {
     auto* PC=Local(GetWorld());auto* PS=PC?PC->GetPlayerState<ABunkerPlayerState>():nullptr;APawn* Pawn=PC?PC->GetPawn().Get():nullptr;
-    if (!bPersistenceReady || bPersistenceBlocked || GetNetMode()!=NM_Standalone || !Pawn || !PS) return false;
+    if (!bPersistenceReady || bPersistenceBlocked || bCheckpointEnding || (GetNetMode()!=NM_Standalone && !UsesCoopPersistence()) || !Pawn || !PS) return false;
     auto* S=NewObject<UBunkerSaveGame>(this);S->Sequence=SaveSequence+1;S->Layout=Layout(GetWorld());
+    if (UsesCoopPersistence())
+    {
+        CaptureRoster();S->Version=2;S->CampaignId=CampaignId;S->RemotePlayers=RemotePlayers;
+        for (TActorIterator<ABunkerPlayerController> It(GetWorld());It;++It)
+            if (It->bNewReconnectRecord && (!It->GetPlayerState<ABunkerPlayerState>() || !It->GetPlayerState<ABunkerPlayerState>()->bSessionReady))
+                S->RemotePlayers.RemoveAll([&](const auto& R){return R.Key==It->SessionPlayerKey;});
+    }
     S->Inventory=PS->Inventory;S->Health=PS->Health;S->Food=PS->Food;S->Water=PS->Water;S->Energy=PS->Energy;
     S->PlayerLocation=PC->CheckpointLocation();S->PlayerRotation=PC->GetControlRotation();
     for (TActorIterator<ABunkerInteractable> It(GetWorld());It;++It)
@@ -183,7 +227,7 @@ bool ABunkerGameMode::SaveCheckpoint()
 bool ABunkerGameMode::LoadCheckpoint()
 {
     auto* PC=Local(GetWorld());auto* PS=PC?PC->GetPlayerState<ABunkerPlayerState>():nullptr;auto* Pawn=PC?Cast<ACharacter>(PC->GetPawn()):nullptr;
-    if (GetNetMode()!=NM_Standalone) return false;
+    if (GetNetMode()!=NM_Standalone && !UsesCoopPersistence()) return false;
     if (!Pawn || !PS) {bPersistenceBlocked=true;return false;}
     auto* A=Read(SavePrefix+TEXT("_A"));auto* B=Read(SavePrefix+TEXT("_B"));
     bool VA=Valid(A,GetWorld(),PS),VB=Valid(B,GetWorld(),PS);
@@ -222,6 +266,7 @@ bool ABunkerGameMode::LoadCheckpoint()
         }
         Actor->ForceNetUpdate();
     }
+    if (UsesCoopPersistence()) {RemotePlayers=S->RemotePlayers;CampaignId=S->CampaignId;}
     PC->ReleaseBed();PC->CloseContainerView();
     PS->Inventory=S->Inventory;PS->Health=S->Health;PS->Food=S->Food;PS->Water=S->Water;PS->Energy=S->Energy;PS->ForceNetUpdate();
     FCollisionQueryParams Query(SCENE_QUERY_STAT(CheckpointPosition),false,Pawn);
@@ -231,7 +276,7 @@ bool ABunkerGameMode::LoadCheckpoint()
         GetWorld()->LineTraceSingleByChannel(Floor,S->PlayerLocation,S->PlayerLocation-FVector(0,0,200),ECC_Visibility,Query);
     if (Safe) {Pawn->SetActorLocation(S->PlayerLocation,false,nullptr,ETeleportType::TeleportPhysics);PC->SetControlRotation(S->PlayerRotation);}
     SaveSequence=S->Sequence;bPersistenceBlocked=false;
-    PC->ClientNotice(TEXT("Partida solo restaurada. F5 salva; salvamento automático a cada minuto."));
+    PC->ClientNotice(TEXT("Partida restaurada. Host: F5 salva; gravação automática a cada minuto."));
     UE_LOG(LogTemp,Display,TEXT("C13_SAVE_LOAD sequence=%lld position=%d inventory=%d"),SaveSequence,Safe,PS->Inventory.Num());
     return true;
 }

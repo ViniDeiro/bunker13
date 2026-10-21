@@ -1,6 +1,6 @@
 # Salvamento solo — 21/10/2026
 
-Primeira etapa de persistência de U2. Não conclui a reconexão cooperativa prevista no GDD.
+Primeira etapa de persistência de U2. Este relatório registra o marco solo. A extensão posterior para checkpoint do host e reconexão local está em `COOP_RECONNECT_REPORT.md`; identidade Steam e recuperação de perfis seguem pendentes.
 
 ## Uso no executável
 
@@ -31,7 +31,7 @@ O primeiro roteiro de corrupção danificou a cópia antiga após uma terceira g
 
 ## Limites que continuam abertos
 
-- Salvamento está habilitado apenas em modo solo. Sessões em rede não gravam nem carregam essa campanha. Identidade autenticada dos quatro jogadores, reconexão, restauração de desconectados e encerramento do host ainda precisam de implementação/teste próprios.
+- O checkpoint descrito aqui é exclusivo do modo solo. A extensão cooperativa usa outros arquivos e foi validada posteriormente em `COOP_RECONNECT_REPORT.md`; não carrega nem altera esta campanha solo. Identidade Steam e recuperação dos perfis ainda estão pendentes.
 - Não existe menu de campanhas, seleção de slots, comando de nova partida ou migração de arquivos incompatíveis. Um checkpoint incompatível bloqueado exige tratamento de recuperação antes de retomar gravações.
 - Encerramento forçado, travamento ou queda de energia podem perder o avanço desde o último checkpoint confirmado. O teste de saída usa o caminho de encerramento normal da Unreal.
 - Não há seed de eventos, tempo, circuitos, doença ou estados de expedição para persistir: esses sistemas ainda não estão implementados.

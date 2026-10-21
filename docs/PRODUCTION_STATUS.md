@@ -16,8 +16,8 @@ A base de interações passou a usar um controlador por conexão e decisões no 
 
 | Marco | Estado real e trabalho restante |
 |---|---|
-| U1 | Base de servidor autoritativo para coleta e camas implementada; quatro pontos de entrada e RPCs por proprietário. Treze portas físicas replicadas instaladas; 13/13 travessias passaram com a cápsula real. Lobby, circulação conjunta, desconexão e testes completos ainda pendentes; evidências em `NETWORK_FOUNDATION_REPORT.md` e `DOORS_AND_INPUT_REPORT.md` |
-| U2 | Mochila com interface, IDs preservados no checkpoint solo, espaços/peso, consumo e descarte; necessidades e recuperação de energia na cama validadas no executável com quatro instâncias automatizadas (SURVIVAL_INVENTORY_REPORT.md). Regras em Data Asset; atributos privados ao dono. Salvamento solo implementado; ver `PERSISTENCE_REPORT.md`. Faltam empilhamento, tempo, combustível/circuitos, salvamento cooperativo e reconexão |
+| U1 | Base de servidor autoritativo para coleta e camas implementada; quatro pontos de entrada e RPCs por proprietário. Treze portas físicas replicadas instaladas; 13/13 travessias passaram com a cápsula real. Checkpoint do host e reconexão local validados em `COOP_RECONNECT_REPORT.md`. Lobby, circulação conjunta com humanos, identidade Steam e testes completos ainda pendentes; evidências em `NETWORK_FOUNDATION_REPORT.md` e `DOORS_AND_INPUT_REPORT.md` |
+| U2 | Mochila com interface, IDs preservados nos checkpoints solo e cooperativo, espaços/peso, consumo e descarte; necessidades e recuperação de energia na cama validadas no executável com quatro instâncias automatizadas (SURVIVAL_INVENTORY_REPORT.md). Regras em Data Asset; atributos privados ao dono. Salvamento solo e cooperativo com retomada dos participantes implementados; ver `PERSISTENCE_REPORT.md` e `COOP_RECONNECT_REPORT.md`. Faltam empilhamento, tempo, combustível/circuitos, autenticação Steam, recuperação de perfis e testes prolongados |
 | U3 | Exterior inicial existe; faltam prédio explorável, radiação, equipamento, inimigo, combate, morte, mochila e retorno |
 | U4 | Dardos são uma pontuação aleatória por interação; faltam mira jogável, cartas e três eventos sistêmicos |
 | U5 | Pendente teste de 30–60 min com quatro jogadores, latência e perda de pacotes |
@@ -54,3 +54,7 @@ Seis contêineres físicos, transferências com ID preservado, validação de re
 ## Persistência solo — 21/10/2026
 
 Mochila, necessidades, contêineres, recursos do mapa, itens largados e portas passaram a compor um checkpoint versionado, com duas cópias alternadas. F5, gravação automática e encerramento normal; restauração ao iniciar. Evidências e limites em `PERSISTENCE_REPORT.md`. Isso não conclui o salvamento de sessões cooperativas nem a reconexão.
+
+## Checkpoint cooperativo e reconexão local — 21/10/2026
+
+Até quatro conexões, reserva dos recursos desconectados, credenciais privadas locais e retomada dos três perfis após reinício do host. A rodada com 80 ms/2% de emulação preservou seis recursos únicos e bloqueou credenciais inválidas/duplicadas. Relatório em `COOP_RECONNECT_REPORT.md`; ainda não equivale a autenticação Steam, lobby acessível ou teste prolongado com humanos.

@@ -34,7 +34,7 @@ float ABunkerPlayerState::Weight() const
 void ABunkerPlayerState::Tick(float DT)
 {
     Super::Tick(DT);
-    if (!HasAuthority() || !Rules || Health<=0) return;
+    if (!HasAuthority() || !bSessionReady || !Rules || Health<=0) return;
     const float Minutes=DT/60.f;
     Food=FMath::Clamp(Food-Rules->FoodLossPerMinute*Minutes,0.f,100.f);
     Water=FMath::Clamp(Water-Rules->WaterLossPerMinute*Minutes,0.f,100.f);
@@ -45,6 +45,7 @@ void ABunkerPlayerState::Tick(float DT)
 }
 void ABunkerPlayerController::ToggleInventory()
 {
+    auto* State=GetPlayerState<ABunkerPlayerState>();if (!State || !State->bSessionReady) return;
     if (ViewedContainer) {ServerCloseContainer();CloseContainerView();return;}
     bInventoryOpen=!bInventoryOpen;
     SetIgnoreLookInput(bInventoryOpen);
@@ -71,7 +72,7 @@ void ABunkerPlayerController::DropSelected()
 void ABunkerPlayerController::ServerUseItem_Implementation(FGuid Id)
 {
     auto* PS=GetPlayerState<ABunkerPlayerState>();
-    if (ServerContainer || !PS || !PS->Rules || PS->Health<=0 || !GetPawn() || GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
+    if (ServerContainer || !PS || !PS->bSessionReady || !PS->Rules || PS->Health<=0 || !GetPawn() || GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
     NextInventoryTime=GetWorld()->GetTimeSeconds()+PS->Rules->InventoryActionInterval;
     const int32 I=PS->Inventory.IndexOfByPredicate([Id](const FBunkerInventoryEntry& E){return E.Id==Id;});
     if (I==INDEX_NONE) return;
@@ -95,7 +96,7 @@ void ABunkerPlayerController::ServerUseItem_Implementation(FGuid Id)
 void ABunkerPlayerController::ServerDropItem_Implementation(FGuid Id)
 {
     auto* PS=GetPlayerState<ABunkerPlayerState>();auto* C=Cast<ACharacter>(GetPawn());
-    if (ServerContainer || !PS || !PS->Rules || !C || PS->RestingBed || PS->Health<=0 || GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
+    if (ServerContainer || !PS || !PS->bSessionReady || !PS->Rules || !C || PS->RestingBed || PS->Health<=0 || GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
     NextInventoryTime=GetWorld()->GetTimeSeconds()+PS->Rules->InventoryActionInterval;
     const int32 I=PS->Inventory.IndexOfByPredicate([Id](const FBunkerInventoryEntry& E){return E.Id==Id;});
     if (I==INDEX_NONE) return;
@@ -129,13 +130,14 @@ void ABunkerHUD::DrawHUD()
     Super::DrawHUD();
     auto* PC=Cast<ABunkerPlayerController>(PlayerOwner);auto* PS=PC?PC->GetPlayerState<ABunkerPlayerState>():nullptr;
     if (!Canvas || !PS || !PS->Rules) return;
+    if (!PS->bSessionReady) {DrawText(TEXT("Restaurando participante e recursos…"),FLinearColor::White,30,40);return;}
     const float S=FMath::Max(.65f,Canvas->ClipY/720.f);
     auto Text=[this,S](const FString& V,float X,float Y,FLinearColor Color=FLinearColor(.88f,.9f,.85f)) {
         DrawText(V,Color,X,Y,GEngine->GetSmallFont(),1.15f*S,false);
     };
     DrawRect(FLinearColor(.015f,.025f,.025f,.8f),20*S,Canvas->ClipY-70*S,650*S,50*S);
     Text(FString::Printf(TEXT("Saúde %.0f   Alimentação %.0f   Hidratação %.0f   Energia %.0f"),PS->Health,PS->Food,PS->Water,PS->Energy),30*S,Canvas->ClipY-60*S);
-    Text(PS->RestingBed?TEXT("Descansando — F levantar | I mochila"):(GetNetMode()==NM_Standalone?TEXT("E interagir | I mochila | F5 salvar"):TEXT("E interagir | I mochila")),30*S,Canvas->ClipY-39*S);
+    Text(PS->RestingBed?TEXT("Descansando — F levantar | I mochila"):(GetNetMode()!=NM_Client?TEXT("E interagir | I mochila | F5 salvar"):TEXT("E interagir | I mochila")),30*S,Canvas->ClipY-39*S);
     if (PS->Health<=0) Text(TEXT("Sem condições de continuar. Resgate e morte ainda em desenvolvimento."),30*S,35*S,FLinearColor(1,.3f,.2f));
     if (!PC->bInventoryOpen) return;
     if (PC->ViewedContainer)
