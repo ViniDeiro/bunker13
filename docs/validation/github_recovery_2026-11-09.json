@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-09",
+  "repository": "https://github.com/ViniDeiro/bunker13",
+  "branch": "main",
+  "validated_source_commit": "eabcb50e310de03c8c377aa64b57d387f6007ff9",
+  "compile_cpp_commit": "fa5a4488ccf2ab7a3b8373709ae05ff931adf134",
+  "assets_checked": 449,
+  "map_actors": 502,
+  "explicit_dependencies_checked": 5,
+  "checks": {
+    "independent_remote_clone": true,
+    "asset_hashes": true,
+    "lfs_fsck": true,
+    "policy_25_tests": true,
+    "editor_compiled": true,
+    "map_and_dependencies_loaded": true,
+    "commandlet_clean": true,
+    "clone_worktree_clean": true
+  },
+  "passed": true,
+  "initial_issues": [
+    "LFS was initialized locally in the new clone before explicit pull; pointers alone are not assets.",
+    "Scalability contained renderer-method entries not allowed by the engine and a deprecated translucency variable; duplicate methods removed with same values retained in DefaultEngine.ini, alias renamed with value 16 unchanged."
+  ],
+  "limits": [
+    "Same Mac and installed UE 5.8.3; independent GitHub download, not a second machine.",
+    "Map load used nullrhi and did not enter a game, measure FPS or validate Windows/Steam.",
+    "No new packaged executable; the playable package remains 0.4.2."
+  ],
+  "evidence_sha256": {
+    "logs/github_clone_build.log": "71ab89baa723548d371d2bfa8e54b2c682a959e07a17b071a95ed367bfd04b33",
+    "logs/github_clone_scene.log": "85eb50f219140f6bd4f9527582ec2338034aa086566dc03aad68b8843286a267",
+    "logs/github_clone_lfs_fsck.log": "81f6819612dfaf9af7854c05c501e2a69e3852e47f0bfb0a82dfce8f3f6c5db9"
+  }
+}

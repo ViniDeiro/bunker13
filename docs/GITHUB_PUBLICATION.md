@@ -8,6 +8,19 @@ Incluídos: código, configuração, Content completo, fontes Blender/Painter, e
 
 Pré-publicação: backup Git bundle e índice preservados localmente, revisão do diff, `git lfs fsck`, auditoria de candidatos e testes isolados de radiação. Preparação não altera o executável 0.4.2 nem os checkpoints pessoais.
 
-Recuperação deve ser verificada com clone remoto independente, LFS, comparação dos hashes dos assets, teste de regras e compilação do Editor. O resultado e o commit publicado serão registrados após a execução. Compilar não certifica partida Windows/Steam, multiplayer na internet ou lançamento.
+## Recuperação executada
+
+Clone independente baixado do GitHub e atualizado até `eabcb50` (código compilado em `fa5a448`; depois dele só a configuração de escalabilidade mudou). LFS inicializado no novo clone e objetos baixados explicitamente; ponteiros sem `git lfs pull` não são assets recuperados.
+
+- Git LFS fsck aprovado e **449 assets conferidos por tamanho/SHA-256**.
+- 25 verificações de regras de radiação aprovadas no clone.
+- Editor Unreal compilado a partir das fontes recuperadas; 29 ações de build, aproximadamente 108 s.
+- Mapa `/Game/Bunker/Lvl_CollectionRound` carregado com **502 atores** e cinco dependências explícitas verificadas.
+- Commandlet terminou com **0 erros e 0 avisos** depois da correção da configuração. Nenhum mundo/campanha foi salvo.
+- Árvore do clone limpa após as verificações. Evidência resumida: [github_recovery_2026-11-09.json](validation/github_recovery_2026-11-09.json).
+
+O teste encontrou configuração de renderer indevidamente repetida em Scalability (métodos de AA/GI/reflexão, já definidos com os mesmos valores em DefaultEngine) e o nome antigo da variável de iluminação translúcida. Foram removidas as entradas ignoradas e atualizado o nome da variável, preservando valor 16. Os dois ensaios que terminaram com erro foram preservados localmente; não foram tratados como aprovação porque o mapa abriu. A repetição após corrigir passou com saída 0.
+
+O clone e o projeto original usam o mesmo Mac e a mesma instalação da engine. A verificação de mapa foi sem renderização, sem entrar em partida e sem benchmark. Isso valida a recuperação das fontes/assets e a compilação, não Windows/Steam, multiplayer na internet, arte comercial ou lançamento. O pacote jogável 0.4.2 não foi recompilado/distribuído nesta publicação.
 
 Instruções para a equipe: [BUILD_AND_RECOVERY](BUILD_AND_RECOVERY.md). Arquitetura: [ARCHITECTURE](ARCHITECTURE.md). Estado funcional: [EXPEDITION_REPORT](EXPEDITION_REPORT.md).

@@ -23,7 +23,7 @@ A base é um módulo C++ de Unreal com listen server autoritativo. Há separaç�
 - `BunkerInfrastructure.cpp` também cria props e geometria e ajusta iluminação. As posições dos suprimentos/patamar são coordenadas no código. Migrar a autoria para atores/configuração do nível depois de proteger o fingerprint e as chaves; mover tudo agora quebraria saves sem migração.
 - `BunkerPersistence.cpp` (488 linhas) depende dos tipos concretos de portas/contêineres. A validação central evita relaxamento acidental, mas exige um contrato explícito para cada extensão.
 - Algumas mensagens usam `FString`/textos literais: localização está incompleta. Não afirmar que já há suporte final a inglês.
-- Assets antigos estão em Git comum e fontes Blender/Painter antes estavam ignoradas. Sem LFS e um clone limpo, compartilhar só o código não reproduz o trabalho.
+- Na auditoria inicial, assets estavam em Git comum e fontes Blender/Painter eram ignoradas. A publicação posterior converteu os assets atuais para LFS e validou o clone; o histórico anterior foi preservado. Ver [registro de publicação](GITHUB_PUBLICATION.md).
 - Scripts de integração antigos usam caminhos deste Mac; instalação reproduzível em outra máquina continua pendente. A documentação registra UE 5.8.3 usada aqui, não certifica Windows.
 
 ## Decisão adotada para o próximo sistema

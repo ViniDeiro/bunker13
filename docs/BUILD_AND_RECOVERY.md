@@ -10,6 +10,7 @@ git clone https://github.com/ViniDeiro/bunker13.git
 cd bunker13
 git lfs pull
 git lfs fsck
+python3 scripts/verify_asset_manifest.py
 python3 scripts/test_radiation_model.py
 ```
 
@@ -21,6 +22,10 @@ python3 scripts/unreal_project.py edit-expedition --engine '/Users/Shared/Epic G
 ```
 
 O diretório é um argumento, não um caminho obrigatório da máquina do autor. Se o ambiente exigir `DEVELOPER_DIR` ou `TOOLCHAINS`, configurar os valores correspondentes à instalação local antes do comando. A entrada `edit-expedition` abre o mapa correto no Editor; não inicia automaticamente uma partida nem cria campanha de teste. Iniciar Play no Editor é uma verificação separada, não substituída pela compilação.
+
+O manifesto confere 449 assets da publicação inicial, incluindo fontes editáveis, imports e três capturas. Ao alterar esses assets no desenvolvimento, atualizar o manifesto em um novo marco revisado; não esperar que as versões modificadas mantenham os hashes de 09/11.
+
+Após compilar, também é possível verificar o carregamento sem renderização/partida pelo executável `Engine/Binaries/Mac/UnrealEditor-Cmd`, passando o caminho do `.uproject`, `-run=pythonscript`, `-script=` com o caminho absoluto de `scripts/verify_unreal_recovery.py`, e `-unattended -nullrhi -nosound`. O marcador esperado é `C13_REMOTE_RECOVERY`; isso carrega o mapa/dependências, não valida animações, multiplayer ou FPS.
 
 Projeto: `unreal/Condominio13/Condominio13.uproject`. Mapa da expedição: `/Game/Bunker/Lvl_CollectionRound`. Flags usadas no modo existente: `-C13Round -C13Expedition`. O mapa padrão legado continua configurado; não confundir abrir o Editor ou um app sem flags com testar a expedição.
 
