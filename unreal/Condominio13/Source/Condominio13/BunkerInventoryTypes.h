@@ -10,6 +10,7 @@ struct FBunkerInventoryEntry
 {
     GENERATED_BODY()
     UPROPERTY(BlueprintReadOnly) FGuid Id;
+    UPROPERTY() int32 StorageSlot=-1;
     UPROPERTY(BlueprintReadOnly) FString Name;
     UPROPERTY(BlueprintReadOnly) FName ItemType;
     UPROPERTY(BlueprintReadOnly) float WeightKg = 0;

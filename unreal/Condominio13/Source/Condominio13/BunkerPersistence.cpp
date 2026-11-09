@@ -2,7 +2,9 @@
 #include "BunkerNetwork.h"
 #include "BunkerInteractable.h"
 #include "BunkerContainer.h"
+#include "BunkerReferenceCabinet.h"
 #include "BunkerDoor.h"
+#include "BunkerRound.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInterface.h"
 #include "Components/CapsuleComponent.h"
@@ -30,7 +32,7 @@ FString Layout(UWorld* W)
 {
     TArray<FString> Keys;
     for (TActorIterator<ABunkerInteractable> It(W);It;++It)
-        if (!It->WorldKey.IsEmpty())
+        if (!It->WorldKey.IsEmpty() && !Cast<ABunkerReferenceCabinet>(*It) && !ABunkerInfrastructure::Extension(*It) && !ABunkerInfrastructure::SupplyExtension(*It))
         {
             auto* D=Cast<ABunkerDoor>(*It);
             Keys.Add(It->WorldKey+It->GetClass()->GetPathName()+It->GetActorLocation().ToString()+
@@ -67,6 +69,9 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
 {
     if (!S || S->Version!=(W->GetNetMode()==NM_ListenServer?2:1) || (S->Sequence<1 || S->Sequence>=MAX_int64-1) || S->Layout!=Layout(W) || !PS || !PS->Rules || S->Actors.Num()>1024 ||
         !Point(S->PlayerLocation) || S->PlayerRotation.ContainsNaN()) return false;
+    if(S->bRoundMode!=(ABunkerRound::Find(W)!=nullptr) || (S->bRoundMode && (S->RoundPhase>3 || !FMath::IsFinite(S->RoundRemaining) || S->RoundRemaining<0 || S->RoundRemaining>120 || (S->RoundPhase!=1 && S->RoundRemaining!=0))))return false;
+    if(!FMath::IsFinite(S->ShelterSeconds)||S->ShelterSeconds<0||S->ShelterSeconds>1.e9||!FMath::IsFinite(S->ShelterDaySeconds)||S->ShelterDaySeconds<1||S->ShelterDaySeconds>3600||(S->RoundPhase!=3&&S->ShelterSeconds!=0))return false;
+    if(S->bInfrastructure && (!ABunkerInfrastructure::Find(W)||!ABunkerInfrastructure::Valid(S->Infrastructure)||S->Infrastructure.Fuel>PS->Rules->FuelCapacityLiters+.001f||S->Infrastructure.RawWater>PS->Rules->RawWaterCapacityLiters+.001f||S->Infrastructure.CleanWater>PS->Rules->CleanWaterCapacityLiters+.001f))return false;
     for (float Value:{S->Health,S->Food,S->Water,S->Energy})
         if (!FMath::IsFinite(Value) || Value<0 || Value>100) return false;
     TSet<FGuid> Owned;
@@ -101,6 +106,9 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
     }
     TMap<FString,ABunkerInteractable*> Authored;
     for (TActorIterator<ABunkerInteractable> It(W);It;++It) if (!It->WorldKey.IsEmpty()) Authored.Add(It->WorldKey,*It);
+    int32 SupplyCount=0;for(const auto& Pair:Authored)if(ABunkerInfrastructure::SupplyExtension(Pair.Value))SupplyCount++;
+    if(ABunkerInfrastructure::Find(W)&&SupplyCount!=6)return false;
+    if(S->bExternalSupplies&&(!S->bInfrastructure||SupplyCount!=6))return false;
     TSet<FString> Seen;
     TSet<FGuid> Tombstones;
     for (const auto& R:S->Actors)
@@ -110,6 +118,8 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
         {
             if (Seen.Contains(R.Key) || !Authored.Contains(R.Key)) return false;
             Seen.Add(R.Key); A=Authored[R.Key];
+            if(ABunkerInfrastructure::Extension(A)&&!S->bInfrastructure)return false;
+            if(ABunkerInfrastructure::SupplyExtension(A)&&!S->bExternalSupplies)return false;
             if (R.Kind!=uint8(A->Interaction)) return false;
         }
         else if (R.Kind!=uint8(EBunkerInteraction::Pickup) || !R.Active) return false;
@@ -117,7 +127,9 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
         if (auto* D=Cast<ABunkerDoor>(A))
             if (!FMath::IsFinite(R.DoorAngle) || R.DoorAngle<FMath::Min(0.f,D->OpenAngle)-.01f || R.DoorAngle>FMath::Max(0.f,D->OpenAngle)+.01f) return false;
         if (auto* C=Cast<ABunkerContainer>(A))
-        {if (!Items(R.Contents,C->MaxSlots,C->MaxWeightKg)) return false;}
+        {if (!Items(R.Contents,C->MaxSlots,C->MaxWeightKg)) return false;
+            if (auto* Physical=Cast<ABunkerReferenceCabinet>(C))
+                if (!Physical->ValidSlots(R.Contents) || !FMath::IsFinite(R.DoorAngle) || R.DoorAngle<0 || R.DoorAngle>110) return false;}
         else if (!R.Contents.IsEmpty()) return false;
         if (R.Kind==uint8(EBunkerInteraction::Pickup))
         {
@@ -126,7 +138,10 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
             if (!R.Active) {if (Tombstones.Contains(R.Item.Id)) return false;Tombstones.Add(R.Item.Id);}
         }
     }
-    return Seen.Num()==Authored.Num();
+    // Only the new, initially empty fixture is an allowed additive layout extension.
+    // All legacy actor keys and the exact legacy fingerprint remain mandatory.
+    for (const auto& Pair:Authored) if (!Seen.Contains(Pair.Key) && !Cast<ABunkerReferenceCabinet>(Pair.Value) && !(ABunkerInfrastructure::Extension(Pair.Value)&&!S->bInfrastructure) && !(ABunkerInfrastructure::SupplyExtension(Pair.Value)&&!S->bExternalSupplies)) return false;
+    return true;
 }
 ABunkerPlayerController* Local(UWorld* W) {for(TActorIterator<ABunkerPlayerController> It(W);It;++It) if(It->IsLocalController()) return *It;return nullptr;}
 }
@@ -150,7 +165,7 @@ void ABunkerGameMode::StartPersistence()
     SavePrefix=Probe()?TEXT("C13_AutomatedCheckpoint"):TEXT("C13_SoloCheckpoint");
     // All older test fixtures must remain independent of a real player's campaign.
     const TCHAR* Flags[]={TEXT("C13NetTest"),TEXT("C13SurvivalTest"),TEXT("C13StorageTest"),TEXT("C13StorageVisual"),
-        TEXT("C13HandsVisual"),TEXT("C13DoorAudit"),TEXT("C13DoorVisual"),TEXT("C13ItemVisual"),TEXT("C13SurvivalVisual")};
+        TEXT("C13Reference"),TEXT("C13HandsVisual"),TEXT("C13DoorAudit"),TEXT("C13DoorVisual"),TEXT("C13ItemVisual"),TEXT("C13SurvivalVisual")};
     for (const TCHAR* Flag:Flags) if (FParse::Param(FCommandLine::Get(),Flag)) return;
     if (GetNetMode()!=NM_Standalone && !UsesCoopPersistence()) return;
     if (UsesCoopPersistence())
@@ -166,6 +181,11 @@ void ABunkerGameMode::StartPersistence()
 #endif
         for(TActorIterator<ABunkerPlayerState> It(GetWorld());It;++It) {It->bSessionReady=false;It->ForceNetUpdate();}
     }
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13Round")))SavePrefix=GetNetMode()==NM_ListenServer?TEXT("C13_MvpRoundCoop"):TEXT("C13_MvpRoundSolo");
+#if !UE_BUILD_SHIPPING
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))SavePrefix=TEXT("C13_TestRound");
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")) && FParse::Param(FCommandLine::Get(),TEXT("C13RoundReset"))){UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_A"),0);UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_B"),0);}
+#endif
     if (!Probe() || FParse::Param(FCommandLine::Get(),TEXT("C13SaveExit")))
         FWorldDelegates::OnWorldBeginTearDown.AddWeakLambda(this,[this](UWorld* World)
         {if (World==GetWorld()) {SaveCheckpoint();bCheckpointEnding=true;}});
@@ -176,6 +196,8 @@ void ABunkerGameMode::StartPersistence()
         if (Probe()) {PersistenceProbe();return;}
 #endif
         LoadCheckpoint();bPersistenceReady=true;
+        if(!UsesCoopPersistence()&&ABunkerInfrastructure::Find(GetWorld())&&!bPersistenceBlocked&&!SaveCheckpoint())
+        {bPersistenceBlocked=true;if(auto* PC=Local(GetWorld()))if(auto* PS=PC->GetPlayerState<ABunkerPlayerState>())PS->bSessionReady=false;return;}
         if (UsesCoopPersistence())
         {
             auto* Host=Local(GetWorld());auto* PS=Host?Host->GetPlayerState<ABunkerPlayerState>():nullptr;
@@ -195,6 +217,8 @@ bool ABunkerGameMode::SaveCheckpoint()
     auto* PC=Local(GetWorld());auto* PS=PC?PC->GetPlayerState<ABunkerPlayerState>():nullptr;APawn* Pawn=PC?PC->GetPawn().Get():nullptr;
     if (!bPersistenceReady || bPersistenceBlocked || bCheckpointEnding || (GetNetMode()!=NM_Standalone && !UsesCoopPersistence()) || !Pawn || !PS) return false;
     auto* S=NewObject<UBunkerSaveGame>(this);S->Sequence=SaveSequence+1;S->Layout=Layout(GetWorld());
+    if(auto* Round=ABunkerRound::Find(GetWorld()))Round->Store(S);
+    if(auto* Infra=ABunkerInfrastructure::Find(GetWorld()))Infra->Store(S);
     if (UsesCoopPersistence())
     {
         CaptureRoster();S->Version=2;S->CampaignId=CampaignId;S->RemotePlayers=RemotePlayers;
@@ -209,6 +233,7 @@ bool ABunkerGameMode::SaveCheckpoint()
         if (It->WorldKey.IsEmpty() && (It->Interaction!=EBunkerInteraction::Pickup || !It->bActive)) continue;
         FBunkerSavedActor R;R.Key=It->WorldKey;R.Kind=uint8(It->Interaction);R.Active=It->bActive;R.Transform=It->GetActorTransform();
         if (auto* C=Cast<ABunkerContainer>(*It)) R.Contents=C->Contents;
+        if (auto* C=Cast<ABunkerReferenceCabinet>(*It)) {R.Active=C->bDoorOpen;R.DoorAngle=C->DoorAngle;}
         if (auto* D=Cast<ABunkerDoor>(*It)) {R.Active=D->bOpen;R.DoorAngle=D->CurrentAngle;}
         if (It->Interaction==EBunkerInteraction::Pickup)
         {R.Item=Entry(*It);if (auto* Def=PS->Rules->Find(R.Item.ItemType)) R.Item.WeightKg=Def->WeightKg;}
@@ -238,6 +263,24 @@ bool ABunkerGameMode::LoadCheckpoint()
         if (bPersistenceBlocked) PC->ClientNotice(TEXT("Salvamento incompatível ou danificado. Arquivos preservados; gravação bloqueada."));
         UE_LOG(LogTemp,Display,TEXT("C13_SAVE_LOAD none blocked=%d"),bPersistenceBlocked);return false;
     }
+    if(ABunkerInfrastructure::Find(GetWorld())&&!S->bInfrastructure)
+    {
+        for(const TCHAR* Suffix:{TEXT("_A"),TEXT("_B")})
+        {TArray<uint8> Bytes;if(!UGameplayStatics::LoadDataFromSlot(Bytes,SavePrefix+Suffix,0))continue;
+         const FString Backup=SavePrefix+TEXT("_PreInfrastructure_")+BytesToHex(Bytes.GetData()+FMath::Max(0,Bytes.Num()-20),FMath::Min(8,Bytes.Num()));
+         if(!UGameplayStatics::DoesSaveGameExist(Backup,0)&&!UGameplayStatics::SaveDataToSlot(Bytes,Backup,0)){bPersistenceBlocked=true;return false;}}
+        UE_LOG(LogTemp,Display,TEXT("C13_INFRA_LEGACY_BACKUP"));
+    }
+    if(ABunkerInfrastructure::Find(GetWorld())&&!S->bExternalSupplies)
+    {
+        for(const TCHAR* Suffix:{TEXT("_A"),TEXT("_B")})
+        {TArray<uint8> Bytes;if(!UGameplayStatics::LoadDataFromSlot(Bytes,SavePrefix+Suffix,0))continue;
+         const FString Backup=SavePrefix+TEXT("_PreSupplyV1_")+BytesToHex(Bytes.GetData()+FMath::Max(0,Bytes.Num()-20),FMath::Min(8,Bytes.Num()));
+         TArray<uint8> Verified;
+         if(!UGameplayStatics::DoesSaveGameExist(Backup,0)&&!UGameplayStatics::SaveDataToSlot(Bytes,Backup,0)){bPersistenceBlocked=true;return false;}
+         if(!UGameplayStatics::LoadDataFromSlot(Verified,Backup,0)||Verified!=Bytes){bPersistenceBlocked=true;return false;}}
+        UE_LOG(LogTemp,Display,TEXT("C13_SUPPLY_LEGACY_BACKUP"));
+    }
     // Stage dynamic drops before changing existing state, so allocation failure leaves the world intact.
     TArray<ABunkerInteractable*> Staged;
     for (const auto& R:S->Actors) if (R.Key.IsEmpty())
@@ -256,6 +299,7 @@ bool ABunkerGameMode::LoadCheckpoint()
     {
         auto* Actor=R.Key.IsEmpty()?Staged[Dynamic++]:Map[R.Key];
         if (auto* C=Cast<ABunkerContainer>(Actor)) {C->Contents=R.Contents;++C->Revision;C->RefreshViewers();}
+        if (auto* C=Cast<ABunkerReferenceCabinet>(Actor)) {C->bDoorOpen=R.Active;C->DoorAngle=R.DoorAngle;C->NormalizeSlots();}
         if (auto* D=Cast<ABunkerDoor>(Actor)) {D->bOpen=R.Active;D->CurrentAngle=R.DoorAngle;D->SetActorRotation(FRotator(0,D->ClosedYaw+D->CurrentAngle,0));}
         else Actor->bActive=R.Active;
         if (R.Kind==uint8(EBunkerInteraction::Pickup))
@@ -276,7 +320,10 @@ bool ABunkerGameMode::LoadCheckpoint()
         GetWorld()->LineTraceSingleByChannel(Floor,S->PlayerLocation,S->PlayerLocation-FVector(0,0,200),ECC_Visibility,Query);
     if (Safe) {Pawn->SetActorLocation(S->PlayerLocation,false,nullptr,ETeleportType::TeleportPhysics);PC->SetControlRotation(S->PlayerRotation);}
     SaveSequence=S->Sequence;bPersistenceBlocked=false;
+    if(auto* Round=ABunkerRound::Find(GetWorld()))Round->Restore(S);
+    if(auto* Infra=ABunkerInfrastructure::Find(GetWorld()))Infra->Restore(S);
     PC->ClientNotice(TEXT("Partida restaurada. Host: F5 salva; gravação automática a cada minuto."));
+    UE_LOG(LogTemp,Display,TEXT("C13_SUPPLY_RESTORED introduced=%d"),S->bExternalSupplies);
     UE_LOG(LogTemp,Display,TEXT("C13_SAVE_LOAD sequence=%lld position=%d inventory=%d"),SaveSequence,Safe,PS->Inventory.Num());
     return true;
 }
@@ -295,6 +342,35 @@ void ABunkerGameMode::PersistenceProbe()
     };
     if (!Passed) {Audit(false);return;}
     bPersistenceReady=true;
+    if (Phase.StartsWith(TEXT("reference_")))
+    {
+        TActorIterator<ABunkerReferenceCabinet> It(GetWorld());auto* Box=It?*It:nullptr;
+        const FGuid RefId(0xC1300022,0xF100,0,8);Passed=Box!=nullptr;
+        if (Passed && Phase==TEXT("reference_seed"))
+        {
+            UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_A"),0);UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_B"),0);SaveSequence=0;
+            ABunkerInteractable* Pickup=nullptr;
+            for (TActorIterator<ABunkerInteractable> P(GetWorld());P;++P) if (P->Interaction==EBunkerInteraction::Pickup && P->ItemType==TEXT("Water") && !Pickup) Pickup=*P;
+            Passed=Pickup!=nullptr;
+            if(Pickup){Pickup->ItemId=RefId;auto E=Entry(Pickup);E.WeightKg=PS->Rules->Find(E.ItemType)->WeightKg;E.StorageSlot=8;Box->Contents.Add(E);Box->bDoorOpen=true;Box->DoorAngle=110;Pickup->bActive=false;Pickup->OnRep_State();Passed=SaveCheckpoint();}
+        }
+        else if(Passed && Phase==TEXT("reference_load"))
+        {Passed=LoadCheckpoint() && Box->Contents.Num()==1 && Box->Contents[0].Id==RefId && Box->Contents[0].StorageSlot==8 && Box->bDoorOpen && FMath::IsNearlyEqual(Box->DoorAngle,110.f);}
+        else if(Passed && Phase==TEXT("reference_badslot"))
+        {
+            auto* S=Read(SavePrefix+TEXT("_A"));Passed=S!=nullptr;
+            if(S){for(auto& R:S->Actors)if(R.Key==Box->WorldKey && R.Contents.Num()){auto E=R.Contents[0];E.Id=FGuid::NewGuid();R.Contents.Add(E);}Passed=!Valid(S,GetWorld(),PS);}
+        }
+        else if(Passed && Phase==TEXT("reference_legacy"))
+        {
+            auto* S=Read(SavePrefix+TEXT("_A"));Passed=S!=nullptr;
+            if(S){for(auto& R:S->Actors)if(R.Key==Box->WorldKey){for(auto E:R.Contents){E.StorageSlot=-1;S->Inventory.Add(E);}}S->Actors.RemoveAll([&](const auto& R){return R.Key==Box->WorldKey;});S->Sequence=2;Passed=Valid(S,GetWorld(),PS) && Write(S,SavePrefix+TEXT("_B"));}
+        }
+        else if(Passed && Phase==TEXT("reference_migrate"))
+        {Passed=LoadCheckpoint() && PS->Inventory.Num()==1 && PS->Inventory[0].Id==RefId && Box->Contents.IsEmpty() && !Box->bDoorOpen && SaveCheckpoint();}
+        else Passed=false;
+        Audit(Passed);return;
+    }
     if (Phase==TEXT("seed"))
     {
         UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_A"),0);UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_B"),0);
@@ -392,5 +468,21 @@ void ABunkerGameMode::PersistenceProbe()
     if (Phase==TEXT("safe_spawn")) Passed=Passed && !PC->GetPawn()->GetActorLocation().IsNearlyZero();
     if (Phase==TEXT("load")) Passed=SaveCheckpoint() && Passed;
     Audit(Passed);
+#endif
+}
+
+void ABunkerGameMode::SupplyPersistenceAudit()
+{
+#if !UE_BUILD_SHIPPING
+ if(!FParse::Param(FCommandLine::Get(),TEXT("C13SupplyTest")))return;
+ auto* PC=Local(GetWorld());auto* PS=PC?PC->GetPlayerState<ABunkerPlayerState>():nullptr;
+ if(!PS||!SaveCheckpoint())return;
+ auto* A=Read(SavePrefix+TEXT("_A"));auto* B=Read(SavePrefix+TEXT("_B"));auto* S=A&&(!B||A->Sequence>B->Sequence)?A:B;
+ if(!S||!Valid(S,GetWorld(),PS))return;
+ auto* Missing=DuplicateObject<UBunkerSaveGame>(S,this);Missing->Actors.RemoveAll([](const auto& R){return R.Key==TEXT("SupplyV1_0");});
+ auto* Mixed=DuplicateObject<UBunkerSaveGame>(S,this);Mixed->bExternalSupplies=false;
+ auto* Migration=DuplicateObject<UBunkerSaveGame>(S,this);Migration->bExternalSupplies=false;Migration->Actors.RemoveAll([](const auto& R){return R.Key.StartsWith(TEXT("SupplyV1_"));});
+ auto* Duplicate=DuplicateObject<UBunkerSaveGame>(S,this);for(const auto& R:S->Actors)if(R.Key==TEXT("SupplyV1_0")){Duplicate->Actors.Add(R);break;}
+ UE_LOG(LogTemp,Display,TEXT("C13_SUPPLY_SCHEMA missing=%d mixed=%d migration=%d duplicate=%d"),!Valid(Missing,GetWorld(),PS),!Valid(Mixed,GetWorld(),PS),Valid(Migration,GetWorld(),PS),!Valid(Duplicate,GetWorld(),PS));
 #endif
 }

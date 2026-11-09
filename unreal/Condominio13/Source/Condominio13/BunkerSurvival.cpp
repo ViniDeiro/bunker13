@@ -1,10 +1,14 @@
 #include "BunkerSurvival.h"
 #include "BunkerNetwork.h"
+#include "BunkerObservedAction.h"
 #include "BunkerInteractable.h"
 #include "BunkerContainer.h"
+#include "BunkerRound.h"
+#include "BunkerDoor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/Canvas.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/GameStateBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "EngineUtils.h"
 #include "Misc/CommandLine.h"
@@ -35,6 +39,7 @@ void ABunkerPlayerState::Tick(float DT)
 {
     Super::Tick(DT);
     if (!HasAuthority() || !bSessionReady || !Rules || Health<=0) return;
+    if(auto* Round=ABunkerRound::Find(GetWorld()))if(Round->Phase==0)return;
     const float Minutes=DT/60.f;
     Food=FMath::Clamp(Food-Rules->FoodLossPerMinute*Minutes,0.f,100.f);
     Water=FMath::Clamp(Water-Rules->WaterLossPerMinute*Minutes,0.f,100.f);
@@ -90,6 +95,7 @@ void ABunkerPlayerController::ServerUseItem_Implementation(FGuid Id)
     NextActionTime=NextInventoryTime;
     PS->Inventory.RemoveAt(I);PS->Food=Food;PS->Water=Water;PS->Health=Health;PS->ForceNetUpdate();
     ClientPlayItemAction(Used,true);
+    ABunkerObservedAction::StartFor(this,Used,FVector::ZeroVector,3,PS->Rules->ItemUseDuration);
     ClientNotice(TEXT("Usado: ")+Name);
     UE_LOG(LogTemp,Display,TEXT("C13_CONSUME id=%s water=%.2f food=%.2f health=%.2f"),*Id.ToString(),Water,Food,Health);
 }
@@ -135,10 +141,28 @@ void ABunkerHUD::DrawHUD()
     auto Text=[this,S](const FString& V,float X,float Y,FLinearColor Color=FLinearColor(.88f,.9f,.85f)) {
         DrawText(V,Color,X,Y,GEngine->GetSmallFont(),1.15f*S,false);
     };
+    if(auto* Round=ABunkerRound::Find(GetWorld()))
+    {
+        FString Label=Round->Phase==0?TEXT("PREPARAÇÃO — host: R inicia a coleta"):
+            Round->Phase==1?FString::Printf(TEXT("COLETA — %02d:%02d | recolha suprimentos e desça ao abrigo"),FMath::CeilToInt(Round->Remaining())/60,FMath::CeilToInt(Round->Remaining())%60):
+            Round->Phase==2?TEXT("FECHANDO — afaste-se da folha para liberar a passagem"):
+            TEXT("ABRIGO — organize os recursos | fora: segure E na porta para liberar");
+        if(Round->Phase==3){const int32 M=Round->DayMinute();Label=FString::Printf(TEXT("DIA %d — %02d:%02d | organize os recursos"),Round->SurvivalDay(),M/60,M%60);}
+        DrawRect(FLinearColor(.025f,.035f,.035f,.85f),20*S,65*S,820*S,42*S);Text(Label,30*S,77*S);
+        if(Round->ReleaseDeadline>0 && PC->GetPawn() && Round->Gate && FVector::DistSquared(PC->GetPawn()->GetActorLocation(),Round->Gate->GetActorLocation())<FMath::Square(600.f)){auto* GS=GetWorld()->GetGameState();const float Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();Text(FString::Printf(TEXT("Liberação manual: %.0f s"),FMath::Max(0.f,Round->ReleaseDeadline-Now)),30*S,112*S);}
+    }
+    if(auto* Round=ABunkerRound::Find(GetWorld()))if(Round->bAirlockEnabled&&Round->Phase==3&&PC->GetPawn()&&Round->Gate&&FVector::DistSquared(PC->GetPawn()->GetActorLocation(),FVector(2550,-330,100))<FMath::Square(700.f))Text(Round->AirlockStatus(),30*S,140*S);
+    if(auto* Infra=ABunkerInfrastructure::Find(GetWorld()))for(TActorIterator<ABunkerInteractable> It(GetWorld());It;++It)if((It->InfraAction==9||It->InfraAction==8)&&PC->GetPawn()&&FVector::DistSquared(PC->GetPawn()->GetActorLocation(),It->GetActorLocation())<90000){Text(It->InfraAction==8?Infra->WaterStatus():Infra->Status(),30*S,112*S);break;}
     DrawRect(FLinearColor(.015f,.025f,.025f,.8f),20*S,Canvas->ClipY-70*S,650*S,50*S);
     Text(FString::Printf(TEXT("Saúde %.0f   Alimentação %.0f   Hidratação %.0f   Energia %.0f"),PS->Health,PS->Food,PS->Water,PS->Energy),30*S,Canvas->ClipY-60*S);
     Text(PS->RestingBed?TEXT("Descansando — F levantar | I mochila"):(GetNetMode()!=NM_Client?TEXT("E interagir | I mochila | F5 salvar"):TEXT("E interagir | I mochila")),30*S,Canvas->ClipY-39*S);
     if (PS->Health<=0) Text(TEXT("Sem condições de continuar. Resgate e morte ainda em desenvolvimento."),30*S,35*S,FLinearColor(1,.3f,.2f));
+    if(!PC->bInventoryOpen && !PS->RestingBed && PS->Health>0)
+    {
+        DrawRect(FLinearColor(.92f,.93f,.86f,.8f),Canvas->ClipX*.5f-1.5f*S,Canvas->ClipY*.5f-1.5f*S,3*S,3*S);
+        if(!PC->InteractionPrompt.IsEmpty()) {const float X=(Canvas->ClipX-610*S)/2;DrawRect(FLinearColor(.025f,.04f,.035f,.82f),X,Canvas->ClipY-115*S,610*S,30*S);Text(PC->InteractionPrompt,X+12*S,Canvas->ClipY-108*S);}
+        if(GetWorld()->GetTimeSeconds()<PC->HudNoticeUntil)Text(PC->HudNotice,30*S,30*S,FLinearColor(.93f,.80f,.58f));
+    }
     if (!PC->bInventoryOpen) return;
     if (PC->ViewedContainer)
     {

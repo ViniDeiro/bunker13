@@ -1,5 +1,6 @@
 #include "BunkerNetwork.h"
 #include "BunkerInteractable.h"
+#include "BunkerRound.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameSession.h"
@@ -34,6 +35,12 @@ FString ProfileSlot()
         return FString::Printf(TEXT("C13_TestReconnectProfile_%d"),FMath::Clamp(Index,0,8));
     }
 #endif
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13Round")))
+    {
+        int32 Index=0;FParse::Value(FCommandLine::Get(),TEXT("C13RoundProfile="),Index);
+        if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))return FString::Printf(TEXT("C13_TestRoundProfile_%d"),FMath::Clamp(Index,0,8));
+        return TEXT("C13_MvpRoundProfile");
+    }
     return TEXT("C13_ReconnectProfile");
 }
 bool ValidProfile(UBunkerReconnectProfile* P)
@@ -76,7 +83,7 @@ void Capture(ABunkerPlayerController* PC,FBunkerSavedPlayer& R)
 void Reject(ABunkerGameMode* GM,ABunkerPlayerController* PC,const TCHAR* Reason)
 {
     UE_LOG(LogTemp,Display,TEXT("C13_RECONNECT_REJECT %s"),Reason);
-    GM->GameSession->KickPlayer(PC,FText::FromString(TEXT("Não foi possível retomar este participante. Credencial inválida, personagem conectado ou campanha sem vaga.")));
+    GM->GameSession->KickPlayer(PC,FText::FromString(FCString::Strcmp(Reason,TEXT("collection_closed"))==0?TEXT("A coleta terminou. Esta partida aceita apenas reconexão dos participantes anteriores."):TEXT("Não foi possível retomar este participante. Credencial inválida, personagem conectado ou campanha sem vaga.")));
 }
 }
 
@@ -84,7 +91,7 @@ bool ABunkerGameMode::UsesCoopPersistence() const
 {
     if (GetNetMode()!=NM_ListenServer) return false;
     const TCHAR* Fixtures[]={TEXT("C13NetTest"),TEXT("C13SurvivalTest"),TEXT("C13StorageTest"),TEXT("C13StorageVisual"),
-        TEXT("C13HandsVisual"),TEXT("C13DoorAudit"),TEXT("C13DoorVisual"),TEXT("C13ItemVisual"),TEXT("C13SurvivalVisual"),TEXT("C13SaveProbe")};
+        TEXT("C13Reference"),TEXT("C13HandsVisual"),TEXT("C13DoorAudit"),TEXT("C13DoorVisual"),TEXT("C13ItemVisual"),TEXT("C13SurvivalVisual"),TEXT("C13SaveProbe")};
     for (const auto* Flag:Fixtures) if (FParse::Param(FCommandLine::Get(),Flag)) return false;
     return true;
 }
@@ -120,7 +127,7 @@ void ABunkerPlayerController::ClientRequestReconnect_Implementation(FGuid Campai
 {
     CloseContainerView();
 #if !UE_BUILD_SHIPPING
-    if (FParse::Param(FCommandLine::Get(),TEXT("C13ReconnectTest")) && FParse::Param(FCommandLine::Get(),TEXT("C13ReconnectReset")))
+    if ((FParse::Param(FCommandLine::Get(),TEXT("C13ReconnectTest")) && FParse::Param(FCommandLine::Get(),TEXT("C13ReconnectReset"))) || (FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")) && FParse::Param(FCommandLine::Get(),TEXT("C13RoundReset"))))
     {UGameplayStatics::DeleteGameInSlot(ProfileSlot()+TEXT("_A"),0);UGameplayStatics::DeleteGameInSlot(ProfileSlot()+TEXT("_B"),0);}
 #endif
 #if !UE_BUILD_SHIPPING
@@ -183,6 +190,7 @@ void ABunkerGameMode::ResumePlayer(ABunkerPlayerController* PC,const FString& Ti
     auto* PS=PC->GetPlayerState<ABunkerPlayerState>();if (!PS || !PC->GetPawn()) {Reject(this,PC,TEXT("pawn"));return;}
     if (Ticket.IsEmpty())
     {
+        if(auto* Round=ABunkerRound::Find(GetWorld()))if(Round->Phase>=2){Reject(this,PC,TEXT("collection_closed"));return;}
         if (RemotePlayers.Num()>=3) {Reject(this,PC,TEXT("roster"));return;}
         const FString NewTicket=FGuid::NewGuid().ToString(EGuidFormats::Digits)+FGuid::NewGuid().ToString(EGuidFormats::Digits);
         FBunkerSavedPlayer R;R.Key=FGuid::NewGuid();R.TicketHash=HashTicket(NewTicket);Capture(PC,R);

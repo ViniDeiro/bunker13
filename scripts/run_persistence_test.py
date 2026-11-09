@@ -1,6 +1,6 @@
 """Separate packaged processes, isolated slots; never touches a user's solo campaign."""
 from pathlib import Path
-import subprocess,json
+import subprocess,json,time,shutil
 ROOT=Path(__file__).resolve().parents[1]
 EXE=ROOT/'builds/Mac/Condominio13-VerticalSlice.app/Contents/MacOS/Condominio13'
 steps=['seed','load','roundtrip','shutdown','shutdownload','seed','corrupt','backup','version','backup','layout','backup','duplicate','backup','position','safe_spawn','blocked']
@@ -13,8 +13,17 @@ for index,phase in enumerate(steps):
    code=p.returncode
   except subprocess.TimeoutExpired:code='timeout'
  log=path.read_text(errors='replace')
+ # Preserve startup failures; retry only a process that died before producing any engine output.
+ startup_failures=[]
+ for retry in range(2):
+  if code!=-11 or log.strip():break
+  failure=path.with_name(path.stem+f'_startup_failure_{retry}.log');shutil.copy2(path,failure);startup_failures.append({'exit_code':code,'log':str(failure)})
+  time.sleep(2)
+  with path.open('w') as out:
+   q=subprocess.run([str(EXE),'-C13SaveProbe',*(['-C13SaveExit'] if phase=='shutdown' else []),f'-C13SavePhase={phase}','-game','-nullrhi','-RenderOffScreen','-nosound','-unattended','-NoSteam','-stdout','-FullStdOutLogOutput'],stdout=out,stderr=subprocess.STDOUT,timeout=35)
+  code=q.returncode;log=path.read_text(errors='replace')
  passed=code==0 and f'C13_SAVE_PROBE PASS phase={phase}' in log
- result={'phase':phase,'passed':passed,'exit_code':code,'markers':[l for l in log.splitlines() if 'C13_SAVE' in l]}
+ result={'startup_failures':startup_failures,'phase':phase,'passed':passed,'exit_code':code,'markers':[l for l in log.splitlines() if 'C13_SAVE' in l]}
  results.append(result);print(json.dumps(result),flush=True)
  if not passed:break
 report={'passed':len(results)==len(steps) and all(r['passed'] for r in results),'packaged_game':True,'separate_processes':len(results),'isolated_slots':'C13_AutomatedCheckpoint_A/B','steps':results,'limits':['Authoritative fixture prepares bags/storage and invokes actual drop; production checkpoint code performs all serialization/validation/restoration.','Solo only: no cooperative reconnect claim; normal engine shutdown tested, not forced termination or power loss.']}

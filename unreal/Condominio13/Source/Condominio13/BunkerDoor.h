@@ -18,7 +18,10 @@ public:
     UPROPERTY(EditAnywhere, Replicated) float OpenAngle = 90.f;
     UPROPERTY(EditAnywhere, Replicated) bool bOpen = true;
     UPROPERTY(Replicated) float CurrentAngle = 90.f;
+    UPROPERTY(Replicated) bool bRoundLocked=false;
     bool TryToggle();
+    UFUNCTION(NetMulticast,Reliable) void PlayFoley(bool bOpening);
+    UPROPERTY() TObjectPtr<class USoundAttenuation> FoleyAttenuation;
     virtual void OnConstruction(const FTransform& Transform) override;
     virtual void BeginPlay() override;
     virtual void Tick(float DT) override;

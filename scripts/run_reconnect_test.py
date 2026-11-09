@@ -7,7 +7,7 @@ processes={};handles=[];checks={};events=[]
 def read(tag):
  return (ROOT/f'logs/reconnect_{tag}.log').read_text(errors='replace')
 def start(tag,index=0,*,host=False,reset=False,check=False,invalid=False,restore=False,shutdown=False,damage=False):
- out=(ROOT/f'logs/reconnect_{tag}.log').open('w');handles.append(out)
+ path=ROOT/f'logs/reconnect_{tag}.log'
  args=[str(EXE),'/Game/Bunker/Lvl_Bunker?listen' if host else '127.0.0.1:7791','-port=7791','-C13ReconnectTest',f'-C13ReconnectProfile={index}','-PktLag=80','-PktLoss=2','-game','-nullrhi','-RenderOffScreen','-nosound','-unattended','-NoSteam','-stdout','-FullStdOutLogOutput']
  if host:args.append('-C13ReconnectStage=restore' if restore else '-C13ReconnectStage=seed')
  if reset:args.append('-C13ReconnectReset')
@@ -15,7 +15,13 @@ def start(tag,index=0,*,host=False,reset=False,check=False,invalid=False,restore
  if invalid:args.append('-C13ReconnectInvalid')
  if shutdown:args.append('-C13ReconnectShutdown')
  if damage:args.append('-C13ReconnectDamageProfile')
- p=subprocess.Popen(args,stdout=out,stderr=subprocess.STDOUT);processes[tag]=p
+ for attempt in range(3):
+  out=path.open('w');handles.append(out);p=subprocess.Popen(args,stdout=out,stderr=subprocess.STDOUT);processes[tag]=p
+  deadline=time.monotonic()+4
+  while p.poll() is None and path.stat().st_size==0 and time.monotonic()<deadline:time.sleep(.05)
+  if p.poll()==-11 and path.stat().st_size==0:
+   events.append({'startup_failure':tag,'exit_code':-11,'attempt':attempt});out.close();time.sleep(1);continue
+  break
  return p
 def wait(tag,marker,timeout=30,after=0):
  deadline=time.monotonic()+timeout

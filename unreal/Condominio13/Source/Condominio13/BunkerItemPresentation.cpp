@@ -1,5 +1,6 @@
 #include "BunkerItemPresentation.h"
 #include "BunkerNetwork.h"
+#include "BunkerReferenceCabinet.h"
 #include "Components/StaticMeshComponent.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Engine/StaticMesh.h"
@@ -37,7 +38,7 @@ ABunkerItemPresentation::ABunkerItemPresentation()
 void ABunkerItemPresentation::Play(ABunkerPlayerController* PC,FName Type,UStaticMesh* Mesh,const TArray<TObjectPtr<UMaterialInterface>>& Materials,FVector Scale,bool bConsume,float Duration)
 {
     if (!PC || !PC->IsLocalController() || !Mesh) return;
-    Viewer=PC;ItemType=Type;bUsing=bConsume;Elapsed=0;Length=FMath::Max(.2f,Duration);bPlaying=true;
+    bReach=false;bPlace=false;bHandle=false;ContactCabinet=nullptr;ContactActor=nullptr;Viewer=PC;ItemType=Type;bUsing=bConsume;Elapsed=0;Length=FMath::Max(.2f,Duration);bPlaying=true;
     Left->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Hands/SM_Hands_Left.SM_Hands_Left")));
     Right->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Hands/SM_Hands_Right.SM_Hands_Right")));
     ClosedMesh=Mesh;OpenMesh=nullptr;
@@ -95,10 +96,23 @@ void ABunkerItemPresentation::Tick(float DT)
         Accessory->SetRelativeLocation(FVector(32,-8,-42+31*Lift+2*Wrap));
         Accessory->SetRelativeRotation(FRotator(90,0,T*360));
     }
+    if (bUsing && ItemType==TEXT("Water"))
+    {L=P+FVector(-14,-5,8);R=P+FVector(-14,5,8);}
+    if (bUsing && ItemType==TEXT("Food")) L=P+FVector(-14,-4,5);
+    if (bReach)
+    {
+        const FVector WorldContact=bHandle && ContactCabinet?ContactCabinet->Hinge->GetComponentTransform().TransformPosition(FVector(101.8f,7,110)):bHandle && ContactActor?ContactActor->GetActorTransform().TransformPosition(ContactLocal):ContactPoint;
+        const FVector Contact=GetActorTransform().InverseTransformPosition(WorldContact);
+        const FVector Rest(30,4,-43);
+        const float U=FMath::SmoothStep(0.f,1.f,T);
+        P=bHandle?FMath::Lerp(Rest,Contact,FMath::SmoothStep(0.f,.18f,T)*(1-FMath::SmoothStep(.78f,1.f,T))):FMath::Lerp(bPlace?Rest:Contact,bPlace?Contact:Rest,U);
+        R=P+FVector(-14,3,6);L=P+FVector(-14,-5,6);
+        if (bHandle) {L=FVector(25,-12,-55);Item->SetVisibility(false);}
+    }
     Left->SetRelativeLocationAndRotation(L,GripRotation(LR.Pitch,LR.Yaw,LR.Roll));
     Right->SetRelativeLocationAndRotation(R,GripRotation(RR.Pitch,RR.Yaw,RR.Roll));
     Item->SetRelativeLocationAndRotation(P,GripRotation(IR.Pitch,IR.Yaw,IR.Roll));
-    Item->SetVisibility(!(bUsing && ItemType==TEXT("Medkit") && T>.22f));
+    Item->SetVisibility(!bHandle && !(bReach && bPlace && T>.88f) && !(bUsing && ItemType==TEXT("Medkit") && T>.22f));
 }
 
 void ABunkerPlayerController::ClientPlayItemAction_Implementation(const FBunkerInventoryEntry& Entry,bool bConsume)
@@ -113,4 +127,12 @@ void ABunkerPlayerController::ClientPlayItemAction_Implementation(const FBunkerI
     auto* PS=GetPlayerState<ABunkerPlayerState>();
     if (ItemPresentation && PS && PS->Rules)
         ItemPresentation->Play(this,Entry.ItemType,Entry.WorldMesh,Entry.Materials,Entry.WorldScale,bConsume,bConsume?PS->Rules->ItemUseDuration:PS->Rules->ItemPickupDuration);
+}
+
+void ABunkerPlayerController::ClientReachAction_Implementation(const FBunkerInventoryEntry& Entry,FVector Contact,bool bPlace,bool bHandle,AActor* Target)
+{
+    FBunkerInventoryEntry E=Entry;
+    if (!E.WorldMesh) E.WorldMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Hands/SM_Hands_Right.SM_Hands_Right"));
+    ClientPlayItemAction_Implementation(E,false);
+    if (ItemPresentation) {ItemPresentation->ContactActor=Target;ItemPresentation->ContactLocal=Target?Target->GetActorTransform().InverseTransformPosition(Contact):FVector::ZeroVector;ItemPresentation->ContactCabinet=Cast<ABunkerReferenceCabinet>(Target);ItemPresentation->bReach=true;ItemPresentation->ContactPoint=Contact;ItemPresentation->bPlace=bPlace;ItemPresentation->bHandle=bHandle;ItemPresentation->Length=.95f;}
 }

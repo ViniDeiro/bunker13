@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-09",
+  "scope": "Radiation rules foundation, architecture audit and repository preparation",
+  "checks": {
+    "policy_25_tests": true,
+    "editor_build": true,
+    "engine_named_test": true,
+    "old_package_unchanged": true,
+    "solo_resume_regression": true
+  },
+  "passed": true,
+  "gameplay_radiation_integrated": false,
+  "published_to_github": false,
+  "package_sha256": "3e851e8610758807aa76f1bfc70e421a89aba34dd1ac5c26f852e12458c02cb8",
+  "regression_checks": {
+    "phase_and_timer_resumed": true,
+    "inventory_resumed": true,
+    "restoration_valid": true,
+    "same_item_guid": true
+  },
+  "engine_pretest_condition_errors": 14,
+  "sources_sha256": {
+    "unreal/Condominio13/Source/Condominio13/Survival/BunkerRadiationModel.h": "c96c50ab6c73306099c261a394c40d672ae5a787406efd5dc7829365389c8e11",
+    "unreal/Condominio13/Source/Condominio13/Survival/BunkerRadiationModelTests.cpp": "375c426ae6a4d89a66bb6f91bd3cec5d18dc9cde99b5b41a97fe9b3785d55fc8",
+    "tests/radiation_model_test.cpp": "3d11f5c9c18a9fca9cc3fb29f4d737ff7899ab8f24e6e6d7d225f42f499f7c1d"
+  }
+}

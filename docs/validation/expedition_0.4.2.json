@@ -1,0 +1,106 @@
+{
+  "version": "0.4.2",
+  "date": "2026-11-05",
+  "scope": "Finite supply expedition; no radiation/enemies/combat/death/voice",
+  "executable_sha256": "3e851e8610758807aa76f1bfc70e421a89aba34dd1ac5c26f852e12458c02cb8",
+  "steps": {
+    "race": {
+      "passed": true,
+      "exit_code": 0,
+      "result": "logs/supply_verified_race.json"
+    },
+    "seed": {
+      "passed": true,
+      "exit_code": 0,
+      "result": "logs/supply_verified_seed.json"
+    },
+    "continue": {
+      "passed": true,
+      "exit_code": 0,
+      "result": "logs/supply_verified_continue.json"
+    },
+    "load": {
+      "passed": true,
+      "exit_code": 0,
+      "result": "logs/supply_verified_load.json"
+    },
+    "solo": {
+      "passed": true,
+      "exit_code": 0,
+      "result": "logs/supply_verified_solo.json"
+    },
+    "legacy_seed": {
+      "passed": true,
+      "exit_code": 0,
+      "result": "logs/supply_verified_legacy_seed.json"
+    },
+    "legacy_load": {
+      "passed": true,
+      "exit_code": 0,
+      "result": "logs/supply_verified_legacy_load.json"
+    },
+    "legacy_reload": {
+      "passed": true,
+      "exit_code": 0,
+      "result": "logs/supply_verified_legacy_reload.json"
+    },
+    "migration": {
+      "passed": true,
+      "result": "logs/supply_migration_result.json"
+    },
+    "identity": {
+      "passed": true,
+      "result": "logs/supply_identity_result.json"
+    }
+  },
+  "passed": true,
+  "artifact_checks": {
+    "codesign": true,
+    "original_assets_unchanged": 79,
+    "editable_blend_reopened": true,
+    "parking_channel_fixed_in_final_binary": true,
+    "three_clients_observed_power_off_then_on": true
+  },
+  "fps": [
+    {
+      "scenario": "4 conex\u00f5es: sa\u00edda",
+      "resolution": "960x540",
+      "role": "host",
+      "samples": 625,
+      "fps": 39.06,
+      "p95_ms": 32.96
+    },
+    {
+      "scenario": "4 conex\u00f5es: sa\u00edda",
+      "resolution": "960x540",
+      "role": "client1",
+      "samples": 614,
+      "fps": 38.38,
+      "p95_ms": 37.16
+    },
+    {
+      "scenario": "4 conex\u00f5es: retorno",
+      "resolution": "960x540",
+      "role": "host",
+      "samples": 581,
+      "fps": 36.35,
+      "p95_ms": 48.23
+    },
+    {
+      "scenario": "4 conex\u00f5es: retorno",
+      "resolution": "960x540",
+      "role": "client1",
+      "samples": 527,
+      "fps": 32.91,
+      "p95_ms": 51.84
+    },
+    {
+      "scenario": "1 inst\u00e2ncia",
+      "resolution": "1280x720",
+      "role": "host",
+      "samples": 960,
+      "fps": 59.94,
+      "p95_ms": 16.89
+    }
+  ]
+}

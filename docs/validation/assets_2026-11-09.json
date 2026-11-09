@@ -1,0 +1,2251 @@
+{
+  "date": "2026-11-09",
+  "scope": "Publication source assets and selected evidence, not compiled executables",
+  "assets": [
+    {
+      "path": "Condominio_13_Relatorio_Producao_e_Logica_2026-10-21.pdf",
+      "bytes": 3257439,
+      "sha256": "66ffc374147d9e6c49d55f1535e3e17d3d7353aa135fe81db6122226946b3e11"
+    },
+    {
+      "path": "assets/items/T_Item_Battery_BaseColor.png",
+      "bytes": 642259,
+      "sha256": "b2382509cc6c531d217c40effe21a8b7dbbabcb53cc4eacd928c382a03107d87"
+    },
+    {
+      "path": "assets/items/T_Item_Battery_Normal.png",
+      "bytes": 1235084,
+      "sha256": "3a147db02a09ed62c67931e7f7e3bad216cd28839f9a020ba52d465b933c218d"
+    },
+    {
+      "path": "assets/items/T_Item_Battery_ORM.png",
+      "bytes": 890996,
+      "sha256": "2bfcd2f4e286c6a92964dfb1c54d07cc7bc6fcb11ecaca948440b7b3e7cc814e"
+    },
+    {
+      "path": "assets/items/T_Item_Food_BaseColor.png",
+      "bytes": 645539,
+      "sha256": "3257eb34645b1505fb952773c9047717489b35dcea754fa30d39e6db0b384d53"
+    },
+    {
+      "path": "assets/items/T_Item_Food_Normal.png",
+      "bytes": 1235412,
+      "sha256": "9bd69362924a36134880a62e568362ec6574e2c897b57348967b81a6edddf769"
+    },
+    {
+      "path": "assets/items/T_Item_Food_ORM.png",
+      "bytes": 890959,
+      "sha256": "cbdf9e1a5b7e64987a5d4ecab06529bf58a47e7dc0146747696db5127f60e4c0"
+    },
+    {
+      "path": "assets/items/T_Item_Medkit_BaseColor.png",
+      "bytes": 636293,
+      "sha256": "c7620b236689e49f58d5a95ae27c16082904f48b07789de5cc50a98ee0051ee1"
+    },
+    {
+      "path": "assets/items/T_Item_Medkit_Normal.png",
+      "bytes": 1235254,
+      "sha256": "a9c92e8dacaed4c6c34a63be667a949feff4b0a39601fdcb1f7b810e0ca897bb"
+    },
+    {
+      "path": "assets/items/T_Item_Medkit_ORM.png",
+      "bytes": 890710,
+      "sha256": "3c8e8f9cd5bbf3a50b6f21dfd2f999f7070863f7cc1b5769e9997a4ad52b6927"
+    },
+    {
+      "path": "assets/items/T_Item_Tool_BaseColor.png",
+      "bytes": 644356,
+      "sha256": "73d8535cd2bdd9db48913df5f7f86e28880fcf026c11e92c29c5ee6cf1dee870"
+    },
+    {
+      "path": "assets/items/T_Item_Tool_Normal.png",
+      "bytes": 1235746,
+      "sha256": "883932036f419c15675d0a08be11e17d0a59e356f72dfe5cd44f2d37bf8ff19a"
+    },
+    {
+      "path": "assets/items/T_Item_Tool_ORM.png",
+      "bytes": 891349,
+      "sha256": "05f3e8af291bad4dec157cea06253d64964464c71b560ac34a0471ffa0be5717"
+    },
+    {
+      "path": "assets/items/T_Item_Water_BaseColor.png",
+      "bytes": 642381,
+      "sha256": "cada5a8ec44134fa2f5d0e305399611961b797177e61bacdecd50049a6c5573c"
+    },
+    {
+      "path": "assets/items/T_Item_Water_Normal.png",
+      "bytes": 1235692,
+      "sha256": "3ca467a6f24ebdc8137bba9606dd8806642b380004836d67d694ef9efb63a082"
+    },
+    {
+      "path": "assets/items/T_Item_Water_ORM.png",
+      "bytes": 890757,
+      "sha256": "73396e1a1e040c7ad26a76bf871aa49410048d72b33d4affedb05a5c8a4af7f3"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Fabric_BaseColor.png",
+      "bytes": 187466,
+      "sha256": "29495b2c5984d7e32957cd7f5095250b485a25b7717e4fcdf1b056ca42143bd7"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Fabric_Normal.png",
+      "bytes": 226617,
+      "sha256": "a564e1581f68117b0ffd29f5b4889ddf4a6b508daccddbd5241c32ad08fd0f2b"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Fabric_ORM.png",
+      "bytes": 91779,
+      "sha256": "77815b2d9de611aa395b911653eb34548d5e758cf2260b42fde6816455e64bb2"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Linen_BaseColor.png",
+      "bytes": 475024,
+      "sha256": "09d879d007cbb694d7bf8d2503603ef5f16da0e0410e766a1fbde481de0658bf"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Linen_Normal.png",
+      "bytes": 582326,
+      "sha256": "9e6c025d4795798724453011f8fac89c7f2a163dd0f83eb863a8767d06c50606"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Linen_ORM.png",
+      "bytes": 269534,
+      "sha256": "4ec525d6566af56d8272cf9ad1e3217cda1665b7224274c7f84a0b44b3d94b48"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Paint_BaseColor.png",
+      "bytes": 105445,
+      "sha256": "386dcca083a29f9f17651c1f2d2e27cc6cde9ff83bb3f24a9b3c79633a60aaa1"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Paint_Normal.png",
+      "bytes": 80518,
+      "sha256": "b37bca15e0c9cdc83b716be168db2372dfd45cd53d3ae6d1c6c063ab844fe52b"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Paint_ORM.png",
+      "bytes": 115847,
+      "sha256": "7b5e0f0af30e08ba5c84d514e50b3ef2f588c7d033db314612f9581b3938bd46"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Steel_BaseColor.png",
+      "bytes": 268738,
+      "sha256": "ddf7e557857b271eefbbb65615261f94b9da683a08618bd5415220760d0659c7"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Steel_Normal.png",
+      "bytes": 229192,
+      "sha256": "33724fe12ca13ad5b3743edfe4801533ab56c7bd01f85ad83e74a0c2a1575e8e"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Bed/M_Hero_Steel_ORM.png",
+      "bytes": 485301,
+      "sha256": "078bc5f3d0d9b1cf6b96e744ac64dfaa5af661d5a9d6030587f8f538a85aceed"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Paint_BaseColor.png",
+      "bytes": 690410,
+      "sha256": "2f79bd2f80ae7ac8ae65471b57a986c99f6bae0b214da3341ce596953961621f"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Paint_Normal.png",
+      "bytes": 679189,
+      "sha256": "779005fb8816c3b5c034b8a09d01ba99f5b3df94ac81184c4790a02b61ca6cd0"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Paint_ORM.png",
+      "bytes": 837496,
+      "sha256": "f8865d969b16fc5ad370d3cdb12b5f1336d33a82a92c8150d412b1be0c15e60a"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Safety_BaseColor.png",
+      "bytes": 77100,
+      "sha256": "8f39111d419448eb54b7a3b5212cf0dd2fd27170b5ffc247abb86a942fadf1f1"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Safety_Normal.png",
+      "bytes": 60654,
+      "sha256": "da072cda67fa28cc57f72aa0fa1244c76aa2b5a8eaca1d750f2288d7f7359986"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Safety_ORM.png",
+      "bytes": 94684,
+      "sha256": "bcbb22a8008622fc660f1b513af3b6d0cdfdc116d8aa02958d22130180410361"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Steel_BaseColor.png",
+      "bytes": 193829,
+      "sha256": "8c6cb41bf62ccb7a5083d9143475322fd423ceb0324c801a59ae1e9692606320"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Steel_Normal.png",
+      "bytes": 200655,
+      "sha256": "b8889d67cd7c938ebaecb75d65ff57330f97ce9315bf4483063db4683ec4e8c4"
+    },
+    {
+      "path": "assets/painter/SM_Hero_BlastDoor/M_Hero_Steel_ORM.png",
+      "bytes": 411098,
+      "sha256": "e784d428ded24d52b5cf6a1b0d7dc079e449aba60acb6b1e47e9e0c0ef8d8ec9"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Linen_BaseColor.png",
+      "bytes": 16892,
+      "sha256": "2d313d6be0706fa1ce264d596b46e5debe234a17bd42622a658661aa7cf97530"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Linen_Normal.png",
+      "bytes": 17092,
+      "sha256": "2ca7ff786825dbc7ac957ec9507fcbb3427bcb4928ba57fe4afc941409826967"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Linen_ORM.png",
+      "bytes": 17277,
+      "sha256": "2eb5ff9f199c220a63ff41a5dae0c0aee8a5deb6b817676716c99b6c27409dd6"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Paint_BaseColor.png",
+      "bytes": 934653,
+      "sha256": "d7a82a29ea9f4039b61b0cfad53a02b7748070a4cf11f0bfcddfd14f1e9e2fc2"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Paint_Normal.png",
+      "bytes": 842257,
+      "sha256": "8609ab3b4a8d83e00eb552c0766e8bf8b31a9d629ec59836a7015eec405ffabb"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Paint_ORM.png",
+      "bytes": 1057087,
+      "sha256": "b20168746aab045a89ce420c199f7f0695a4e68468d4c96260e1d39e56d22df5"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Rubber_BaseColor.png",
+      "bytes": 171051,
+      "sha256": "5e1a1d478cfed6909a8845d8bd8e5066fac05cc5ade8d9aec843f449929aac4e"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Rubber_Normal.png",
+      "bytes": 212476,
+      "sha256": "170621123099ea94c71f54a5d4ffe5f7ff95113688e088a3af5c56d5c6d5323f"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Rubber_ORM.png",
+      "bytes": 145779,
+      "sha256": "f386df6e2c1bc2c62ac8d6c296b66ad1e3e9682c943f3a9b5167db56ec6ebde7"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Steel_BaseColor.png",
+      "bytes": 19643,
+      "sha256": "e80a4663165f630d260d82d16e422a7324e2027c12634686a5e798e9ed9e3df9"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Steel_Normal.png",
+      "bytes": 14532,
+      "sha256": "11b260d1f9843dbe2acfc507122c99c5bbdcdd106a96b4d167298a3fb111dc7a"
+    },
+    {
+      "path": "assets/painter/SM_Hero_Locker/M_Hero_Steel_ORM.png",
+      "bytes": 35369,
+      "sha256": "fb0143728a20cc17a4ba2d3c7f354174f948ddd6f5cbf82e69726d7e7e0340c9"
+    },
+    {
+      "path": "assets/reference_room/S_Cabinet_Close.wav",
+      "bytes": 75014,
+      "sha256": "d8d6d4ab24fb64883cb092f96b9f7371099322e46df2217696fdb937a2e86c92"
+    },
+    {
+      "path": "assets/reference_room/S_Cabinet_Open.wav",
+      "bytes": 75014,
+      "sha256": "02ec6fff754b3eebd1b479b2487529f26fc9ffc7f0ad9cb5df570d75d17ed3c0"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Amber_BaseColor.png",
+      "bytes": 540969,
+      "sha256": "da4b01122c2dd13ca44ff5b7f670b5d5f90a41b7c16a2dbda6429fe53734a71e"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Amber_Normal.png",
+      "bytes": 566239,
+      "sha256": "2df8d60dc556f2a8709284840e1317401ebaeef886783494eab0d112c034e75e"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Amber_ORM.png",
+      "bytes": 157989,
+      "sha256": "1d468b1ab6484adcde0f1c1933ef6ccb1d110a2e92909fa5dd863eafdb55a329"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Concrete_BaseColor.png",
+      "bytes": 619613,
+      "sha256": "bad7a69565afd503b749211be3c62f714b716d9d37252879b826c845429c39b0"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Concrete_Normal.png",
+      "bytes": 2422535,
+      "sha256": "ba94a6a2e13943cfd9696fa511372f08f486efa658535a9cf69acb6a378162ba"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Concrete_ORM.png",
+      "bytes": 160676,
+      "sha256": "0de649837a02ae353c894ce790c34a2464559c06cf192bd0fc9aa06c019f44e5"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Fabric_BaseColor.png",
+      "bytes": 443924,
+      "sha256": "770a6a49602f9649c07f294a5ad667c3437281537a1f1a9f266e9bea779784df"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Fabric_Normal.png",
+      "bytes": 1167387,
+      "sha256": "900dcea1d29c3481314e976ad006bd69e98bccba3dfdf60507dc7371b647130b"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Fabric_ORM.png",
+      "bytes": 158757,
+      "sha256": "e71dd25bcf757c76df9eeccd0841fec706de77eed0042c8972c4688cf38655e2"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Ivory_BaseColor.png",
+      "bytes": 618056,
+      "sha256": "6da0be827ba4ebb7fa92cb84460daea64846ac2e08096f6b262fb4c5aba49315"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Ivory_Normal.png",
+      "bytes": 392985,
+      "sha256": "c17e9a1c7c1f40978766be0b60280db61f700ca2c1302b1229b9d61d24256cfe"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Ivory_ORM.png",
+      "bytes": 161656,
+      "sha256": "bb8058ac4a145efd6808b07d4cca75783ee092cc476cdcd09ba54e7b1c41df38"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Light_BaseColor.png",
+      "bytes": 636412,
+      "sha256": "b5f2a1667eda8f8bed7458fc9d14334ed22d1bfec37be287c030769447d1cc84"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Light_Normal.png",
+      "bytes": 5334,
+      "sha256": "ead39612d4fda7dd63adf1b03c071eb82aee2954139a43b3a2624ab2d2338978"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Light_ORM.png",
+      "bytes": 159876,
+      "sha256": "f15734f1ef03dbb887250fa834ee5299283df95b2b63690b80af45f5137291a3"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Paint_BaseColor.png",
+      "bytes": 498890,
+      "sha256": "2ad7919077e29103135a9437801849ec641e6a6b25f579c0ae89d531d2e29679"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Paint_Normal.png",
+      "bytes": 763394,
+      "sha256": "f8434b424402fad12780b8de548773469b62912b62d88e5eaafe92d1c3fdc25b"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Paint_ORM.png",
+      "bytes": 157640,
+      "sha256": "14e084c3a3394ded9cc01040048eb4b72779c4fb66805c38d70283745a976a4f"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Paper_BaseColor.png",
+      "bytes": 621540,
+      "sha256": "03a2b8303176e59f9e55fa20938eeae0d4c4fbe2f0013ff9a182b3a7284e9df7"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Paper_Normal.png",
+      "bytes": 391381,
+      "sha256": "2ca597c4b20bcb30c959eb61dbb16b5ad7eddc817e6f6699c0fd3ca998451813"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Paper_ORM.png",
+      "bytes": 158821,
+      "sha256": "b2e30a3783eb6101534f3580ff555311e3cc16af268155ec2e56d6e81672f5b8"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Rubber_BaseColor.png",
+      "bytes": 138844,
+      "sha256": "fb1f15c073a9a66653970b1805b8a7fa6b6a7aaa9019d2a3920d7c13158c5776"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Rubber_Normal.png",
+      "bytes": 909449,
+      "sha256": "79040214a4d3631b5260c4619d734cce36178059aeb86c489b40e61ca1824087"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Rubber_ORM.png",
+      "bytes": 160459,
+      "sha256": "a34bfdd2aada53813521f8f10d6b76f552c3beabc062ce1dfe42606f4a699634"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Steel_BaseColor.png",
+      "bytes": 413964,
+      "sha256": "0b9eea9f43f3a0a80e4381570f33626be8a182d16795b3af2dea2cfa20411c99"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Steel_Normal.png",
+      "bytes": 5335,
+      "sha256": "3c4b25712292f72e57b97f5295f04925f9a6a17b6b6dceb1e48996532e21c4f5"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Steel_ORM.png",
+      "bytes": 159375,
+      "sha256": "c57c8b66cfde28567880312a1db141349001c5204a890e7081f08b7ff41c0469"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Wood_BaseColor.png",
+      "bytes": 284680,
+      "sha256": "26f2d5c42b9402cb2f1fcac3291c38299b63a9a842540c7e2b780cb98378a6c4"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Wood_Normal.png",
+      "bytes": 366353,
+      "sha256": "d936ced99f0184c88bc352667be3e366751370705fd9fb5b2200917d8bd1b384"
+    },
+    {
+      "path": "assets/reference_room/T_Ref_Wood_ORM.png",
+      "bytes": 160741,
+      "sha256": "437015c77fd4910dd2636a7ff5df7e2af5397d7cc243b5ae4d8380199ad7e566"
+    },
+    {
+      "path": "assets/round/S_CollectionAlert.wav",
+      "bytes": 115244,
+      "sha256": "febc0fdd45471511d8549dea112d2e374c83c357e8dc86b2a363050dd156efcc"
+    },
+    {
+      "path": "assets/textures/T_Concrete_BaseColor.png",
+      "bytes": 223401,
+      "sha256": "f48bd7058cf00c9fbea19503af89d3d4ebbb96c717e15776a508b5e44031422a"
+    },
+    {
+      "path": "assets/textures/T_Concrete_Normal.png",
+      "bytes": 306987,
+      "sha256": "6374a532c11a6aea161f88b7be3cdb377909d467e3f629405e4b6233bcee33f1"
+    },
+    {
+      "path": "assets/textures/T_Concrete_ORM.png",
+      "bytes": 268732,
+      "sha256": "97c1fdf012d27b2f70dfa0d8d5d5c388cbd49b877465fabbd5ddb1e1555c6a7a"
+    },
+    {
+      "path": "assets/textures/T_Fabric_BaseColor.png",
+      "bytes": 108771,
+      "sha256": "f9f67da6779253e674cf052b875552bdd05cd0d3e9c4a6a25f22b23e8370ab37"
+    },
+    {
+      "path": "assets/textures/T_Fabric_Normal.png",
+      "bytes": 5856,
+      "sha256": "9009b075084dc6f01b88a03b3a1d55a53dd55bd4caf59ab642ea6e18d4428cd8"
+    },
+    {
+      "path": "assets/textures/T_Fabric_ORM.png",
+      "bytes": 4110,
+      "sha256": "6accc986f0fc0ea98dc34cee2c9eca6d8829bb50cafcde820e2ad1c27639ba6c"
+    },
+    {
+      "path": "assets/textures/T_Floor_BaseColor.png",
+      "bytes": 223072,
+      "sha256": "eab31d5edd8e96eb38844102de6042806e037bfc6dd58ea6b43fb25113c661ac"
+    },
+    {
+      "path": "assets/textures/T_Floor_Normal.png",
+      "bytes": 147835,
+      "sha256": "e645b3f64e744e9e7a568a1ee756408a309ccb0b7baf6ec9c6b773bc508f69d3"
+    },
+    {
+      "path": "assets/textures/T_Floor_ORM.png",
+      "bytes": 131382,
+      "sha256": "82ecb1664665c76bf41bb2350950740f270833be5ae943a650449522c2f888ec"
+    },
+    {
+      "path": "assets/textures/T_PaintedMetal_BaseColor.png",
+      "bytes": 265557,
+      "sha256": "819bf81b40984656079b0f6389e862ad31ce72badff683a4b4b41aad27ac5117"
+    },
+    {
+      "path": "assets/textures/T_PaintedMetal_Normal.png",
+      "bytes": 46531,
+      "sha256": "899ed38169409af7ea3aaf6980925af5fc0ba008f39b6fac6b5ea9f1a6ffa276"
+    },
+    {
+      "path": "assets/textures/T_PaintedMetal_ORM.png",
+      "bytes": 72666,
+      "sha256": "a07d7a8bf246e87bc7a02bf894ed3667899651b7911622958111284c40f39387"
+    },
+    {
+      "path": "assets/textures/T_Steel_BaseColor.png",
+      "bytes": 197062,
+      "sha256": "5c9bf743cb0698c393005880ca525959ec0f04effa0b49d1575c8b5d6a9529e5"
+    },
+    {
+      "path": "assets/textures/T_Steel_Normal.png",
+      "bytes": 130315,
+      "sha256": "a3259dcb43d2a8aa13e1233a56f0fd955a03db15f333aa0a1e98c65a9b19731d"
+    },
+    {
+      "path": "assets/textures/T_Steel_ORM.png",
+      "bytes": 125659,
+      "sha256": "ecc96e3db09b6dd50647b004f1426e7e39c85adcd846e874638d5fe19172372c"
+    },
+    {
+      "path": "assets/textures/T_Wood_BaseColor.png",
+      "bytes": 94126,
+      "sha256": "9fef74541642323f6674c300fa149d785088cc764918176053ebd692f53a4572"
+    },
+    {
+      "path": "assets/textures/T_Wood_Normal.png",
+      "bytes": 222652,
+      "sha256": "d9fddb855b1c40e60467fb5d17ede4b30d65c5edead48f7861a05b38e63f235a"
+    },
+    {
+      "path": "assets/textures/T_Wood_ORM.png",
+      "bytes": 274101,
+      "sha256": "1c8438f94aafc1f6c7aaea8da9a8c0e8c062cd1efff275bdb10fef844f7eeff2"
+    },
+    {
+      "path": "assets/textures/surface_contact_sheet.png",
+      "bytes": 386591,
+      "sha256": "fe7f3ee54bc0393ca82250f96aa612b2a784ccc452eeafa182f6726e5ef92da5"
+    },
+    {
+      "path": "blender/Bunker_Blockout_v001.blend",
+      "bytes": 533513,
+      "sha256": "803cece68d85bd8efbf626ccff8db4479df72f93fa55ea9a1f039af06b8d2cd7"
+    },
+    {
+      "path": "blender/Bunker_CollectionRound_v001.blend",
+      "bytes": 15359833,
+      "sha256": "c90b3fd64b0ea68add343a75ef2b872652691e5f550b2ac83ae95feff6707519"
+    },
+    {
+      "path": "blender/Bunker_ExpeditionSupplies_v001.blend",
+      "bytes": 6661070,
+      "sha256": "fc345de71f0388c1c3a234e482230f6687efa5e94aa36f07a45b541ac47b3b0e"
+    },
+    {
+      "path": "blender/Bunker_Hands_v001.blend",
+      "bytes": 320976,
+      "sha256": "3b6634df4619f6cd25410df187a6e7c56b2a192e2cd9577c2b3dc3687ae1724d"
+    },
+    {
+      "path": "blender/Bunker_HeroKit_v001.blend",
+      "bytes": 226399,
+      "sha256": "7692432b27cd6468d955fd53d7ad2722eb2cc10cdade99e6c1480a8b3982f9ee"
+    },
+    {
+      "path": "blender/Bunker_Infrastructure_v001.blend",
+      "bytes": 6156388,
+      "sha256": "20a6a63e77b484b19c935ad8d9cd5b3c51573941c4e154e7b50eda2fe07de5d4"
+    },
+    {
+      "path": "blender/Bunker_ItemUseVariants_v001.blend",
+      "bytes": 14305415,
+      "sha256": "6650a7ba58c75c20984a3c7b63e7a04f4cbcb3ad29d460e1bc112948d25580f2"
+    },
+    {
+      "path": "blender/Bunker_Items_v001.blend",
+      "bytes": 14294426,
+      "sha256": "790f2899d5b402f759d2e48fb0709b549e991b04ea5bdc31b7086d3c4551b333"
+    },
+    {
+      "path": "blender/Bunker_OpenPlan_v001.blend",
+      "bytes": 15341637,
+      "sha256": "90b83e0cf998690266b39e577b0d3a335357f26aa28144effb1ce61f61a6894c"
+    },
+    {
+      "path": "blender/Bunker_PainterKit_v001.blend",
+      "bytes": 245519,
+      "sha256": "5ceb27a7fcd6ba8dce04b17965748798419b4ec0a6015df355bce578eabca329"
+    },
+    {
+      "path": "blender/Convivencia_Reference_v001.blend",
+      "bytes": 15084806,
+      "sha256": "5db5e85ff06ab55a025f72b592dce1d1dec7218a53579565b376211ab9224cea"
+    },
+    {
+      "path": "docs/media/supply_bunker_client.png",
+      "bytes": 447982,
+      "sha256": "9bff843a61e4a9e3d91603f37066e37f0a9276183c3fa5289ccd561cb000ae12"
+    },
+    {
+      "path": "docs/media/supply_exterior.png",
+      "bytes": 1121334,
+      "sha256": "62994339993bd9460bd9849f2821779740a5d70f5b7f7049b6e2ec4bd4b08cbc"
+    },
+    {
+      "path": "docs/media/supply_power_restored.png",
+      "bytes": 429559,
+      "sha256": "1f8221f0f12a19d32b1545d595fa87a994aa75cf94578c821c5c135d44a1b7a0"
+    },
+    {
+      "path": "exports/Bunker_Blockout_v001.fbx",
+      "bytes": 4120492,
+      "sha256": "33107a1a30eb6701366f43a20535dca0bea630ecb6cf0b3b90d8edd806058966"
+    },
+    {
+      "path": "exports/Bunker_Blockout_v001.glb",
+      "bytes": 212680,
+      "sha256": "e147eb89d85f2a5dd231f8d867591684ab21d7ea69bc279e6c91cc782c478f82"
+    },
+    {
+      "path": "exports/Bunker_OpenPlanShell.fbx",
+      "bytes": 66108,
+      "sha256": "2a7eff93a7cc6172e2400be5aa782d4a55153d52fd37afa47b389cf894cf2d52"
+    },
+    {
+      "path": "exports/Bunker_Playtest_Merged.fbx",
+      "bytes": 78236,
+      "sha256": "eb9f8ccae1c7bd613699541420aa3ffef596d6a8f5dcdc09c52ea3b850aa357e"
+    },
+    {
+      "path": "exports/Bunker_ReferenceShell.fbx",
+      "bytes": 77836,
+      "sha256": "ec79a1440a8435a5dd934c22e938fa2e79c6c840a431f8ae9f3d27ff247260cf"
+    },
+    {
+      "path": "exports/Scale_1m.fbx",
+      "bytes": 15276,
+      "sha256": "8904de6e4a6abed0924c8a1c19df4594e37191f8f7c6a22e4351fb45cd66ea09"
+    },
+    {
+      "path": "exports/expedition/SM_MarketEntryApron.fbx",
+      "bytes": 20348,
+      "sha256": "80a12f936452a864a5e9297ef55a8b07582b7510e04e4f92a5d95064c0de70dd"
+    },
+    {
+      "path": "exports/hands/SM_Hands_Bandage.fbx",
+      "bytes": 30092,
+      "sha256": "cea1cd2f113f0674832a501b4160323923859b085a53ffebca791f8dc4fed841"
+    },
+    {
+      "path": "exports/hands/SM_Hands_Left.fbx",
+      "bytes": 140172,
+      "sha256": "16b98365518658a73d9fac2805a5580a20cbede254fdf5b08529f197c4972c05"
+    },
+    {
+      "path": "exports/hands/SM_Hands_Right.fbx",
+      "bytes": 140220,
+      "sha256": "7d73c91516dfa2bf6ad901d39e4f0b9050763b61b702a9c1f197199f9b92a78c"
+    },
+    {
+      "path": "exports/hands/SM_Hands_Spoon.fbx",
+      "bytes": 22860,
+      "sha256": "299ba60a75b91d99a7b08febde2db8abdfcb264b9a5d4f7e43afdcc57b9d64cd"
+    },
+    {
+      "path": "exports/hands/SM_Use_Food.fbx",
+      "bytes": 102204,
+      "sha256": "749b0638a17299a2502afbe86d6978e25a6c38390b50b517a899808af78be632"
+    },
+    {
+      "path": "exports/hands/SM_Use_Water.fbx",
+      "bytes": 69772,
+      "sha256": "fd3068fbb42c372c244568df3762691fad528efda02a8eefe7def18f7cf53a2b"
+    },
+    {
+      "path": "exports/hero_kit/SM_Hero_Bed.fbx",
+      "bytes": 67164,
+      "sha256": "3881c2c93b7eec29f987129cc418df56f32881403803572bd1aecfaefad6f886"
+    },
+    {
+      "path": "exports/hero_kit/SM_Hero_BlastDoor.fbx",
+      "bytes": 65436,
+      "sha256": "2f865ce2a31b9503611380f41889717eb7427ebd9b843d5038a5d7bc12ecc27c"
+    },
+    {
+      "path": "exports/hero_kit/SM_Hero_Locker.fbx",
+      "bytes": 82060,
+      "sha256": "1d94ad33d5bd4be24a8233546538bff39052453ca79ac24778bcae379f991fea"
+    },
+    {
+      "path": "exports/infrastructure/SM_Infra_Control.fbx",
+      "bytes": 38860,
+      "sha256": "11ffdd19385e035bec17565034c90dd9112ed14e9ee83e781c40c646b77e6ee7"
+    },
+    {
+      "path": "exports/infrastructure/SM_Infra_Emergency.fbx",
+      "bytes": 39036,
+      "sha256": "f38e6e2e8dbf1063bf1c833469c1f25f6a228bc79218f87f128fde30d6cc8f83"
+    },
+    {
+      "path": "exports/infrastructure/SM_Infra_Filter.fbx",
+      "bytes": 36764,
+      "sha256": "e3eb4e154ebad8625c2043cfb6bf3ab69d34645f5d2cf7552332088feb0299c3"
+    },
+    {
+      "path": "exports/infrastructure/SM_Infra_FuelCan.fbx",
+      "bytes": 78908,
+      "sha256": "a3df6250efe6ee7cfad79f3d2fb2b368ce0d8600e7d6b1e11e6242974ce6ea8b"
+    },
+    {
+      "path": "exports/infrastructure/SM_Infra_RepairParts.fbx",
+      "bytes": 100252,
+      "sha256": "c0aa9505dc15adfbb0fd3d2977873bd950cc23f751eb2b5bce091be228079fd5"
+    },
+    {
+      "path": "exports/infrastructure/SM_Infra_ServiceStand.fbx",
+      "bytes": 289436,
+      "sha256": "a3093003b71142d4b65207cb09e0543444d8ee851da68171d24f49a59d49ed01"
+    },
+    {
+      "path": "exports/infrastructure/SM_Infra_WaterStation.fbx",
+      "bytes": 120508,
+      "sha256": "ef48c3184c426463ad157730f031e8bc608b5dcef936d0c5ce5b1d1af42213c1"
+    },
+    {
+      "path": "exports/items/SM_Item_Battery.fbx",
+      "bytes": 70268,
+      "sha256": "56fe49649c69ada5e17af8cee4a5612cb13851ee7dc74620f090cfa758a2a71e"
+    },
+    {
+      "path": "exports/items/SM_Item_Food.fbx",
+      "bytes": 142092,
+      "sha256": "85652cef83dc6cc8a5cd3da72378c1ed7da04c3506d126f70e680fb968c53c61"
+    },
+    {
+      "path": "exports/items/SM_Item_Medkit.fbx",
+      "bytes": 55676,
+      "sha256": "6817786777ac32b08b541c564b7012dc5c842945c44db5135366b8e1a60d6655"
+    },
+    {
+      "path": "exports/items/SM_Item_Tool.fbx",
+      "bytes": 91036,
+      "sha256": "908a1ce7b7ecf51ad683dd9119ff5a77ce29e42ec03e07f2fdd2484cab5d8d62"
+    },
+    {
+      "path": "exports/items/SM_Item_Water.fbx",
+      "bytes": 132908,
+      "sha256": "ad6803146653385d39b0d6e33513d3bed83188b1d7cd1a21886862cfa7e87976"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Blanket.fbx",
+      "bytes": 38044,
+      "sha256": "30c68a1308baff9558c2b859c3d860b00bea7362cc4b7f69ffc1e0f5925fc765"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_CabinetBody.fbx",
+      "bytes": 135340,
+      "sha256": "3735ff0f202aecab623e8dc4384cd7d12e1da46655aae28f7122e7f51a7c9543"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_CabinetLeaf.fbx",
+      "bytes": 104396,
+      "sha256": "6038f1dc6a168351f3a70508f6e3425cb317d2ea724d3d366d30538c7eb6cae3"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Chair.fbx",
+      "bytes": 76924,
+      "sha256": "0454647159c584b32d6327a8c6366260a63a16811224b0dc11ad2da62e0d9556"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Clock.fbx",
+      "bytes": 102812,
+      "sha256": "762a90675a687f958cb5f15041c859615182472f9e6ff12af469972065226d76"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Dartboard.fbx",
+      "bytes": 285948,
+      "sha256": "bfb1de289083ec14c2c4dc5504b0a10b99839b78c5f6f3f510b027ce7b637445"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_DartboardLegacy.fbx",
+      "bytes": 288140,
+      "sha256": "4316f09c45003e2f7d29cf6bae865fd521d55238da1ba3ea2ff594e4315c4e23"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Duct.fbx",
+      "bytes": 56396,
+      "sha256": "0d090e0a36b6322fb81e314472279fa5a67f6c4081fa638aa2d1f05105d4bf79"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_FloorTile.fbx",
+      "bytes": 20092,
+      "sha256": "5d49e8dcbe4acd29b69c00e55d363fbba11b3434674e2b7151cdff6cd15e7ae6"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Lamp.fbx",
+      "bytes": 40060,
+      "sha256": "23704d5d210246f49ff3a6b23014137fc3792139780d1ee4fb0a6a9e1504ff19"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Mug.fbx",
+      "bytes": 81068,
+      "sha256": "1d82cf87a36ced2adabc03a188829ebc45d5d7e041c53f71cdd16b8b89aa9d74"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Notebook.fbx",
+      "bytes": 30572,
+      "sha256": "b73d757998d66bd3ff145fa03dbe525f24b5e4b7a01ba6493210fda86c8c1018"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_NoticeBoard.fbx",
+      "bytes": 317068,
+      "sha256": "42f00d5993b309ad8777988a68af67fe067e3db29a7fef11d690642d9ecea3f6"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Radio.fbx",
+      "bytes": 159180,
+      "sha256": "b32b3f0613d13d251cb5712cf7e42e28851542b62c666b0cb3bad81b6591d9e4"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_RadioLegacy.fbx",
+      "bytes": 157036,
+      "sha256": "1aeaa9d123559e1cd72e1a5ac2f6af4829561062837cfd14fa0d81ee981f8094"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Sign.fbx",
+      "bytes": 154668,
+      "sha256": "4a21a9bef5047d605e1f5190c40d1750604e092310e4d5d73742bb205579ceb4"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Sofa.fbx",
+      "bytes": 121324,
+      "sha256": "21e5b9e4103e2604b536c95987f2436f06e9daf8007709fafd43b6142965a9c2"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_TV.fbx",
+      "bytes": 222844,
+      "sha256": "918af1ada9d54135b955ffb9524488871fb1433776dad45554706fa51d072b28"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_Table.fbx",
+      "bytes": 117356,
+      "sha256": "82bc2a812db6643aca2100c67496cf5895ac4d11a6569655459e3851661436b5"
+    },
+    {
+      "path": "exports/reference_room/SM_Ref_WallPanel.fbx",
+      "bytes": 75324,
+      "sha256": "f9e96f023b2278b183d5e46242ad65c6afe0c13caff7b72af4f713cdbfcb7a19"
+    },
+    {
+      "path": "painter/SM_Hero_Bed.spp",
+      "bytes": 40474009,
+      "sha256": "847f7fd132d89880be23db9780a9b2a9a2a22155f1cb689ec72e429b49697c36"
+    },
+    {
+      "path": "painter/SM_Hero_BlastDoor.spp",
+      "bytes": 38892568,
+      "sha256": "3442316558afd71dcf1b3f8ffc29dd4cc6b0abf6c85619b4856d3c5ea6eeec61"
+    },
+    {
+      "path": "painter/SM_Hero_Locker.spp",
+      "bytes": 39441200,
+      "sha256": "5669b0564965f636ba68d6d0bb852e9d4677d5f7a940966741050b741c51bef0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Data/DA_SurvivalRules.uasset",
+      "bytes": 2997,
+      "sha256": "ee032700775a9c20978293d3e433ac08ceb6059a4bf5b3ef8792760a1997057c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/M_Concrete.uasset",
+      "bytes": 56665,
+      "sha256": "264905e543b2e0ff03c580bee9ff2d6b3c1769fe323596d10411c1ce0b704674"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/M_Door.uasset",
+      "bytes": 56597,
+      "sha256": "e87e81100f507eee5d26302dd74541293d3c2ba92f5d279fa0f8785d47f8c5a1"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/M_Floor.uasset",
+      "bytes": 56614,
+      "sha256": "e6e9f56bad71ad95d6c0307b1add3a251af21ae44c361b2309d3755a4e76793e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/M_Furniture.uasset",
+      "bytes": 56682,
+      "sha256": "7181ccf3c0ee2f58e6fb8856560b7c4d08732f9d3018a0a2d345671285b02ab9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/M_Medical.uasset",
+      "bytes": 56648,
+      "sha256": "65ceedb1a0d7c045f0040e1aa18dbc7a8d71b6a293708e00f39692d0570a3a84"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/M_Social.uasset",
+      "bytes": 56631,
+      "sha256": "4dc92058b2aea8e3431468e6bcf5ea9500675b6b653be705f6cacfb71bae3e28"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/M_Steel.uasset",
+      "bytes": 56614,
+      "sha256": "c267089fda1caf042010541361279413057aa582412b25a11a0f8c9925b00dab"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/M_Technical.uasset",
+      "bytes": 56682,
+      "sha256": "5861e22c13b011e5cceb1b389ae9154ca0906c76674b8dbbf6bd436906978770"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Geometry/SM_Bunker_Playtest_Merged.uasset",
+      "bytes": 141483,
+      "sha256": "1ba54aa1130586a91f0c77cd1f9ea7f20eb1f8fab9ba1c963d0ed622104ce089"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Hands/SM_Hands_Bandage.uasset",
+      "bytes": 91789,
+      "sha256": "b59a190fa62f95bf827fe1336e9763911ded9b7be2f55407b7b0cc55c5a38245"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Hands/SM_Hands_Left.uasset",
+      "bytes": 245826,
+      "sha256": "7f414ac138e23bf2050e4527721274ff6ecf5f006f6ef3d776a52a90d60fdd8d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Hands/SM_Hands_Right.uasset",
+      "bytes": 245259,
+      "sha256": "15fd82945684a5efd7899ecc434a004df7ed369df2f457359a34401c90f285a4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Hands/SM_Hands_Spoon.uasset",
+      "bytes": 81105,
+      "sha256": "ee331802d1758f1b80982f4247e072e3389114507005962d8a196c0a65f21455"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Hands/SM_Use_Food.uasset",
+      "bytes": 188953,
+      "sha256": "8cf1bf2e4a144cb197a5d23f1877fbffca5c929c201cc3d61bb7625c90a9d2a0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Hands/SM_Use_Water.uasset",
+      "bytes": 143266,
+      "sha256": "d3c1f7f9e63cbca0c644a15f34e85c144be3f4f2fcbd7df158d7d1fe4aa279be"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/HeroKit/SM_Hero_Bed.uasset",
+      "bytes": 141582,
+      "sha256": "976382ed71956a2b322714ac5e5f83c1c282cbd117576cf93863e0389fad5c47"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/HeroKit/SM_Hero_BlastDoor.uasset",
+      "bytes": 150899,
+      "sha256": "1a62fd780989e5c6df138d4f2c41a8e0a94ea075e8bf480c17cbf4666790eed8"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/HeroKit/SM_Hero_Locker.uasset",
+      "bytes": 172547,
+      "sha256": "99d64f94906117dcb58ea62818bcd95d0b71aa8bb71434704d3797b8c00421d4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/M_Infra_Filter.uasset",
+      "bytes": 56734,
+      "sha256": "028aa4614fe231bfd914fc8e33c2c02614c8ce776ee4eb98405be043241b92d8"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/M_Infra_Fuel.uasset",
+      "bytes": 56704,
+      "sha256": "2f0264c3e8af7995fcd22476874592a3ebd209739dfad0ef94885f277adb5e01"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/M_Infra_Paint.uasset",
+      "bytes": 56712,
+      "sha256": "5d409cfe64c60d9a558ef266012b89a8be0fa8ee4e628832af787560f5486c2f"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/M_Infra_Rubber.uasset",
+      "bytes": 56728,
+      "sha256": "37926f2177a8b12db6146699f036dfd212155076dd2c0601fc54e86d218c4fe0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/M_Infra_Steel.uasset",
+      "bytes": 56712,
+      "sha256": "d93b1dc4a47d6442c9c18125c44a4615a4b9d7353b1a27924c87b799fb3847da"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/SM_Infra_Control.uasset",
+      "bytes": 104075,
+      "sha256": "ac835928b0b38a9b506ac33e73f8e341b143b436c61284c70c33892027e730a4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/SM_Infra_Emergency.uasset",
+      "bytes": 104081,
+      "sha256": "16749bfc43c7e87699eed3fec235d0d25492dcf93d7a381d49a954b0f27d93ec"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/SM_Infra_Filter.uasset",
+      "bytes": 101823,
+      "sha256": "2142272cb1ec6dd83a0a448cf9bfb162fe1fdc4cf3064e184dacb734c6bded5a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/SM_Infra_FuelCan.uasset",
+      "bytes": 160791,
+      "sha256": "21293f7142c22aca0352a4c82a01f80ded0b762609f75b0ea6bff68d402fc91c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/SM_Infra_RepairParts.uasset",
+      "bytes": 187244,
+      "sha256": "9e778cb977350f6cdb0ef3921a018045752b6a518f55556cbe164898e40ba9a1"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/SM_Infra_ServiceStand.uasset",
+      "bytes": 416645,
+      "sha256": "d976f52d32759bfa98e8b0b2c3c0466ed5ab97f54f45e618e5f1f20d19d4d201"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Infrastructure/Meshes/SM_Infra_WaterStation.uasset",
+      "bytes": 214439,
+      "sha256": "090c332c7ec9ae5b62c98cbc8517229c24c98a1100dc4ea6b5dc6287ec043226"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Battery/M_Item_Battery.uasset",
+      "bytes": 6765,
+      "sha256": "760ac4dee3a3fa98341364313b3978a9ec316e62f04e6ca889d0b9e6b9a8460b"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Battery/SM_Item_Battery.uasset",
+      "bytes": 142983,
+      "sha256": "d4a44a7307d48855a949c66898dae02f17fd4ac43aa66579b695e11ae1366174"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Battery/T_Item_Battery_BaseColor.uasset",
+      "bytes": 667133,
+      "sha256": "59f20fa4ebff2a7d6a2afedcc059f738a187ae07be63fe5579313531406bbcac"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Battery/T_Item_Battery_Normal.uasset",
+      "bytes": 1394217,
+      "sha256": "a20a05a81962f23711bfa402db62f8bc881ff5eeac468d64ab5812b3ff465c4d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Battery/T_Item_Battery_ORM.uasset",
+      "bytes": 891629,
+      "sha256": "c0aea71de11961b587372289b9500a0d89b87995eb4e9d1781c50ed6e000295b"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Food/M_Item_Food.uasset",
+      "bytes": 6717,
+      "sha256": "15ad8a6d13d1bef793e9da938565883ff56f4b9b77f4a2047d2c80060b240fdd"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Food/SM_Item_Food.uasset",
+      "bytes": 261167,
+      "sha256": "5e54058b30a1b75b6790bd39b1e866ce494bcb653e23d7346596b3672b24aa94"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Food/T_Item_Food_BaseColor.uasset",
+      "bytes": 668592,
+      "sha256": "9e9bb8263bc62c93d53ffa30d237e2763ed6a9a2c22fbcf617227f6ac0c63e8d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Food/T_Item_Food_Normal.uasset",
+      "bytes": 1394273,
+      "sha256": "4d4e066c99cc84e968782faab9dac5f18ec0b76428568b53d0cf2dea0cd0e260"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Food/T_Item_Food_ORM.uasset",
+      "bytes": 890680,
+      "sha256": "5d42e956134d05846eeecc2b103392e0c44798930cb409645cfebcf60ec3b619"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Medkit/M_Item_Medkit.uasset",
+      "bytes": 6749,
+      "sha256": "e77ceeea776072177c0eb0a01a1267c789a4778d06c6e2e8f3674f0a43f13ae7"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Medkit/SM_Item_Medkit.uasset",
+      "bytes": 128314,
+      "sha256": "7ec375f56483082a0660829db491784ef1d80bd94ea4ced1bb7b231a1fa7eb89"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Medkit/T_Item_Medkit_BaseColor.uasset",
+      "bytes": 661502,
+      "sha256": "6de85753885e9193a71ffabb5d8270e751c25ce86b3907238a9fc0d006c5c219"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Medkit/T_Item_Medkit_Normal.uasset",
+      "bytes": 1394181,
+      "sha256": "facb32333db5aaa0fa7629948ff87b07e71489bd0273010a3b607c0b8dec229d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Medkit/T_Item_Medkit_ORM.uasset",
+      "bytes": 891518,
+      "sha256": "12d159b5f1ebd66c943d3228937e53ec5f17bb284387c81682bd2c1522ec6a0a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Tool/M_Item_Tool.uasset",
+      "bytes": 6717,
+      "sha256": "cf57aa3ecc93503fbeadfa6d4fc0c962b2aa9e29af26518b138d7716dd830a3f"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Tool/SM_Item_Tool.uasset",
+      "bytes": 160021,
+      "sha256": "ea671963b051947e4542001801800085e65d52a7b2ced908da7c53e12666e9fe"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Tool/T_Item_Tool_BaseColor.uasset",
+      "bytes": 666816,
+      "sha256": "e12b66ccf24931a02b8a010bf019a0b0e10166900d48565189a2cd3a3556a397"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Tool/T_Item_Tool_Normal.uasset",
+      "bytes": 1392147,
+      "sha256": "5d7773cbe00c3bd7bb395cec53d693f303bb304fcc34f51ee7881f00b22681e9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Tool/T_Item_Tool_ORM.uasset",
+      "bytes": 890757,
+      "sha256": "30ffd4cda0e5ad419ae0954ca6717ee07f7003977306f177f2ee82bc87f8ea05"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Water/M_Item_Water.uasset",
+      "bytes": 6733,
+      "sha256": "c70717e4532d9548c6e639d17d86b5011c6653fb1f8aa9f31642a4772b671cf4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Water/SM_Item_Water.uasset",
+      "bytes": 230418,
+      "sha256": "7fefc60a9f0ec45f71cd5f1717bac61b432da83fd1daa0ae8dac982598c9228b"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Water/T_Item_Water_BaseColor.uasset",
+      "bytes": 666507,
+      "sha256": "ce1daca17213ade3eb756c861c5389f465899acde1b5c436eb22dcdcfaf2fbf7"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Water/T_Item_Water_Normal.uasset",
+      "bytes": 1394310,
+      "sha256": "96350d395887e74f0668b782b5fbc683d0059622ba848704649907ed3077ba78"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Items/Water/T_Item_Water_ORM.uasset",
+      "bytes": 890947,
+      "sha256": "082cd2aabea566766bc0ec42d9cf762ff982840e73d6de44a5aa5e0a455dbc27"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Lvl_Bunker.umap",
+      "bytes": 774362,
+      "sha256": "260ae1955444dfea4b1d4dc582df4be803eac4d9b7b5cc357f3f5035f252dffd"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Lvl_Bunker_OpenPlan.umap",
+      "bytes": 798196,
+      "sha256": "093d23ca3ff6d9eedee7afdafad320060c5b5b4812ecb638ab2d4deb722cc6e8"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Lvl_CollectionRound.umap",
+      "bytes": 875118,
+      "sha256": "27ef2a3862c9ea2914e0def43910cfcd3af89c630eafb1ceba62c8f549aeb8ba"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B1_Concrete.uasset",
+      "bytes": 14151,
+      "sha256": "ec94943ac12d9b9c351162394e3bb9fd7877d4ab1d6296cc3319ea1a054a9651"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B1_Door.uasset",
+      "bytes": 14151,
+      "sha256": "52174bd3029d63b3c1280d65d9b689bb8db71eba7197482c6bb962fcf3af7fec"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B1_Floor.uasset",
+      "bytes": 14115,
+      "sha256": "86bb52aa39bb3e3a87fce67ce59970d336bed655189fd42024ebb0b63e4f33a0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B1_Furniture.uasset",
+      "bytes": 14133,
+      "sha256": "1de4ab0edc2061587251d7288f06c30ae70f52693f1a3adf45ca86e0f19fa01d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B1_Medical.uasset",
+      "bytes": 14169,
+      "sha256": "9f78d2b5e61669ee7ae0e28005bd36c1d078a67ce6a7e0908c374098e2735441"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B1_Social.uasset",
+      "bytes": 14121,
+      "sha256": "37cc5ba85e40fc728da5564698e027c84bbebc2ad07f9392afe699bfcb34291e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B1_Steel.uasset",
+      "bytes": 14115,
+      "sha256": "59bae5016dd084faa2cad00b95d6d5ea27876d50741e166fa8e4c406ec5a77c9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B1_Technical.uasset",
+      "bytes": 14139,
+      "sha256": "25d08bfbe2ef7fd65af799e7c8f5a7c8c6fc0b08f0f8f78c6b485aca5e3e3d4d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_BedFabric.uasset",
+      "bytes": 14018,
+      "sha256": "42dc567d044103ff7f24ac9dc6ad5a7c01811974032b9e9d3554a68751ce1324"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_ColdLight.uasset",
+      "bytes": 6962,
+      "sha256": "2ec73c8a31ede2a13ec7807363624950f9036601c4f4f908a5b1a031358bddd4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_Concrete.uasset",
+      "bytes": 14024,
+      "sha256": "b86b59883a3482423baa3d9d120180902a5ad51b3404dfc24f97733d97131b98"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_DarkSteel.uasset",
+      "bytes": 14012,
+      "sha256": "8f2c69f6d7b05a21dc3a683f439a064e8b68f950bb851c3ec8619231928fe212"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_EmergencyRed.uasset",
+      "bytes": 6944,
+      "sha256": "b5d035fdb655b4ada09791804b9917d301be57934eb52069f7e9f040fe6ea4ec"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_ModuleWhite.uasset",
+      "bytes": 14042,
+      "sha256": "c96e1e2db5946c2f74308ddaf62519f08bcb66bd4ee61c40d5526ea403690638"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_Porcelain.uasset",
+      "bytes": 6119,
+      "sha256": "b5a04202bedc8b71f8da87b32058a398b4d3cc5f1b6c06395e5a1b95b95ae344"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_Rubber.uasset",
+      "bytes": 6101,
+      "sha256": "f6edf6ef96716004b141dbe03a1abb9df97b6d0d4424571f4a87501e5102e859"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_SafetyOrange.uasset",
+      "bytes": 6980,
+      "sha256": "cc1f77af4f9c7d310e8da602f39081c60545f613d3fc3f9a0aea850537176e3a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_Screen.uasset",
+      "bytes": 6908,
+      "sha256": "b12cdb308f5cfd24c42213fdeaac4fca880c0fb66a838e2f95e4779dedd75a58"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_UtilityGreen.uasset",
+      "bytes": 14072,
+      "sha256": "cf804f29e8080b594967eb4f735b3142356a308be6098135b553077b519df388"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_WarmLight.uasset",
+      "bytes": 6962,
+      "sha256": "348be787403555f8206d7ce02b9f61365df5dbbcf53be4f6d3e69b684d87551c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_B2_Wood.uasset",
+      "bytes": 13976,
+      "sha256": "8a71a221d553d5f91bca7962ef13dc74588d5bdc883ef886e0212292748516e9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_EXT_Asphalt.uasset",
+      "bytes": 14024,
+      "sha256": "688f2022e4a238e2dc3716bbdf2bf6a1e2f8ea67406d67704f17b7a7c680ffdb"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_EXT_Forest.uasset",
+      "bytes": 6107,
+      "sha256": "ecb5ed69c49ced361851d3ed2b2bc569328ed5f997e6e9eef9a249f59b691e91"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_EXT_Mercado.uasset",
+      "bytes": 14024,
+      "sha256": "92a4c1ff919576195ce9c68f7608da7e54ef70313d61c7df98343b38f52d1da0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Materials/M_EXT_Warning.uasset",
+      "bytes": 6956,
+      "sha256": "d2ec33d84d81b12f7f06cd698d389558f45f5743d733b0e9303bc4c6891b45f2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/OpenPlan/SM_OpenPlanShell.uasset",
+      "bytes": 118636,
+      "sha256": "1e30eaa8642e9d3e8b465477ce92bb1a07e705dcf73a869953a6ae4302a65c92"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/M_Painter_Fabric.uasset",
+      "bytes": 6922,
+      "sha256": "cf7077bae6610ede2db50c9d344122b2d23b7ef11c6517f0e4acbdd97e9ab256"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/M_Painter_Linen.uasset",
+      "bytes": 6910,
+      "sha256": "c2782f0009ca444f859885e355cc6500b2ed220c1610c651634dd0785c5ad0db"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/M_Painter_Paint.uasset",
+      "bytes": 6910,
+      "sha256": "6400ee00f54398195f3c87d8f589223355d875ce109b0cb6880800690273481e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/M_Painter_Steel.uasset",
+      "bytes": 6910,
+      "sha256": "42e2af7b704d97a0bb845db6d98a230020accaf5becebad501837428c64563f4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Fabric_BaseColor.uasset",
+      "bytes": 246278,
+      "sha256": "621715f81c909884f1fb8d8453580367e3cb535989a4cdd0b789d04131010194"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Fabric_Normal.uasset",
+      "bytes": 289447,
+      "sha256": "09783bd0c0ed3280387b3df2cdaade223b5d2949a7e487044744437582a9a448"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Fabric_ORM.uasset",
+      "bytes": 109259,
+      "sha256": "e38116ed98db47e0e6b0247215c5e6409d9ce806690e0f9ec50a3f56bee58bf1"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Linen_BaseColor.uasset",
+      "bytes": 518823,
+      "sha256": "ab25dbeec7e6ba581c032445b6b60514b54c455dcbad743f8e3a86a4bfd8ae5e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Linen_Normal.uasset",
+      "bytes": 714759,
+      "sha256": "d6b67fcd020b3409c6bd01d9d0fcf22a4191f548b5eafa10351fb6a8e029f884"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Linen_ORM.uasset",
+      "bytes": 301167,
+      "sha256": "8b18996a9424b9ed4ba137ea9ae692a14a24b40ed6274d048a8673a615a5cb96"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Paint_BaseColor.uasset",
+      "bytes": 139250,
+      "sha256": "413c78f89685c53cb3271b99f19f03bf694b0ee79fa097ecf0a319b43e2238fd"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Paint_Normal.uasset",
+      "bytes": 110952,
+      "sha256": "edf9a367643dee6e845f9abb75f430f1b4648bd8839106a662e729d4fb466a95"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Paint_ORM.uasset",
+      "bytes": 152464,
+      "sha256": "f1c3d85ab3d9c78b1477de9b553df9ac834b77be37fa49271f99e43cc490cd67"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Steel_BaseColor.uasset",
+      "bytes": 312114,
+      "sha256": "8f58393aee48845e63b3f2b661cffcc75b920a1c5044275ea5eba9c3c47c0582"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Steel_Normal.uasset",
+      "bytes": 274770,
+      "sha256": "3ae6191a1614117b0870d9f4e30894573440436c6eb7756bf3ae1a43e901f580"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Bed/T_M_Hero_Steel_ORM.uasset",
+      "bytes": 598906,
+      "sha256": "5df94b3954c2e84bded034ed5c943754349bccbc3d4dafa9765058a1a6df8978"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/M_Painter_Paint.uasset",
+      "bytes": 6940,
+      "sha256": "71d66472b1001aa400345509b5df1810f13c14a131f942ffa6b843a382671c44"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/M_Painter_Safety.uasset",
+      "bytes": 6952,
+      "sha256": "ba82441cc78ecb3d0281e4ec0e06be1e9ab97c580a70af31ee02fdc24d9a37f2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/M_Painter_Steel.uasset",
+      "bytes": 6940,
+      "sha256": "f4b69896c70a0d88c8f9bc261df4d6c44782252bf669f1f6585d1d7f9924f7b9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Paint_BaseColor.uasset",
+      "bytes": 788929,
+      "sha256": "75d0c0c3fc7b722bd52fde591b83023aab9b804fbd1c0d21a985b5a94c5378f2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Paint_Normal.uasset",
+      "bytes": 788110,
+      "sha256": "9336bbc5e3b00a7d23044b9efa07a04100e095d7de6791f60bf48e125c5820e1"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Paint_ORM.uasset",
+      "bytes": 867721,
+      "sha256": "efbfa27fbfb771360048a4218b7aac5e0a199e1eedadeb1c7467a61cff64c2e2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Safety_BaseColor.uasset",
+      "bytes": 102286,
+      "sha256": "9698c7ac10c13c5c6f1db0ef5711b78f79556414a5465d59ccae0d2579b0b6bf"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Safety_Normal.uasset",
+      "bytes": 84362,
+      "sha256": "6159a4a2fa23073da2f8e50de9bd24082bddda55cf3b1da01598c8f5fce1a8c4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Safety_ORM.uasset",
+      "bytes": 127258,
+      "sha256": "0b5c679c1f37d76664b3d626e2c6cf64a8c1099177f7d642e8f60720af344870"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Steel_BaseColor.uasset",
+      "bytes": 230944,
+      "sha256": "7d3ca6c78ec5b543940d7f8d3ee99c3c4c486a0ca8e170863ff5c5ad54fffb51"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Steel_Normal.uasset",
+      "bytes": 240074,
+      "sha256": "350528b4e7d15489f91724a1f350e15e3d2b0e91e800d647a3f32cabfaac4bdb"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_BlastDoor/T_M_Hero_Steel_ORM.uasset",
+      "bytes": 493111,
+      "sha256": "9da5c2c3fc55d55ce220546c873339f859d0e935d32a732607c5e25dcaed9fd7"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/M_Painter_Linen.uasset",
+      "bytes": 6925,
+      "sha256": "109bec84a89418bf999b3bc5f84030153cd1522eb6d8d87a6110447239797ccd"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/M_Painter_Paint.uasset",
+      "bytes": 6925,
+      "sha256": "29ce91ed2a8092b590cdad59f4f9b8db004df5f6ec32ccc4ecb1e040c450b16b"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/M_Painter_Rubber.uasset",
+      "bytes": 6937,
+      "sha256": "1a8c69882d5c770a1a02b421a939c080339cb80d22963e4223be77b76823e5a4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/M_Painter_Steel.uasset",
+      "bytes": 6925,
+      "sha256": "94d49a7f3a6daa4937fdc3f1d26bf20ca5d81ae7ff091273a4b4f4bcbfc8da26"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Linen_BaseColor.uasset",
+      "bytes": 27374,
+      "sha256": "6aa5d5e6d7397f9faf88958db3e902ea4199bb7c6dd1bb2d46fa9d10770290a9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Linen_Normal.uasset",
+      "bytes": 27428,
+      "sha256": "c215eff531592d72a9ccaa16a8beb34ef69f4da350b6ccb4ad864dfcd8540a8d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Linen_ORM.uasset",
+      "bytes": 26684,
+      "sha256": "29a4dd55bc85dcdefb776743bb61b50369ec0e9a25f19c525852c6ca7ef0f9d3"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Paint_BaseColor.uasset",
+      "bytes": 1071091,
+      "sha256": "15ef03473de2f7464568435bd5bd33f0df7d5d8dd9a7ea73ce643757e326568c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Paint_Normal.uasset",
+      "bytes": 964253,
+      "sha256": "124666470b6554cc8f9ffcc0c6667e6aab55901fa754da5b288ab5c5f1ba3174"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Paint_ORM.uasset",
+      "bytes": 1140325,
+      "sha256": "fd6b21d3c8acec5787a16c0ee7dbc908ba8660392daa525f8fedfdd8532de15a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Rubber_BaseColor.uasset",
+      "bytes": 219443,
+      "sha256": "606dac58f2587ddb61212bc6e974f1787b9dfbfdb67616adff29eff673399bc7"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Rubber_Normal.uasset",
+      "bytes": 267411,
+      "sha256": "0580b2007cc1b0ef082a0bd8fa619237d0228494a3a10bfe584cc0666f66ec44"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Rubber_ORM.uasset",
+      "bytes": 180281,
+      "sha256": "6ce7d6b5f976cd1b635455a4d29ebf0a067cff817d088646ae923bfe9d257686"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Steel_BaseColor.uasset",
+      "bytes": 33147,
+      "sha256": "8060e1b0936c51fadf35c8f489eafeab43cfc9ec5c4f471cdf527b94dffafc16"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Steel_Normal.uasset",
+      "bytes": 26199,
+      "sha256": "052087c57e0513570a69882fa2ba5eaf37270a415ce10a264f65b8af08cc4d61"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Painter/SM_Hero_Locker/T_M_Hero_Steel_ORM.uasset",
+      "bytes": 51853,
+      "sha256": "04098cfcdbcf2b53548d5de02b3011fa761a82880d8d54903a0aefe5f5f86391"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Audio/S_Cabinet_Close.uasset",
+      "bytes": 58951,
+      "sha256": "6730307ca91a4b36d638fabdfa124bff0cdcf676f8d306492c942dcf2c2e2d67"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Audio/S_Cabinet_Open.uasset",
+      "bytes": 59493,
+      "sha256": "2e912057b25f0964a4bc864b657911bcc85535f78d4def646c1ccddb0e53e989"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Amber.uasset",
+      "bytes": 16303,
+      "sha256": "e52c9d3a3930dcc350f5f81ebb0ab3cd0cb2bbc8d1e899e5927447465c9dc84c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Concrete.uasset",
+      "bytes": 16336,
+      "sha256": "e02cd901e9911b3c804dca747fc446308c25b66ea1f210b955541fcfb93b0f83"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Fabric.uasset",
+      "bytes": 16314,
+      "sha256": "5cfb96bc294b30d52cbc42bd129f4a458220312b9df35c6af913ee8f63b5e1dd"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Ivory.uasset",
+      "bytes": 16303,
+      "sha256": "8768178592701142ee2644055c2126479ee2ab315656d4a5eb8d159eb1b77104"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Light.uasset",
+      "bytes": 17984,
+      "sha256": "b344ebfc035fe043eb50a27fc3fcc2a768cce222b9973e3eaa89b53ff2140596"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Paint.uasset",
+      "bytes": 16303,
+      "sha256": "0fcbd06772207f850dbe6994e738b72317c423caf2a0b1b0f29eb1f8f3e7cc11"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Paper.uasset",
+      "bytes": 16303,
+      "sha256": "4f0e1b23f0a705214687e7ecd9e29495f20824ac61cbb567c8512bc27cdb86cf"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Rubber.uasset",
+      "bytes": 16314,
+      "sha256": "20566da2f8290ac7dbb1a9ffb126c7a7cc5ea5b9f05139ea67da2585ed678300"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Steel.uasset",
+      "bytes": 16303,
+      "sha256": "e965fb7e72f46417f24491e600336afa7cd73216ebe34a273b170691704dd514"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Materials/M_Ref_Wood.uasset",
+      "bytes": 16292,
+      "sha256": "9195053c9c343c9ca21a38896ffcd69bfcdbcc053802e136fab4fbdced3c65a5"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Blanket.uasset",
+      "bytes": 104734,
+      "sha256": "758924fb0fd04711d22884e60cbfe7afdb1206291300b0eefef96d6761cc6b0f"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_CabinetBody.uasset",
+      "bytes": 250619,
+      "sha256": "4954c8f662787d9dfcecce36502ea9142dad733b4a8d3e97aa692caa901d1f8a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_CabinetLeaf.uasset",
+      "bytes": 194210,
+      "sha256": "f926f1472a52acfac4d880e3f79f9c1a3faaaede147733e86721b950089da1c2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Chair.uasset",
+      "bytes": 162672,
+      "sha256": "2d20e154668ae5ec23f8d574b4b9330aef28aeceda6388430c42b4b31ec0f1c5"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Clock.uasset",
+      "bytes": 193238,
+      "sha256": "088e2a8c2749f7d8dcb86e4e3c4163aa6925191e57477a588cc22dfa63a8a4d4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Dartboard.uasset",
+      "bytes": 392354,
+      "sha256": "6098987ddf730f863f36250a5410bc292debc1b425fe2c79bffb343d0c0420bf"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_DartboardLegacy.uasset",
+      "bytes": 394639,
+      "sha256": "e2b3e88abbb271191eace8eacb8fe12b58568ed8f4f40905ad3dd0764f1e7373"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Duct.uasset",
+      "bytes": 128692,
+      "sha256": "7a59299d50f46b0a15b69eec9f0583771acd2a352907fbce2b8e6ecd5c6d3379"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_FloorTile.uasset",
+      "bytes": 77453,
+      "sha256": "bdf86d8fcf9c248564732db786fd386b3c8a969f514db6673e9a4322bdf81834"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Lamp.uasset",
+      "bytes": 106663,
+      "sha256": "16a5881cfdaddd7256110ea1f7091e75a24ba8ec95d7a99e5f57f66c70621ac5"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Mug.uasset",
+      "bytes": 162815,
+      "sha256": "bfba672774160c1c8c1f2547520a54c6b40aee5728bc77f7c54427dc914621e7"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Notebook.uasset",
+      "bytes": 91120,
+      "sha256": "6469c3e9ddcc87f60f67777aa4b4e95c1b2efd4924c9cd2e4d5f54bb76865a14"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_NoticeBoard.uasset",
+      "bytes": 428235,
+      "sha256": "35b06adde3ce3879390344e71eb05e18e398025fa43edb21d676fb64e5a62e1c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Radio.uasset",
+      "bytes": 242967,
+      "sha256": "2df0834819df86f405b3bc97bb920ed1f0ebd63f3177d41dd047c808e0ef7b8c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_RadioLegacy.uasset",
+      "bytes": 237311,
+      "sha256": "bbe31f5a6da1db68a44e9921f511ba73e15c651b583be40eaf6178b13c22872e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Sign.uasset",
+      "bytes": 236464,
+      "sha256": "9e05ddea6f416e46835124b1952eae5ad7f0b7da462d18891b01b1ec14c13edf"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Sofa.uasset",
+      "bytes": 205659,
+      "sha256": "3cb4a141867428028f0f3f55aa0e8dcb640ad28d4e46e625086d24dafe759209"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_TV.uasset",
+      "bytes": 342606,
+      "sha256": "50fe9c7bced91c7fe5a379ee50ef3a0de7e9840a311dcf243637a18498051086"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_Table.uasset",
+      "bytes": 210621,
+      "sha256": "db2414c8cc7c5939337bd5f2be26293e2592d9f2b0ccaa21302735741e87bdaf"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_Ref_WallPanel.uasset",
+      "bytes": 158870,
+      "sha256": "c68f6cc92c0f4439234f0108f4d26e37923ad46abfb2d714b76d8d95fbdc4e24"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Meshes/SM_ReferenceShell.uasset",
+      "bytes": 144383,
+      "sha256": "f14def569b8a22f6772c48a370e0e7e904951e9e00db0b94b7d27b24d0c14981"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Amber_BaseColor.uasset",
+      "bytes": 653250,
+      "sha256": "9bbc638dd2ea329b26ec9a39fbc481e5b94f6b243fb43827efa532030ac88ecc"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Amber_Normal.uasset",
+      "bytes": 689586,
+      "sha256": "555894333c02d4a3bd3818432d4c0ecbfce2a55e09801eefa099bf500a6a4822"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Amber_ORM.uasset",
+      "bytes": 198694,
+      "sha256": "8ff9fe6e9793fc552b23e39df7a8133e9ed54ec470719705290da3312f8eda5d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Concrete_BaseColor.uasset",
+      "bytes": 808154,
+      "sha256": "29c9bdbc57a4b9fae2e55f834e3de8a65188ee8d26362dddb93c3440eff604bf"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Concrete_Normal.uasset",
+      "bytes": 2835232,
+      "sha256": "118e37894393e136bb6f5a60b83538f649a183bcd337fd55534ff3c38b434e97"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Concrete_ORM.uasset",
+      "bytes": 201656,
+      "sha256": "0ea63d95cb933cbfb49abe6496d9010e008c9e770b0f7c6372a3068790c85213"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Fabric_BaseColor.uasset",
+      "bytes": 517034,
+      "sha256": "c5d5c8af3d0edb9075d82f71ca3ebd44d2a28cdf97db429f8f7d4bd371c1d4c5"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Fabric_Normal.uasset",
+      "bytes": 1019366,
+      "sha256": "b47526d0602ad6259cd00dd70e5c8c31ddf10ad9b099f97a81e163dad5e485be"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Fabric_ORM.uasset",
+      "bytes": 199428,
+      "sha256": "7f0ba85266c774ddfdb2a2fcf013390a8793cb099f8266e0e4d9ea3314da4930"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Ivory_BaseColor.uasset",
+      "bytes": 772178,
+      "sha256": "058b0255a71e1def889f8da5836173514d0469f4541d9eead4d9a2ce16bcf10f"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Ivory_Normal.uasset",
+      "bytes": 483396,
+      "sha256": "f2f2b20ea8cd8af49a8245a98605e49e61804378151b1ef562f99eb49761c918"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Ivory_ORM.uasset",
+      "bytes": 202737,
+      "sha256": "8f777cf11dba1724794c8aab2fe85b1384a30169e033901fd286abc6e6e02254"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Light_BaseColor.uasset",
+      "bytes": 782645,
+      "sha256": "5d577547cef9a053f7c62067074ae5b5e26c5ccfc8b78c009d162ec6cc0fb0a2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Light_Normal.uasset",
+      "bytes": 12329,
+      "sha256": "5e9cb0d81db0b8428e9f7d4900f744d5ae7c27cad48b94b07e2d87f8e0c1d9e8"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Light_ORM.uasset",
+      "bytes": 200978,
+      "sha256": "3c9ca4731f25ae932240c57664779da394cd75ff1362f641368ce6cd2649f4e3"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Paint_BaseColor.uasset",
+      "bytes": 630422,
+      "sha256": "1306c4aba401fe0f76b5b27eb148cffefaead91f9f3a76c1dcf51fc9d18f7722"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Paint_Normal.uasset",
+      "bytes": 891100,
+      "sha256": "ec06e9c78d266df2f46ea0923caba27e1ed75f9d77543ba0d0e920938f3d5b91"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Paint_ORM.uasset",
+      "bytes": 198526,
+      "sha256": "0f57d80d771a86cfa7e1584a7ad98455097f6337cf2ad24478e892434a91d425"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Paper_BaseColor.uasset",
+      "bytes": 768749,
+      "sha256": "c765b51570c01167e988c2a5a862c0998e1b696f12e56344fa808dce9088ea3d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Paper_Normal.uasset",
+      "bytes": 482130,
+      "sha256": "36045590206205fcff19d10d8f433b491a4fa7f4523ab42394c6eab5845bb556"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Paper_ORM.uasset",
+      "bytes": 201614,
+      "sha256": "344e27478cba7f9eb8a8e615755bfd30aa51a1fdaec3e7a4358c94a973e6fecd"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Rubber_BaseColor.uasset",
+      "bytes": 167253,
+      "sha256": "069c197b82c0fdc222326d6df5b82a40a7808093109c68a0ee15b44e538fa8e5"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Rubber_Normal.uasset",
+      "bytes": 1037195,
+      "sha256": "04062ca38dde5c3146c9297be1c99fb3597da9822fde6470f49d8b2125e5ba66"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Rubber_ORM.uasset",
+      "bytes": 201992,
+      "sha256": "edc1a9c0c6b4ca1533d62331a526e0ba7425992101aa2de0e4968e059c07e326"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Steel_BaseColor.uasset",
+      "bytes": 494857,
+      "sha256": "63bb2214d67876406f65886194e55aaff5716d05603be0da07f6b8fbd434fa5a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Steel_Normal.uasset",
+      "bytes": 12329,
+      "sha256": "48bfa42a3be41f111af8ae7673cc76c7241b4fbcadae355a038185e45daa6c1a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Steel_ORM.uasset",
+      "bytes": 199643,
+      "sha256": "d6c7a1df454fe27e2a3979fb7620834932dd0f11e50b1ae23ddcb010f8d43916"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Wood_BaseColor.uasset",
+      "bytes": 444505,
+      "sha256": "4000a05a6dfe8bd7e770a63c0f480a4b67be5b4758307dc1d2f0f25396fbf983"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Wood_Normal.uasset",
+      "bytes": 449499,
+      "sha256": "23a939a98cf983886f65ed1a42aef08aa31b63b9e3950a1234f1ecc6c2283b35"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/ReferenceRoom/Textures/T_Ref_Wood_ORM.uasset",
+      "bytes": 200081,
+      "sha256": "387a44d43a0bc4a3ba05d6d30df775b8446a617eb419546660a05d1729800a88"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Round/Audio/S_CollectionAlert.uasset",
+      "bytes": 53167,
+      "sha256": "3c454603100f3ac81630b4d78a9bf49831931b9cd1c69ce67b6c8a9212317b6d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Concrete_BaseColor.uasset",
+      "bytes": 254476,
+      "sha256": "5b96891a39b96bd485b68899fcbd0a0b6652f24f0861add54fa55877c83ed521"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Concrete_Normal.uasset",
+      "bytes": 354440,
+      "sha256": "f6dad5cfaa2bb2d6384e3523495d3944b16c56ba93f032686b4cedc530f67176"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Concrete_ORM.uasset",
+      "bytes": 291447,
+      "sha256": "0970e230ee90ddec1ba56da3a3dc3b2b52d4bd9dab42367837dfc3636c3daef9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Fabric_BaseColor.uasset",
+      "bytes": 142481,
+      "sha256": "d0281b3ef4198f95875e70c87dab9d5bb8476635944603f7142f00ea44c39404"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Fabric_Normal.uasset",
+      "bytes": 12430,
+      "sha256": "159beb18e8fa42b3d1a31665ba1b5aa9b32a774b039f2c2e9d2e6f0483db6f75"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Fabric_ORM.uasset",
+      "bytes": 12084,
+      "sha256": "2689426ee7764c388d8e927a52a3605963a40bacf68c39d17676ce72094df135"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Floor_BaseColor.uasset",
+      "bytes": 263175,
+      "sha256": "c26ff347c086b9fc08220d28328ab098e794e30e8498ec7e7e3290b2ea87b5a0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Floor_Normal.uasset",
+      "bytes": 181133,
+      "sha256": "401ace620af50c21bc4132fe5357d3191aca12183fede20a5ca4790ee1a44e25"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Floor_ORM.uasset",
+      "bytes": 158768,
+      "sha256": "98c70cb4b42d3d070722896d1e24f76077fda251d742547932b619199fe72810"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_PaintedMetal_BaseColor.uasset",
+      "bytes": 290194,
+      "sha256": "27fa2e0bd89d3493ea27676735b37f45a30c8248640253327e46a75ee2255559"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_PaintedMetal_Normal.uasset",
+      "bytes": 62903,
+      "sha256": "63340c968b691ba7c4c983a94f65c149a0d4ca577dd207976c7c90fce35ebf2c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_PaintedMetal_ORM.uasset",
+      "bytes": 85502,
+      "sha256": "66de3cdba20b48440d3afd01ac9deee627361af8d6e29eaf2f7c9dc788310563"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Steel_BaseColor.uasset",
+      "bytes": 235685,
+      "sha256": "597ace29a9d91bef07a9e4f5438f24a1647093deb315e59e0fe3a0d926fb5750"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Steel_Normal.uasset",
+      "bytes": 166701,
+      "sha256": "8aea519b99a6061043bc0ec8d7a7d0f9ede02046b09121e5c19967405ed29003"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Steel_ORM.uasset",
+      "bytes": 152295,
+      "sha256": "734fc41b42bcde3dc3f82442cf46acab015f0097a40cf430402e5be4fe8a9bbf"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Wood_BaseColor.uasset",
+      "bytes": 130828,
+      "sha256": "6f4ff8e420354867ffdbb965870b7b1828dafb2d7d1143078dda95ccf8139ece"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Wood_Normal.uasset",
+      "bytes": 263743,
+      "sha256": "f36789c5f726e2275407a9f0add8ede4a56efa82481064379a93c118237bdc32"
+    },
+    {
+      "path": "unreal/Condominio13/Content/Bunker/Textures/T_Wood_ORM.uasset",
+      "bytes": 276541,
+      "sha256": "7b6baf00c5d97d2b29958cf5f715fddb17fe3dfd5232aefa8eab22a31ae415c3"
+    },
+    {
+      "path": "unreal/Condominio13/Content/FirstPerson/Anims/ABP_FP_Copy.uasset",
+      "bytes": 57892,
+      "sha256": "a9d36cac5bb30f5a5ecdb175dc4fcbd50d8ae74405ad57802436fbedbab02455"
+    },
+    {
+      "path": "unreal/Condominio13/Content/FirstPerson/Anims/CtrlRig_FPWarp.uasset",
+      "bytes": 248824,
+      "sha256": "7cab27cf0fdec19da9dd6ec98c5c1e8308774c460dda518ca0753c276af85078"
+    },
+    {
+      "path": "unreal/Condominio13/Content/FirstPerson/Blueprints/BP_FirstPersonCameraManager.uasset",
+      "bytes": 15761,
+      "sha256": "3426584f105e39755833ebc2ede7b586cfde5a11fcebeecaf0eac37d819cce57"
+    },
+    {
+      "path": "unreal/Condominio13/Content/FirstPerson/Blueprints/BP_FirstPersonCharacter.uasset",
+      "bytes": 138384,
+      "sha256": "32d47177b176a430adb28897153e9bf5d2a3807bfca232815aa60ad58b6ae6a3"
+    },
+    {
+      "path": "unreal/Condominio13/Content/FirstPerson/Blueprints/BP_FirstPersonGameMode.uasset",
+      "bytes": 16060,
+      "sha256": "b23709651a847a05a85c9e258d60d98f6a9bad15bcad798cd7c0b02c1729696e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/FirstPerson/Blueprints/BP_FirstPersonPlayerController.uasset",
+      "bytes": 83021,
+      "sha256": "0ad6c2154837e1aafbbd6da30c9f49697c031d8ae2221d481956f08e827edc14"
+    },
+    {
+      "path": "unreal/Condominio13/Content/FirstPerson/Lvl_FirstPerson.umap",
+      "bytes": 14257,
+      "sha256": "3d476154bf4cac39a59ec91b88f5ed6889af113a1ecf9690a01c89d8bc32d258"
+    },
+    {
+      "path": "unreal/Condominio13/Content/FirstPerson/MI_FirstPersonColorway.uasset",
+      "bytes": 9419,
+      "sha256": "d0821072d542c67e5eb8802456cf0f4744ea3eeb843fbf59baeae1771e939d23"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/0/44/E30ITTGIQYU50RQY5Y9XCY.uasset",
+      "bytes": 4201,
+      "sha256": "1fd5d1e84d5dba0fbfba0d346f793948aebe92a7bac32966b8943a0115a7e745"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/0/56/I0F38RE5S8MZ8PNQ5GDDSS.uasset",
+      "bytes": 4553,
+      "sha256": "13ec26f31ffdc735b6c30c155ddb8f286ae4a01f227d086678a8e46cf91ec71b"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/0/9C/F5Z2JNQMT747Y7QES5KOP7.uasset",
+      "bytes": 4497,
+      "sha256": "d8a840194a739fe47a05aa99d7e72bdebc22fa16e45500fb4857dd04a3e25a4b"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/0/ER/GJUIXEEO8HUV9WZCSZR9GH.uasset",
+      "bytes": 4084,
+      "sha256": "929131003949426d3c93ffec16cd40962034b29716deb6c6c5dd81c5b57f8e70"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/0/GZ/TTBKQTM7H2HDLWB3T16ZLY.uasset",
+      "bytes": 4675,
+      "sha256": "e3024fffd6719421105f02f55f322bc7e973b22843e3c7950134e004661e8e8d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/0/QF/0MZRSMWGNM91UYLLVJ3D8E.uasset",
+      "bytes": 4255,
+      "sha256": "3be3b8539ec1b2279eac98c567c144ee7faf2204f5dce21845110f59f0e73b4d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/1/2T/XLTJQ7V46UNMQF707MQDQK.uasset",
+      "bytes": 4497,
+      "sha256": "552fb42078a2ca15bc24092adec7f3895447e739d2176a07acc179f37a803182"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/1/CC/0JTUNI8VQLSXUN7CSUXHGJ.uasset",
+      "bytes": 3832,
+      "sha256": "d69bf0aa7148d7920df9ef1d6a33cd8d05dcf8eff77f21f6004715e4c21fe1f0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/1/IH/6AC5KKMX2JQTMBRMPI2QXX.uasset",
+      "bytes": 4531,
+      "sha256": "d1cdf3a42c200036482697fcdd78f82dc11522c228a1152d3b29dba5895069b3"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/1/TT/AN7EDCE3WNBXY7C6MLPGQH.uasset",
+      "bytes": 4255,
+      "sha256": "64c5d1d35f443bf17feccd9cf6c14c74543c16bffdbb297ae090c236d5308187"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/1/WL/M7MJFQ0T76JWU6F1Z7YH8J.uasset",
+      "bytes": 4531,
+      "sha256": "8aeabc4da5a0538607a1e45adf83176b436f6deec3f5b64edcd23177a1ccef17"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/2/1X/SN5R6LIXKDO3W51X1TVUTZ.uasset",
+      "bytes": 4531,
+      "sha256": "1f2b2a66dff9e37af110421b745e00a610b1784ff3f228c566f4ea144a2b5a60"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/2/EG/CIZR6W2NYH4Y5P8G67XOU0.uasset",
+      "bytes": 4286,
+      "sha256": "31aa797ea02a1624e53b1f0ee2d9b3bf0326f0c573c3d9c8d603d5e883d6451c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/2/NN/UPER9K07U6B78EE80PY058.uasset",
+      "bytes": 2276,
+      "sha256": "544976a287d472845bd47c068ae6913a5ae2febc1b15ea3e38f85d28b1ef2119"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/2/OC/XS0DUOELE7HJY3F9XZSBNV.uasset",
+      "bytes": 4499,
+      "sha256": "a53b2db8fa271e74b4c008591e37e57300dfd807811d0b00d818af17b844501c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/2/SP/2T0RTK13XAOOIQD0QTXDQ9.uasset",
+      "bytes": 4531,
+      "sha256": "2ac7294a8c384aaf56acf7677eae0258690a8cb95e564853363883a8e7db70ed"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/3/8B/S2VB6OCHYGRYWAD0QGDM9H.uasset",
+      "bytes": 4497,
+      "sha256": "9c44f043902614f573127fea9b9c7ba232d6d9c3cb01b4ca1383fee644a0e603"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/3/BN/PJBVMDVV9BICN8MLKJ849X.uasset",
+      "bytes": 4497,
+      "sha256": "4097f145e34e5800d8327453129e035aa85615423ba349c5da34ca825fcad9d6"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/4/3X/YJ94LSV2G9NAIYZIK96QLE.uasset",
+      "bytes": 4531,
+      "sha256": "6059aaf6424a039eeb4c0a553d153053ee80dcb2e9a085ff1981f24ca906d158"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/4/6J/NUEDVP0K274K8FKJ6Y0WEX.uasset",
+      "bytes": 4496,
+      "sha256": "60b69c327673345e73b47e740de6a16acfa5f56c1f1c84968427c0ca400abaa8"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/4/8V/Q896X99E5DMTT521YEXM9A.uasset",
+      "bytes": 4553,
+      "sha256": "9b68adced8a0643e73bc23f5a4d2039638865581ba7ab7333be042de8db7d4f7"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/4/IJ/E7WQWO4MJ84GWAX8H4UR84.uasset",
+      "bytes": 4497,
+      "sha256": "249d8eeb2c18a123a57bb01818c7efa4413bdcd4af3562b872dec997e221bd19"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/4/N3/FQV2FW1I8D4Z06TF38UTCR.uasset",
+      "bytes": 4201,
+      "sha256": "97d2eb9039077e03883b932e8d37011937607fedf490a48e5f4e9057952b0ec0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/4/QB/9YXJRQGLS33G0BEH37USBX.uasset",
+      "bytes": 4201,
+      "sha256": "fb3a51bfc0d3a883d6b4e6d4a96944b17381113a78ff9ef8d47c0c7436e8188e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/4/XL/U0BAKX7624EKY7QR8W4QDX.uasset",
+      "bytes": 4087,
+      "sha256": "56b4c9e9eff4ee041deb0f85b48cfd34c91b9f8d83f75ca3cf817efc0c435357"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/5/TI/UOUH4EXJHIGJNF2D0Y7CPX.uasset",
+      "bytes": 4559,
+      "sha256": "0c0c264535040bd0f536db0f4dac7da4151e2eb3118b726e9c9979e526258fd1"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/5/UU/1ZY1QFVHRWZSP8YI4VZLMK.uasset",
+      "bytes": 5414,
+      "sha256": "178bade818c10d835dbf50594649180565221e9a03243d78eac6ee87b3e53e87"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/5/V6/DING1S8EVR2AQW03U1ABGV.uasset",
+      "bytes": 4559,
+      "sha256": "1fd64f4ecfa1c08bcded5e52cf06d44a18abbf52ec3de1a1e20ed2daddf68743"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/6/6I/29E05UQXOAGP6TCP5CN0BQ.uasset",
+      "bytes": 4553,
+      "sha256": "8984aa9512bd2430fa9fba4eae33e289966eb57641efa6369db4990102f57cac"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/6/96/JEF6NHSL8XXSCQTOUZMFM6.uasset",
+      "bytes": 3714,
+      "sha256": "ca485f940cf796321bd9d7f2a8e6eb96c2ac2ed4eaa0bd4df3b409a7953c8ef2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/6/I5/5U3R0J6P3EIOET939AGA6V.uasset",
+      "bytes": 4531,
+      "sha256": "4ebd9b1b2f271c6ee433de999d4bd60ad004fd99f3d31ea19bade704702a39de"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/6/U8/LL0QNHFPYL403X5YW0FGG6.uasset",
+      "bytes": 4417,
+      "sha256": "c57f36fd530bbc96c0be9dc179725fa3bafe08dafee3d5f4d3c773089b5dc25a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/7/HV/3VH3D4CLM38OC4F8ICXDVQ.uasset",
+      "bytes": 4201,
+      "sha256": "da7b7b99d9c27b7673eee56c4b07fbd7e1545065947d3d55078f726035103f68"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/7/NI/7Z9KFUHGDC33I0LYBUUYUQ.uasset",
+      "bytes": 2254,
+      "sha256": "779e27d6444187d7ee82d69737af13dbefeb9434da79c25e51431e554e65d244"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/8/2H/HS4VI3UZJT1LNKM6HC7PL2.uasset",
+      "bytes": 4497,
+      "sha256": "fc16d8d1e4012e81c59bfe89809dcaa219a63080b39e5e9d6672edb153be4653"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/8/7M/FNN1ELJOC3KQT4JN0YDHT6.uasset",
+      "bytes": 4559,
+      "sha256": "009f67305e4e1c4beb32c561d61e23f940e0a37d60f3ba3bf377620866b5fc04"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/8/I3/0VVXG3S0B4RN6QSHFSGKGX.uasset",
+      "bytes": 4087,
+      "sha256": "87d9cfd2362c089e9052cbd288900ac340785142864ed3e698886d3144d67dc6"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/8/KL/17EY7JSE7TF01OWV9LBSC1.uasset",
+      "bytes": 4497,
+      "sha256": "a0da854f07ddc30cdb407b7b2b81a6cc6d1fde1aedfbe145363adcaeb28a8103"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/8/QY/FSMNL3KLM133J5VKZAU0BE.uasset",
+      "bytes": 4974,
+      "sha256": "5f1ab50543d0f9461964953ee9b87cd33605f122aae0fcc8549cfcfb635eddcd"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/8/W2/920TYXDM12T8GKK1E0M892.uasset",
+      "bytes": 4499,
+      "sha256": "72ef4aa93658f946e30264d284a8980f65a8be98cb323ba0a9d8bcfed6489f8b"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/9/3M/CN6DASGRPPAPEICARMETU3.uasset",
+      "bytes": 4199,
+      "sha256": "4ec161c68c11b622effb26332cfbf57922e9f828b43bf2043eda517db9e8686d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/9/8O/BVYOAIREBMOAK7193TKE2N.uasset",
+      "bytes": 4084,
+      "sha256": "b7ec31c3222c631fc4d98f006c2154ed3d0fe6c719a62bbce1973307f95f94ec"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/9/9S/AT66MUZW91DYUD6WM5FH0P.uasset",
+      "bytes": 4497,
+      "sha256": "174fdd5afe25f12c51ca928f42315784e87352fb81cad79fa81743fdbe30ce45"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/9/AC/RFQ7INIHB1Q1JWY7DWYQ5Y.uasset",
+      "bytes": 4376,
+      "sha256": "10a7aae6f5dfc918c9ee3b94a539f1842d5dc9667aae9d4c9f6f270a6be41234"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/9/D2/66RZ3E9MEBJPV125V7SWQ6.uasset",
+      "bytes": 4199,
+      "sha256": "fc7be44ae999d1a1a536c42f9ef1cf5891ea7179f9a7dd1a0742ade12b3fdc9c"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/9/LJ/OQX9YN9UJ9NNRX6ERJ3PPZ.uasset",
+      "bytes": 4499,
+      "sha256": "73c567328e9702dcc8a888e1df6b0f395b5b2c083e5d07d89a1f2667b84c73d2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/A/2N/XWEBNOYZ7JA5DZOPBGZ71S.uasset",
+      "bytes": 4255,
+      "sha256": "67f13ba89531ba4183441e94be3c4fad5891dd6b0714f3ed62a2688af12ab593"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/A/HH/BIAWP2Z8HW32809JWMRLU3.uasset",
+      "bytes": 4087,
+      "sha256": "fc18de260705da3ec567fcb9a07eac7fffd562d4620856c8856aea97c3cf2bba"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/A/J3/JQWZC33CXMXDX87CAIWJ94.uasset",
+      "bytes": 4199,
+      "sha256": "a2ca78db0081ba307f8a47548ee775ce1706558fa03c6ae1219e6e1792f4a249"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/A/U0/N7D7PHGDI2A4EOLD58TA92.uasset",
+      "bytes": 4201,
+      "sha256": "f67a09a14fe4a886397ee19991d6658cc4bab9be0e87eccc3e20f7181e8896b4"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/B/TG/2MDU2GF02TMAKTSII7ZI7V.uasset",
+      "bytes": 4087,
+      "sha256": "ec8286de11eafa2f9ac839a4338c50465f22b78ecbb975b5f4a151e82a04d10d"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/B/U9/AHG6736Q2Y3SGC1JQONLFJ.uasset",
+      "bytes": 4201,
+      "sha256": "a40d0da0570a3b6090bedef8e0260fcec73f9c61ea5ca7858d9c3b55fa2eaed9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/C/0I/0PXPLZ76IWADZO9D6J4VWA.uasset",
+      "bytes": 4383,
+      "sha256": "24d62187d5b4b616e20d21d35fc154a2d3a9d1d72655c47fd939a6f5e944ebb2"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/C/GO/765U52T3ZSF8D2MPGLVRR0.uasset",
+      "bytes": 4551,
+      "sha256": "72a049afd99066c8f30483ae265b853cd9b16b6320298e5098a1a6867bdc7b2a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/D/BL/WB7S47W2IE4F23EZ9SLQ1B.uasset",
+      "bytes": 3604,
+      "sha256": "a1823ad6744bfe9409f572098e8edb445b6aa3fdaa889bbe2a89e9acf264192e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/D/C7/LHEOZ28EA00LZG55QEAGFH.uasset",
+      "bytes": 3727,
+      "sha256": "2c71d45731360d08d92f769ddbe0758e9eb501ede0806aedc2fdd949526725b9"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/D/IP/FTEAYZDQR9M2KDS0TEPHA0.uasset",
+      "bytes": 4201,
+      "sha256": "ec4bf819e9bc775fc353d76cd8a379b6d57005cd1d9af6a385545ce358eabe9e"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/D/LE/5ZDRK6QRB1CF1JSS3HJKPV.uasset",
+      "bytes": 4553,
+      "sha256": "15d53e81635f2743e72551bbb53b2828485ac88d61c1c05f96266593a229ae05"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/D/R5/8FN93FIP5FEZUI0RECK61K.uasset",
+      "bytes": 4490,
+      "sha256": "675b8d471e08d69429c163e5540a68dbd1d9e016057965ef04ea6604b9d8a3a6"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/D/TO/58Y2HCG1B7M6VAJN1E38IS.uasset",
+      "bytes": 4531,
+      "sha256": "d4810c44e752ed272b3b69b284d3418866d91db2f601f7d50a818cdfde6fc9b0"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/D/V1/DLNCFC4C5RQ8EDPCDYCKHQ.uasset",
+      "bytes": 4401,
+      "sha256": "59b0b636102604704850e6d7abd0bd9a526f0f04ad936e70a6e7ba90b2cb60da"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/D/W0/RTEFXSATTAVCPYEQHKNEY1.uasset",
+      "bytes": 4497,
+      "sha256": "a902ce57e2f5fa422c445cc8d372740acf35271e21980e90e4b8872224615707"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalActors__/FirstPerson/Lvl_FirstPerson/E/P7/9DOH3BZKA2A8C7ZTDWILWC.uasset",
+      "bytes": 4255,
+      "sha256": "f01c917a9cf50c122f35ef3a121ca690c0f4b26a61d3db8b1691136636e87b6a"
+    },
+    {
+      "path": "unreal/Condominio13/Content/__ExternalObjects__/FirstPerson/Lvl_FirstPerson/1/E5/IOQOGT9AJYYZQ06SOLO6RW.uasset",
+      "bytes": 1863,
+      "sha256": "ae06f5d4591172a518e5215ee2b4ee22ee57cd286e746cd9717bd00557f7c691"
+    }
+  ]
+}

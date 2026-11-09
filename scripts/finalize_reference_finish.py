@@ -1,0 +1,5 @@
+from pathlib import Path
+import json,unreal as u
+R=Path(__file__).resolve().parents[1];D='/Game/Bunker/ReferenceRoom/Meshes';name='SM_Ref_Sofa';m=u.load_asset(D+'/'+name);slots=list(m.get_editor_property('static_materials'))
+t=u.AssetImportTask();t.filename=str(R/'exports/reference_room'/(name+'.fbx'));t.destination_path=D;t.destination_name=name;t.automated=True;t.replace_existing=True;t.save=True;o=u.FbxImportUI();o.import_mesh=True;o.import_as_skeletal=False;o.import_materials=False;o.import_textures=False;o.static_mesh_import_data.combine_meshes=True;o.static_mesh_import_data.auto_generate_collision=False;o.static_mesh_import_data.generate_lightmap_u_vs=False;t.options=o;u.AssetToolsHelpers.get_asset_tools().import_asset_tasks([t]);m=u.load_asset(D+'/'+name);m.set_editor_property('static_materials',slots);m.get_editor_property('body_setup').set_editor_property('collision_trace_flag',u.CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE);u.EditorAssetLibrary.save_loaded_asset(m)
+exec(compile((R/'scripts/tune_reference_layout.py').read_text(),str(R/'scripts/tune_reference_layout.py'),'exec'));u.log_warning('REFERENCE_FINISH_FINALIZED')

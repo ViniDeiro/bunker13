@@ -24,6 +24,7 @@ FString ABunkerInteractable::GetPrompt() const
 void ABunkerInteractable::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(ABunkerInteractable, InfraAction);
     DOREPLIFETIME(ABunkerInteractable, bActive);
     DOREPLIFETIME(ABunkerInteractable, ItemId);
     DOREPLIFETIME(ABunkerInteractable, ItemType);
@@ -56,6 +57,7 @@ void ABunkerInteractable::OnRep_Visual()
 {
     if (!PickupMesh) return;
     Mesh->SetStaticMesh(PickupMesh);
+    if(InfraAction||ItemType==TEXT("FuelCan")||ItemType==TEXT("RepairParts")||ItemType==TEXT("FilterCartridge"))Mesh->SetLightingChannels(true,true,true);
     SetActorScale3D(PickupScale);
     for (int32 I=0;I<PickupMaterials.Num();I++) Mesh->SetMaterial(I,PickupMaterials[I]);
 }

@@ -19,6 +19,28 @@ class CONDOMINIO13_API UBunkerSurvivalRules : public UDataAsset
 {
     GENERATED_BODY()
 public:
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float FuelInitialLiters=1.2f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float GeneratorInitialCondition=65;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float RawWaterCapacityLiters=20;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float RawWaterInitialLiters=12;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float CleanWaterInitialLiters=1.5f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float CleanWaterCapacityLiters=12;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float FilterLitersPerMinute=.75f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float FilterWearPerLiter=6;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float DrinkLiters=.35f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float HydrationPerLiter=100;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float FuelCapacityLiters=8;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float FuelCanLiters=2;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float FuelLitersPerMinute=.3f;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float GeneratorWearPerMinute=3;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float GeneratorRepairGain=40;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float InfrastructureWorkSeconds=5;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,meta=(ClampMin="30",ClampMax="3600")) float DaySeconds=240;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float CollectionSeconds=90;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float EmergencyReleaseSeconds=12;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float EmergencyReleaseEnergy=15;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float AirlockPoweredSeconds=5;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite) float AirlockManualSeconds=12;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) TArray<FBunkerItemDefinition> Items;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) float MaxWeightKg = 20;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) int32 MaxSlots = 12;

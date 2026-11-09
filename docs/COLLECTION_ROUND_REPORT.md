@@ -1,0 +1,116 @@
+# Coleta inicial e fechamento — MVP 0.3.0
+
+30/10/2026 · Deiros Dev
+
+## Resultado
+
+Modo jogável separado no mapa `Lvl_CollectionRound`, mantendo a planta aberta. Começa no supermercado, em preparação. O host pressiona R com todos reunidos para iniciar 90 segundos de coleta. Só o servidor decide o tempo, os alertas e as transações. A mochila continua privada, com espaços/peso e IDs únicos.
+
+A etapa termina com o abrigo fechado e as interações existentes disponíveis. Ainda não é uma partida completa com expedição, eventos e final.
+
+## Como jogar
+
+- Solo: `builds/Mac/Jogar-Coleta-MVP.command`.
+- Host: `builds/Mac/Hospedar-Coleta-MVP.command`. Amigo na mesma rede: `Entrar-Coleta-MVP.command`, informando o IP do host. Ambos precisam desta versão. Não há convites Steam nem build Windows validada.
+- R inicia a coleta; E pega e interage; I abre a mochila, U usa e G larga o selecionado. F5 grava no host.
+- A escada tem um vão real no piso do supermercado, com proteção lateral e três luzes de emergência. Desça e atravesse a antecâmara para chegar à convivência.
+- Aos 30, 15 e 5 segundos há avisos sonoros, além da contagem na tela.
+- Ao zerar, a porta começa a fechar; se alguém estiver no arco, para e aguarda espaço. O estado “abrigo” só aparece quando a folha efetivamente fecha.
+- Ficar fora não mata automaticamente. Alguém dentro pode abrir com E. De fora, mantenha E pressionado olhando a porta; afastar, olhar para outro lado ou soltar cancela.
+- A liberação leva 12 segundos com energia suficiente e desconta até 15 pontos apenas quando abre. Sem energia, fica mais lenta (36 segundos com os parâmetros atuais), mas continua possível.
+
+## Persistência e rede
+
+Novos pares de checkpoint: `C13_MvpRoundSolo_A/B` e `C13_MvpRoundCoop_A/B`. Perfis cooperativos também têm namespace próprio. Os checkpoints antigos e os aplicativos de avaliação não foram substituídos. Fechar e reabrir este modo retoma o checkpoint existente; um menu para criar/selecionar campanhas ainda está pendente.
+
+Fase, segundos restantes, posição, mochila, objetos de mundo e portas são restaurados. O tempo offline não consome a contagem; ele volta a contar no relógio da sessão reaberta. Progresso parcial de uma liberação manual é cancelado ao carregar, sem cobrança de energia. As versões de checkpoint 1/2 continuam, com campos opcionais para este modo; o protocolo de aplicativo passou a 0.3.0.
+
+Depois do fechamento só participantes anteriores podem reconectar. Quem tentar entrar como novo é rejeitado. Ao sair o host, a sessão termina com salvamento; não há migração de host. A tela de lobby/reconexão amigável ainda não existe. O retorno inesperado ao mapa padrão bloqueia a gravação deste modo para não criar um checkpoint com assinatura errada.
+
+## Testes executados no pacote
+
+### walk
+
+- floor_hole_exists: PASS
+- all_route_points: PASS
+- walked_to_bunker: PASS
+- no_timeout: PASS
+
+### seed
+
+- started: PASS
+- one_item_owned: PASS
+- checkpoint_written: PASS
+- save_accepted: PASS
+
+### load
+
+- phase_and_timer_resumed: PASS
+- inventory_resumed: PASS
+- restoration_valid: PASS
+- same_item_guid: PASS
+
+### network
+
+- host_started: PASS
+- remote_start_rejected: PASS
+- one_item_not_duplicated: PASS
+- alerts_30_15_5: PASS
+- physically_closed: PASS
+- outside_not_killed: PASS
+- release_cancelled: PASS
+- manual_recovery_opened: PASS
+- exhaustion_not_a_softlock: PASS
+- returned_by_movement: PASS
+- late_stranger_rejected: PASS
+- both_see_shelter: PASS
+- checkpoints_valid: PASS
+
+A rodada automatizada usa 35 segundos para exercitar os mesmos alertas de 30/15/5; a duração normal é 90. Host e cliente foram realmente renderizados no mesmo Mac. Um terceiro processo tentou entrada tardia e foi rejeitado. O teste cansou o explorador até energia zero, cancelou uma liberação e depois completou outra, passando pela porta com movimento real. Não houve dois humanos nem teste de internet.
+
+O ensaio de caminhada começa no patamar do supermercado e percorre 13 pontos com CharacterMovement e colisão; não teleporta o jogador ao longo da escada. As fixtures da disputa de coleta e do fechamento posicionam os jogadores para tornar esses cenários repetíveis.
+
+O teste de salvamento usa dois processos independentes, comparando o GUID antes/depois, inventário e tempo restante. Regressões anteriores foram executadas contra este novo executável: persistência solo, estoque concorrente, reconexão e armário físico. As rodadas de reconexão incluem quatro conexões e emulação de 80 ms / 2% de perda.
+
+Fonte Blender reaberta, em metros, com quatro peças de piso e um vão de 2,2 x 8 m conferido por raio geométrico. O Blender documenta a revisão arquitetônica; a lógica está na Unreal e os móveis/itens refinados mantêm suas fontes anteriores.
+
+## Desempenho
+
+Apple M2, 24 GB, macOS 26.6.2. Duas janelas de 960 x 540 no mesmo computador; aproximadamente 16 s entre os segundos 12 e 28 do ensaio, incluindo uma captura. Não é benchmark de sessão longa, de duas máquinas separadas ou de Windows.
+
+| Instância | FPS médio | Frame p95 | Amostras |
+|---|---:|---:|---:|
+| host | 61.72 | 16.38 ms | 988 |
+| client | 61.66 | 16.30 ms | 986 |
+
+## Problemas encontrados
+
+O primeiro ensaio de regressão do armário falhou por interferência da entrada física do mouse na mira automatizada. A repetição com o bloqueio de olhar já disponível na fixture passou nas 13 verificações. Registro inicial preservado em `logs/round_reference_first_failure.json`; os controles normais não foram alterados por essa repetição.
+
+- Piso inteiro cobria a escada: substituído por quatro peças, com abertura real e guarda-corpo.
+- Banco atravessava o trajeto da antecâmara: primeira caminhada falhou; banco reorientado na lateral e percurso repetido.
+- Estantes avançavam sobre a borda do vão: recuadas.
+- Escada escura nas capturas: adicionadas luminárias de emergência, verificadas no executável.
+- Mesas fora da cobertura de luz e apoios incorretos: três luminárias sobre os suprimentos e alturas ajustadas pelos limites reais das malhas.
+- Movimento do mouse interferia na câmera do ensaio automático: entrada de olhar bloqueada apenas na fixture de teste; sensibilidade normal preservada.
+- Custo rígido de energia podia impedir retorno solo: liberação mais lenta, mas possível, com energia zero.
+- Desligamento simultâneo do ensaio podia mandar o cliente ao mapa padrão: cliente encerra primeiro; mapa sem marcador deste modo não grava checkpoint de coleta.
+- Na instalação, a duplicação de ator via API do editor falhou: substituída por criação e configuração dos itens. IDs de novas unidades são criados pelo host e restaurados pelo checkpoint; não são substituídos na carga.
+
+## O que falta para o MVP de janeiro
+
+Ciclo de dias, gerador com combustível/circuitos e filtragem; padronizar os estoques legados com armários físicos; ampliar para 12–20 tipos de itens utilizáveis (hoje são cinco tipos físicos, não doze tipos novos); expedição com radiação, inimigo, combate, morte e mochila; voz e rádio; três eventos, minijogo real e um objetivo com encerramento. Também faltam menu/lobby, acessibilidade, Windows e sessão de 30–60 minutos com quatro humanos.
+
+As capturas ainda mostram superfícies provisórias escuras no supermercado, iluminação das mesas que precisa de acabamento e o personagem padrão da Unreal. A área externa e os personagens não têm aprovação visual final.
+
+Este pacote entrega a coleta inicial e a chegada ao abrigo. Não conclui a meta de 30/01/2027, não aprova arte final de supermercado/escada e não corrige a instabilidade histórica de inicialização do Mac sem evidência específica.
+
+## Arquivos
+
+- `builds/Mac/Condominio13-MVP.app` e os três lançadores.
+- `blender/Bunker_CollectionRound_v001.blend`.
+- `unreal/Condominio13/Content/Bunker/Lvl_CollectionRound.umap`.
+- `assets/round/S_CollectionAlert.wav` — som sintético original.
+- `screenshots/round_*.png` — capturas nativas do executável.
+- `logs/round_*` e `logs/round_delivery_manifest.json`.
+- Planejamento completo: `docs/MVP_TARGET_JANUARY_2027.md`.

@@ -1,0 +1,286 @@
+{
+  "SM_Ref_WallPanel": {
+    "dimensions_m": [
+      1.4800000190734863,
+      0.11750000715255737,
+      2.9000000953674316
+    ],
+    "polygons": 1026,
+    "materials": [
+      "M_Ref_Concrete",
+      "M_Ref_Steel",
+      "M_Ref_Paint",
+      "M_Ref_Rubber"
+    ]
+  },
+  "SM_Ref_FloorTile": {
+    "dimensions_m": [
+      1.0,
+      1.0,
+      0.02500000037252903
+    ],
+    "polygons": 98,
+    "materials": [
+      "M_Ref_Rubber"
+    ]
+  },
+  "SM_Ref_Table": {
+    "dimensions_m": [
+      2.0500001907348633,
+      0.9570000171661377,
+      0.7365000247955322
+    ],
+    "polygons": 1764,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Rubber",
+      "M_Ref_Steel",
+      "M_Ref_Wood"
+    ]
+  },
+  "SM_Ref_Chair": {
+    "dimensions_m": [
+      0.46000000834465027,
+      0.46000000834465027,
+      0.8450000286102295
+    ],
+    "polygons": 1274,
+    "materials": [
+      "M_Ref_Steel",
+      "M_Ref_Rubber",
+      "M_Ref_Wood",
+      "M_Ref_Fabric"
+    ]
+  },
+  "SM_Ref_Sofa": {
+    "dimensions_m": [
+      2.4000000953674316,
+      0.8199999928474426,
+      1.0649999380111694
+    ],
+    "polygons": 2058,
+    "materials": [
+      "M_Ref_Steel",
+      "M_Ref_Paint",
+      "M_Ref_Fabric",
+      "M_Ref_Ivory"
+    ]
+  },
+  "SM_Ref_CabinetBody": {
+    "dimensions_m": [
+      1.2000000476837158,
+      0.5389999747276306,
+      1.9609999656677246
+    ],
+    "polygons": 2398,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Rubber",
+      "M_Ref_Steel"
+    ]
+  },
+  "SM_Ref_CabinetLeaf": {
+    "dimensions_m": [
+      1.1653714179992676,
+      0.10100000351667404,
+      1.869999885559082
+    ],
+    "polygons": 1418,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Steel",
+      "M_Ref_Rubber",
+      "M_Ref_Ivory"
+    ],
+    "side_reveal_mm": 4
+  },
+  "SM_Ref_Lamp": {
+    "dimensions_m": [
+      0.8999999761581421,
+      0.18000000715255737,
+      0.12250000238418579
+    ],
+    "polygons": 490,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Light",
+      "M_Ref_Steel"
+    ]
+  },
+  "SM_Ref_Mug": {
+    "dimensions_m": [
+      0.10500000417232513,
+      0.07199999690055847,
+      0.08649999648332596
+    ],
+    "polygons": 1040,
+    "materials": [
+      "M_Ref_Ivory",
+      "M_Ref_Wood"
+    ]
+  },
+  "SM_Ref_Notebook": {
+    "dimensions_m": [
+      0.2199999988079071,
+      0.1599999964237213,
+      0.03500000014901161
+    ],
+    "polygons": 294,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Paper"
+    ]
+  },
+  "SM_Ref_Blanket": {
+    "dimensions_m": [
+      0.6600000262260437,
+      0.4300000071525574,
+      0.1339999884366989
+    ],
+    "polygons": 490,
+    "materials": [
+      "M_Ref_Fabric"
+    ]
+  },
+  "SM_Ref_Sign": {
+    "dimensions_m": [
+      1.100000023841858,
+      0.02370000258088112,
+      0.23999999463558197
+    ],
+    "polygons": 2838,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Ivory"
+    ]
+  },
+  "SM_Ref_Duct": {
+    "dimensions_m": [
+      2.0,
+      0.36000001430511475,
+      0.2774999737739563
+    ],
+    "polygons": 782,
+    "materials": [
+      "M_Ref_Steel"
+    ]
+  },
+  "SM_Ref_TV": {
+    "dimensions_m": [
+      0.8999999761581421,
+      0.5199999809265137,
+      1.065000057220459
+    ],
+    "polygons": 4433,
+    "materials": [
+      "M_Ref_Wood",
+      "M_Ref_Paint",
+      "M_Ref_Rubber",
+      "M_Ref_Steel",
+      "M_Ref_Ivory"
+    ]
+  },
+  "SM_Ref_NoticeBoard": {
+    "dimensions_m": [
+      1.5549999475479126,
+      0.045499999076128006,
+      0.9350000023841858
+    ],
+    "polygons": 6264,
+    "materials": [
+      "M_Ref_Wood",
+      "M_Ref_Paint",
+      "M_Ref_Paper",
+      "M_Ref_Steel"
+    ]
+  },
+  "SM_Ref_Clock": {
+    "dimensions_m": [
+      0.3799999952316284,
+      0.06050000339746475,
+      0.3799999952316284
+    ],
+    "polygons": 1474,
+    "materials": [
+      "M_Ref_Steel",
+      "M_Ref_Ivory",
+      "M_Ref_Paint"
+    ]
+  },
+  "SM_Ref_Radio": {
+    "dimensions_m": [
+      0.41999998688697815,
+      0.23849999904632568,
+      0.25
+    ],
+    "polygons": 2882,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Rubber",
+      "M_Ref_Steel",
+      "M_Ref_Ivory"
+    ]
+  },
+  "SM_Ref_Dartboard": {
+    "dimensions_m": [
+      0.45100000500679016,
+      0.046500008553266525,
+      0.45100000500679016
+    ],
+    "polygons": 5799,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Ivory",
+      "M_Ref_Rubber",
+      "M_Ref_Amber"
+    ]
+  },
+  "SM_Ref_RadioLegacy": {
+    "dimensions_m": [
+      0.7636363506317139,
+      0.5962499976158142,
+      0.78125
+    ],
+    "polygons": 2882,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Rubber",
+      "M_Ref_Steel",
+      "M_Ref_Ivory"
+    ],
+    "legacy_actor_scale": [
+      0.55,
+      0.4,
+      0.32
+    ],
+    "visual_offset_m": [
+      0.2,
+      0.45,
+      -0.3185
+    ]
+  },
+  "SM_Ref_DartboardLegacy": {
+    "dimensions_m": [
+      0.727419376373291,
+      0.3875000774860382,
+      0.727419376373291
+    ],
+    "polygons": 5799,
+    "materials": [
+      "M_Ref_Paint",
+      "M_Ref_Ivory",
+      "M_Ref_Rubber",
+      "M_Ref_Amber"
+    ],
+    "legacy_actor_scale": [
+      0.62,
+      0.12,
+      0.62
+    ],
+    "visual_offset_m": [
+      0,
+      0,
+      0.28
+    ]
+  }
+}

@@ -1,0 +1,1402 @@
+[
+  {
+    "label": "REF_Sofa",
+    "mesh": "SM_Ref_Sofa",
+    "position": [
+      795.0,
+      -420.0,
+      2.100004529953003
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      -90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Table",
+    "mesh": "SM_Ref_Table",
+    "position": [
+      1140.0,
+      -370.0,
+      2.100007063150406
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Chair_1075_-305",
+    "mesh": "SM_Ref_Chair",
+    "position": [
+      1075.0,
+      -305.0,
+      2.100002443790436
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Chair_1075_-435",
+    "mesh": "SM_Ref_Chair",
+    "position": [
+      1075.0,
+      -435.0,
+      2.100002443790436
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Chair_1205_-305",
+    "mesh": "SM_Ref_Chair",
+    "position": [
+      1205.0,
+      -305.0,
+      2.100002443790436
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Chair_1205_-435",
+    "mesh": "SM_Ref_Chair",
+    "position": [
+      1205.0,
+      -435.0,
+      2.100002443790436
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_North_0",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      783.3333333333334,
+      -40.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      0.9842342342342342,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_North_1",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      930.0,
+      -40.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      0.9842342342342342,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_North_2",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1076.6666666666665,
+      -40.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      0.9842342342342342,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_North_3",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1223.3333333333333,
+      -40.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      0.9842342342342342,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_North_4",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1370.0,
+      -40.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      0.9842342342342342,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_North_5",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1516.6666666666665,
+      -40.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      0.9842342342342342,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_East_0",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1590.0,
+      -652.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      0.9121621621621622,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_East_1",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1590.0,
+      -516.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      0.9121621621621622,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_East_2",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1590.0,
+      -380.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      0.9121621621621622,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_East_3",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1590.0,
+      -244.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      0.9121621621621622,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_East_4",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1590.0,
+      -108.0,
+      0.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      0.9121621621621622,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_WestA_0",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      710.0,
+      -80.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      -90.0
+    ],
+    "scale": [
+      0.5337837837837838,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_WestB_0",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      710.0,
+      -660.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      -90.0
+    ],
+    "scale": [
+      0.8040540540540541,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_WestB_1",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      710.0,
+      -540.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      -90.0
+    ],
+    "scale": [
+      0.8040540540540541,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_WestB_2",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      710.0,
+      -420.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      -90.0
+    ],
+    "scale": [
+      0.8040540540540541,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_WestB_3",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      710.0,
+      -300.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      -90.0
+    ],
+    "scale": [
+      0.8040540540540541,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_SouthA_0",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      766.6666666666666,
+      -720.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.759009009009009,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_SouthA_1",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      880.0,
+      -720.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.759009009009009,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_SouthA_2",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      993.3333333333333,
+      -720.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.759009009009009,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_SouthB_0",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1306.6666666666667,
+      -720.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.759009009009009,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_SouthB_1",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1420.0,
+      -720.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.759009009009009,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Panel_SouthB_2",
+    "mesh": "SM_Ref_WallPanel",
+    "position": [
+      1533.3333333333333,
+      -720.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.759009009009009,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Floor",
+    "mesh": "SM_Ref_FloorTile",
+    "position": [
+      1150.0,
+      -380.0,
+      2.6
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      8.8,
+      6.8,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Ceiling",
+    "mesh": "SM_Ref_FloorTile",
+    "position": [
+      1150.0,
+      -380.0,
+      286.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      8.8,
+      6.8,
+      2.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CeilingLamp0",
+    "mesh": "SM_Ref_Lamp",
+    "position": [
+      1000.0,
+      -330.0,
+      280.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CeilingLamp1",
+    "mesh": "SM_Ref_Lamp",
+    "position": [
+      1330.0,
+      -530.0,
+      280.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CeilingLamp2",
+    "mesh": "SM_Ref_Lamp",
+    "position": [
+      1400.0,
+      -150.0,
+      280.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Duct850",
+    "mesh": "SM_Ref_Duct",
+    "position": [
+      850.0,
+      -75.0,
+      262.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Duct1050",
+    "mesh": "SM_Ref_Duct",
+    "position": [
+      1050.0,
+      -75.0,
+      262.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Duct1250",
+    "mesh": "SM_Ref_Duct",
+    "position": [
+      1250.0,
+      -75.0,
+      262.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Duct1450",
+    "mesh": "SM_Ref_Duct",
+    "position": [
+      1450.0,
+      -75.0,
+      262.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CivicSign",
+    "mesh": "SM_Ref_Sign",
+    "position": [
+      1140.0,
+      -56.0,
+      210.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_TV",
+    "mesh": "SM_Ref_TV",
+    "position": [
+      820.0,
+      -100.0,
+      2.6
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_NoticeBoard",
+    "mesh": "SM_Ref_NoticeBoard",
+    "position": [
+      1150.0,
+      -58.0,
+      145.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Clock",
+    "mesh": "SM_Ref_Clock",
+    "position": [
+      980.0,
+      -58.0,
+      210.0
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Mug0",
+    "mesh": "SM_Ref_Mug",
+    "position": [
+      1080.0,
+      -340.0,
+      76.15
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Mug1",
+    "mesh": "SM_Ref_Mug",
+    "position": [
+      1200.0,
+      -380.0,
+      76.15
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      27.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Mug2",
+    "mesh": "SM_Ref_Mug",
+    "position": [
+      1160.0,
+      -400.0,
+      76.15
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      54.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Notebook",
+    "mesh": "SM_Ref_Notebook",
+    "position": [
+      1230.0,
+      -340.0,
+      76.15
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      18.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Blanket",
+    "mesh": "SM_Ref_Blanket",
+    "position": [
+      795.0,
+      -477.0,
+      57.8
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      -90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_SideTable",
+    "mesh": "SM_Ref_Table",
+    "position": [
+      820.0,
+      -580.0,
+      2.100007063150406
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.35,
+      0.65,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_SideTea",
+    "mesh": "SM_Ref_Mug",
+    "position": [
+      840.0,
+      -590.0,
+      76.15
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Journal",
+    "mesh": "SM_Ref_Notebook",
+    "position": [
+      810.0,
+      -590.0,
+      76.15
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      12.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_OpenBookcase",
+    "mesh": "SM_Ref_CabinetBody",
+    "position": [
+      1540.0,
+      -470.0,
+      2.6
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_BookOnShelf0",
+    "mesh": "SM_Ref_Notebook",
+    "position": [
+      1540.0,
+      -475.0,
+      53.75
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_BookOnShelf1",
+    "mesh": "SM_Ref_Notebook",
+    "position": [
+      1540.0,
+      -467.0,
+      53.75
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_BookOnShelf2",
+    "mesh": "SM_Ref_Notebook",
+    "position": [
+      1540.0,
+      -459.0,
+      53.75
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_BookOnShelf3",
+    "mesh": "SM_Ref_Notebook",
+    "position": [
+      1540.0,
+      -451.0,
+      53.75
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CardTable",
+    "mesh": "SM_Ref_Table",
+    "position": [
+      1480.0,
+      -565.0,
+      2.100007063150406
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.45,
+      0.7,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CardChair",
+    "mesh": "SM_Ref_Chair",
+    "position": [
+      1480.0,
+      -515.0,
+      2.100002443790436
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Card0",
+    "mesh": "SM_Ref_FloorTile",
+    "position": [
+      1455.0,
+      -565.0,
+      76.175
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.06,
+      0.09,
+      0.03
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Card1",
+    "mesh": "SM_Ref_FloorTile",
+    "position": [
+      1467.0,
+      -565.0,
+      76.175
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      8.0
+    ],
+    "scale": [
+      0.06,
+      0.09,
+      0.03
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_Card2",
+    "mesh": "SM_Ref_FloorTile",
+    "position": [
+      1479.0,
+      -565.0,
+      76.175
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      16.0
+    ],
+    "scale": [
+      0.06,
+      0.09,
+      0.03
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CoveFixture0",
+    "mesh": "SM_Ref_Lamp",
+    "position": [
+      727.0,
+      -420.0,
+      248.0
+    ],
+    "rotation": [
+      180.0,
+      1.4124500318633039e-30,
+      90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CoveLight0",
+    "mesh": null,
+    "position": [
+      727.0,
+      -420.0,
+      262.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "PointLight"
+  },
+  {
+    "label": "REF_CoveFixture1",
+    "mesh": "SM_Ref_Lamp",
+    "position": [
+      1573.0,
+      -420.0,
+      248.0
+    ],
+    "rotation": [
+      180.0,
+      1.4124500318633039e-30,
+      90.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "StaticMeshActor"
+  },
+  {
+    "label": "REF_CoveLight1",
+    "mesh": null,
+    "position": [
+      1573.0,
+      -420.0,
+      262.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "PointLight"
+  },
+  {
+    "label": "REF_Exposure",
+    "mesh": null,
+    "position": [
+      1150.0,
+      -380.0,
+      150.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      4.3,
+      3.3,
+      1.4
+    ],
+    "class": "PostProcessVolume"
+  },
+  {
+    "label": "REF_Light0",
+    "mesh": null,
+    "position": [
+      1000.0,
+      -330.0,
+      268.0
+    ],
+    "rotation": [
+      0.0,
+      -90.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "SpotLight"
+  },
+  {
+    "label": "REF_Light1",
+    "mesh": null,
+    "position": [
+      1330.0,
+      -530.0,
+      268.0
+    ],
+    "rotation": [
+      0.0,
+      -90.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "SpotLight"
+  },
+  {
+    "label": "REF_Light2",
+    "mesh": null,
+    "position": [
+      1400.0,
+      -150.0,
+      268.0
+    ],
+    "rotation": [
+      0.0,
+      -90.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "SpotLight"
+  },
+  {
+    "label": "INT_Dartboard",
+    "mesh": "SM_Ref_DartboardLegacy",
+    "position": [
+      1515.0,
+      -690.0,
+      145.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.62,
+      0.12,
+      0.62
+    ],
+    "class": "BunkerInteractable"
+  },
+  {
+    "label": "INT_Radio",
+    "mesh": "SM_Ref_RadioLegacy",
+    "position": [
+      805.0,
+      -520.0,
+      108.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      0.55,
+      0.4,
+      0.32
+    ],
+    "class": "BunkerInteractable"
+  },
+  {
+    "label": "REF_PhysicalCabinet",
+    "mesh": "SM_Ref_CabinetBody",
+    "position": [
+      1435.0,
+      -100.0,
+      2.6
+    ],
+    "rotation": [
+      -0.0,
+      0.0,
+      180.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "class": "BunkerReferenceCabinet"
+  }
+]

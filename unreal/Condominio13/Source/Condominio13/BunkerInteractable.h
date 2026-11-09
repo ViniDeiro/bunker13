@@ -47,6 +47,7 @@ public:
     UFUNCTION() void OnRep_Visual();
     // Authored actors keep their cooked map name; dynamic drops have no world key.
     UPROPERTY() FString WorldKey;
+    UPROPERTY(Replicated) uint8 InfraAction=0;
     UPROPERTY(Replicated) FGuid ItemId;
     UPROPERTY(ReplicatedUsing=OnRep_State) TObjectPtr<APlayerState> Occupant;
     UFUNCTION() void OnRep_State();

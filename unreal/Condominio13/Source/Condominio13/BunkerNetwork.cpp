@@ -1,7 +1,12 @@
 #include "BunkerNetwork.h"
+#include "BunkerInfrastructure.h"
+#include "BunkerReferenceCabinet.h"
+#include "BunkerObservedAction.h"
 #include "BunkerInteractable.h"
 #include "BunkerDoor.h"
 #include "BunkerContainer.h"
+#include "BunkerRound.h"
+#include "GameFramework/PlayerStart.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/PlayerInput.h"
 #include "InputKeyEventArgs.h"
@@ -52,6 +57,7 @@ void ABunkerPlayerController::Destroyed()
 {
     // APlayerController destroys/unpossesses its pawn before AController calls Logout.
     if (HasAuthority()) if (auto* GM=GetWorld()->GetAuthGameMode<ABunkerGameMode>()) GM->CaptureDisconnected(this);
+    RestoreReferenceQuality();
     Super::Destroyed();
 }
 void ABunkerPlayerController::BeginPlay()
@@ -69,6 +75,8 @@ void ABunkerPlayerController::SetupInputComponent()
     Super::SetupInputComponent();
     InputComponent->BindKey(EKeys::F5, IE_Pressed, this, &ABunkerPlayerController::C13Save);
     InputComponent->BindKey(EKeys::E, IE_Pressed, this, &ABunkerPlayerController::Interact);
+    InputComponent->BindKey(EKeys::E, IE_Released, this, &ABunkerPlayerController::ServerCancelRoundRelease);
+    InputComponent->BindKey(EKeys::R, IE_Pressed, this, &ABunkerPlayerController::ServerStartRound);
     InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ABunkerPlayerController::LeaveBed);
     InputComponent->BindKey(EKeys::I,IE_Pressed,this,&ABunkerPlayerController::ToggleInventory);
     InputComponent->BindKey(EKeys::Up,IE_Pressed,this,&ABunkerPlayerController::InventoryUp);
@@ -88,8 +96,20 @@ void ABunkerPlayerController::MoveRight(float V)
 {
     if (APawn* P = GetPawn()) P->AddMovementInput(FRotationMatrix(FRotator(0, GetControlRotation().Yaw, 0)).GetUnitAxis(EAxis::Y), V);
 }
-void ABunkerPlayerController::LookYaw(float V) { AddYawInput(V * 0.35f); }
-void ABunkerPlayerController::LookPitch(float V) { AddPitchInput(-V * 0.35f); }
+void ABunkerPlayerController::LookYaw(float V)
+{
+#if !UE_BUILD_SHIPPING
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))return;
+#endif
+    AddYawInput(V*.35f);
+}
+void ABunkerPlayerController::LookPitch(float V)
+{
+#if !UE_BUILD_SHIPPING
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))return;
+#endif
+    AddPitchInput(-V*.35f);
+}
 void ABunkerPlayerController::PlayerTick(float DT)
 {
     Super::PlayerTick(DT);
@@ -97,10 +117,14 @@ void ABunkerPlayerController::PlayerTick(float DT)
     NetProbeTick(DT);
     SurvivalProbeTick(DT);
     HandsProbeTick(DT);
+    ReferenceProbeTick(DT);
     StorageProbeTick(DT);
     ReconnectProbeTick(DT);
+    RoundProbeTick(DT);
 #endif
+    InteractionPrompt.Empty();
     StorageTick(DT);
+    ReferenceQualityTick();
     if (auto* State=GetPlayerState<ABunkerPlayerState>())
         if (!State->bSessionReady)
         {
@@ -119,9 +143,18 @@ void ABunkerPlayerController::PlayerTick(float DT)
     GetWorld()->LineTraceSingleByChannel(Hit, Start, Start + Rot.Vector()*350, ECC_Visibility, Params);
     Focused = Cast<ABunkerInteractable>(Hit.GetActor());
     PromptTimer -= DT;
-    if (Focused.IsValid() && PromptTimer <= 0)
+    if (Focused.IsValid())
     {
-        if (GEngine) GEngine->AddOnScreenDebugMessage(1301, .25f, FColor::White, Focused->GetPrompt());
+        FString Prompt=Focused->GetPrompt();
+        if (auto* Cabinet=Cast<ABunkerReferenceCabinet>(Focused.Get()))
+        {
+            const int32 Slot=Cabinet->SlotFor(Hit.GetComponent());
+            const auto* Item=PhysicalEntries.FindByPredicate([Slot](const auto& E){return E.StorageSlot==Slot;});
+            if (PhysicalCabinet==Cabinet && Slot>=0)
+                Prompt=Item?FString(TEXT("[E] Pegar "))+Item->Name:TEXT("[X] Guardar item selecionado da mochila | [E] Fechar porta");
+            else Prompt=TEXT("[E] Abrir / fechar armário");
+        }
+        InteractionPrompt=Prompt;
         PromptTimer = .15f;
     }
 }
@@ -130,6 +163,14 @@ void ABunkerPlayerController::Interact()
     if (ViewedContainer) {ServerCloseContainer();CloseContainerView();return;}
     if (bInventoryOpen) return;
     UE_LOG(LogTemp,Verbose,TEXT("C13_INPUT_E focused=%s"),*GetNameSafe(Focused.Get()));
+    if (auto* Cabinet=Cast<ABunkerReferenceCabinet>(Focused.Get()))
+    {
+        FVector Eye;FRotator Rot;GetPlayerViewPoint(Eye,Rot);FHitResult H;FCollisionQueryParams Q(SCENE_QUERY_STAT(PhysicalFocus),false,GetPawn());
+        GetWorld()->LineTraceSingleByChannel(H,Eye,Eye+Rot.Vector()*350,ECC_Visibility,Q);
+        const int32 Slot=Cabinet->SlotFor(H.GetComponent());
+        const auto* E=PhysicalEntries.FindByPredicate([&](const auto& V){return V.StorageSlot==Slot;});
+        if (Slot>=0 && PhysicalCabinet==Cabinet && E) {ServerPhysicalTransfer(Cabinet,Slot,E->Id,PhysicalRevision,true);return;}
+    }
     if (Focused.IsValid()) ServerInteract(Focused.Get());
 }
 void ABunkerPlayerController::LeaveBed()
@@ -139,7 +180,7 @@ void ABunkerPlayerController::LeaveBed()
 }
 void ABunkerPlayerController::ClientNotice_Implementation(const FString& Message)
 {
-    if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5, FColor(235,205,150), Message);
+    HudNotice=Message;HudNoticeUntil=GetWorld()->GetTimeSeconds()+5;
     UE_LOG(LogTemp, Display, TEXT("C13_NOTICE %s"), *Message);
 }
 void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable* Target)
@@ -162,22 +203,34 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
         UE_LOG(LogTemp, Verbose, TEXT("C13_REJECT view target=%s hit=%s eye=%s rotation=%s"),*Target->GetName(),*GetNameSafe(Hit.GetActor()),*Eye.ToString(),*Rot.ToString()); return;
     }
     if (FVector::DistSquared(Character->GetActorLocation(), Hit.ImpactPoint) > FMath::Square(450.f)) return;
+    if(auto* Infra=ABunkerInfrastructure::Find(GetWorld()))if(Target->InfraAction||Target->Interaction==EBunkerInteraction::Generator){Infra->Operate(this,Target,Target->InfraAction);return;}
     switch (Target->Interaction)
     {
     case EBunkerInteraction::Container:
         if (auto* Storage=Cast<ABunkerContainer>(Target))
         {
             if (!CanAccessContainer(Storage)) return;
+            if (auto* Physical=Cast<ABunkerReferenceCabinet>(Storage))
+            {
+                if (!Physical->ToggleDoor()) ClientNotice(TEXT("Aguarde: porta em movimento ou área bloqueada."));
+                else {const FVector P=Physical->Hinge->GetComponentTransform().TransformPosition(FVector(101.8f,7,110));FBunkerInventoryEntry E;ClientReachAction(E,P,false,true,Physical);ABunkerObservedAction::StartFor(this,E,P,2,.95f,Physical);}
+                break;
+            }
             ServerContainer=Storage;
             ClientContainerSnapshot(Storage,Storage->Contents,Storage->Revision);
         }
         break;
     case EBunkerInteraction::Door:
         if (auto* Door=Cast<ABunkerDoor>(Target))
+        {
+            if(auto* Round=ABunkerRound::Find(GetWorld()))if(Round->Gate==Door||(Round->bAirlockEnabled&&Round->InnerGate==Door)){if(Door==Round->Gate?Round->Operate(this):Round->OperateInner(this)){FBunkerInventoryEntry E;ClientReachAction(E,Hit.ImpactPoint,false,true,Door);ABunkerObservedAction::StartFor(this,E,Hit.ImpactPoint,2,.95f,Door);}return;}
             if (!Door->TryToggle()) ClientNotice(TEXT("Aguarde: movimento ocupado ou passagem bloqueada."));
+            else {FBunkerInventoryEntry E;ClientReachAction(E,Hit.ImpactPoint,false,true,Door);ABunkerObservedAction::StartFor(this,E,Hit.ImpactPoint,2,.95f,Door);}
+        }
         break;
     case EBunkerInteraction::Pickup:
     {
+        if(auto* Round=ABunkerRound::Find(GetWorld()))if(Round->Phase==0){ClientNotice(TEXT("Preparação: o host inicia a coleta com R."));return;}
         if (!Target->bActive) return;
         const auto* Def=PS->Rules->Find(Target->ItemType);
         if (!Def) { ClientNotice(TEXT("Item sem definição.")); return; }
@@ -190,7 +243,8 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
         if (PS->Inventory.ContainsByPredicate([&Entry](const FBunkerInventoryEntry& E){return E.Id == Entry.Id;})) return;
         PS->Inventory.Add(Entry);
         NextActionTime=Now+FMath::Max(PS->Rules->ActionInterval,PS->Rules->ItemPickupDuration);
-        ClientPlayItemAction(Entry,false);
+        ClientReachAction(Entry,Target->Mesh->Bounds.Origin,false,false);
+        ABunkerObservedAction::StartFor(this,Entry,Target->Mesh->Bounds.Origin,0,.95f);
         Target->bActive = false; Target->OnRep_State(); Target->ForceNetUpdate(); PS->ForceNetUpdate();
         ClientNotice(FString::Printf(TEXT("Guardado: %s | mochila %d/12"), *Entry.Name, PS->Inventory.Num()));
         UE_LOG(LogTemp, Display, TEXT("C13_PICKUP player=%d id=%s count=%d"), PS->GetPlayerId(), *Entry.Id.ToString(), PS->Inventory.Num());
@@ -215,6 +269,7 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
         if (DartThrows >= 3) { DartThrows=0; DartScore=0; }
         break;
     case EBunkerInteraction::Radio:
+        if(auto* Infra=ABunkerInfrastructure::Find(GetWorld()))if(!Infra->ServicesPowered()){ClientNotice(TEXT("Rádio sem energia: religue o circuito de serviços."));break;}
         ClientNotice(TEXT("RÁDIO: ...Santa Aurora... procurem o antibiótico na clínica...")); break;
     case EBunkerInteraction::Panel:
         ClientNotice(TEXT("Painel: diagnóstico de sobrevivência em desenvolvimento.")); break;
@@ -249,7 +304,7 @@ void ABunkerPlayerState::OnRep_RestingBed()
 }
 
 void ABunkerPlayerController::ServerLeaveBed_Implementation() { ReleaseBed(); }
-void ABunkerPlayerController::C13Host() { if (GetNetMode() == NM_Standalone) GetWorld()->ServerTravel(TEXT("/Game/Bunker/Lvl_Bunker?listen")); }
+void ABunkerPlayerController::C13Host() { if (GetNetMode() == NM_Standalone) GetWorld()->ServerTravel(FParse::Param(FCommandLine::Get(),TEXT("C13Round"))?TEXT("/Game/Bunker/Lvl_CollectionRound?listen"):TEXT("/Game/Bunker/Lvl_Bunker?listen")); }
 void ABunkerPlayerController::C13Join(const FString& Address)
 {
     // Engine validates the destination URL; no process execution.
@@ -334,6 +389,24 @@ void ABunkerPlayerController::ServerPrepareProbe_Implementation(int32 Phase)
 void ABunkerGameMode::BeginPlay()
 {
     Super::BeginPlay();
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13Round")))
+    {
+        bool bRoundMap=false;for(TActorIterator<ABunkerDoor> It(GetWorld());It;++It)if(It->ActorHasTag(TEXT("C13_CollectionGate"))){bRoundMap=true;break;}
+        // Network failures can return clients to the engine's entry map. Never
+        // create a fresh solo checkpoint there using an unrelated map signature.
+        if(!bRoundMap)
+        {
+            bPersistenceBlocked=true;
+            FTimerHandle Notice;GetWorldTimerManager().SetTimer(Notice,FTimerDelegate::CreateWeakLambda(this,[this]()
+            {for(TActorIterator<ABunkerPlayerController> It(GetWorld());It;++It)if(It->IsLocalController())It->ClientNotice(TEXT("Sessão encerrada. Reabra o lançador de coleta para jogar ou retomar. Nenhum checkpoint foi alterado."));
+#if !UE_BUILD_SHIPPING
+            if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))FGenericPlatformMisc::RequestExit(false);
+#endif
+            }),.5f,false);return;
+        }
+        GetWorld()->SpawnActor<ABunkerRound>();
+        GetWorld()->SpawnActor<ABunkerInfrastructure>();
+    }
     StartPersistence();
     StartDoorValidation();
     StartSurvivalValidation();
@@ -407,7 +480,7 @@ void ABunkerGameMode::BeginPlay()
 void ABunkerPlayerController::ProbeKey(FKey Key)
 {
 #if !UE_BUILD_SHIPPING
-    if (!NetTestEnabled() && !FParse::Param(FCommandLine::Get(),TEXT("C13HandsVisual")) && !FParse::Param(FCommandLine::Get(),TEXT("C13StorageTest")) && !FParse::Param(FCommandLine::Get(),TEXT("C13StorageVisual"))) return;
+    if (!NetTestEnabled() && !FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")) && !FParse::Param(FCommandLine::Get(),TEXT("C13Reference")) && !FParse::Param(FCommandLine::Get(),TEXT("C13HandsVisual")) && !FParse::Param(FCommandLine::Get(),TEXT("C13StorageTest")) && !FParse::Param(FCommandLine::Get(),TEXT("C13StorageVisual"))) return;
     InputKey(FInputKeyEventArgs(nullptr,INPUTDEVICEID_NONE,Key,IE_Pressed,1.f,false,FPlatformTime::Cycles64()));
     FTimerHandle Release;
     GetWorldTimerManager().SetTimer(Release,FTimerDelegate::CreateWeakLambda(this,[this,Key]() {

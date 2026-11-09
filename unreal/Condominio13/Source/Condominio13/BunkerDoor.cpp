@@ -3,6 +3,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
+#include "Sound/SoundAttenuation.h"
 
 ABunkerDoor::ABunkerDoor()
 {
@@ -43,6 +46,15 @@ void ABunkerDoor::OnConstruction(const FTransform& Transform)
 void ABunkerDoor::BeginPlay()
 {
     Super::BeginPlay();
+    // The comparison map retains legacy roots for future checkpoint migration,
+    // while removed partitions must have no rendered or physical door leaf.
+    if (ActorHasTag(TEXT("C13_OpenPlanRetiredDoor")))
+    {
+        Mesh->SetVisibility(false,true);Mesh->SetHiddenInGame(true,true);
+        SetActorHiddenInGame(true);SetActorEnableCollision(false);SetActorTickEnabled(false);
+        return;
+    }
+    FoleyAttenuation=NewObject<USoundAttenuation>(this);FoleyAttenuation->Attenuation.bAttenuate=true;FoleyAttenuation->Attenuation.AttenuationShapeExtents=FVector(100,0,0);FoleyAttenuation->Attenuation.FalloffDistance=600;
     ConfigureLeaf();
     if (HasAuthority()) CurrentAngle = bOpen ? OpenAngle : 0.f;
     VisualAngle = CurrentAngle;
@@ -64,10 +76,10 @@ bool ABunkerDoor::PawnInArc(float From, float To) const
 }
 bool ABunkerDoor::TryToggle()
 {
-    if (!HasAuthority() || GetWorld()->GetTimeSeconds()<NextToggleTime) return false;
+    if (!HasAuthority() || bRoundLocked || GetWorld()->GetTimeSeconds()<NextToggleTime) return false;
     const float Goal = bOpen ? 0.f : OpenAngle;
     if (PawnInArc(CurrentAngle,Goal)) return false;
-    bOpen = !bOpen;
+    bOpen = !bOpen;PlayFoley(bOpen);
     NextToggleTime = GetWorld()->GetTimeSeconds()+1.5;
     ForceNetUpdate();
     UE_LOG(LogTemp,Display,TEXT("C13_DOOR_COMMAND name=%s open=%d"),*GetName(),bOpen);
@@ -95,4 +107,11 @@ void ABunkerDoor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
     DOREPLIFETIME(ABunkerDoor,OpenAngle);
     DOREPLIFETIME(ABunkerDoor,bOpen);
     DOREPLIFETIME(ABunkerDoor,CurrentAngle);
+    DOREPLIFETIME(ABunkerDoor,bRoundLocked);
+}
+
+void ABunkerDoor::PlayFoley_Implementation(bool bOpening)
+{
+    auto* Sound=LoadObject<USoundBase>(nullptr,bOpening?TEXT("/Game/Bunker/ReferenceRoom/Audio/S_Cabinet_Open.S_Cabinet_Open"):TEXT("/Game/Bunker/ReferenceRoom/Audio/S_Cabinet_Close.S_Cabinet_Close"));
+    if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound,GetActorTransform().TransformPosition(FVector(Width*.85f,0,Height*.5f)),.6f,.72f,0.f,FoleyAttenuation);
 }

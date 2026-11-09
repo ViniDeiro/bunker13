@@ -1,4 +1,5 @@
 #include "BunkerContainer.h"
+#include "BunkerReferenceCabinet.h"
 #include "BunkerNetwork.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Character.h"
@@ -57,7 +58,15 @@ void ABunkerPlayerController::SwitchContainerSide()
 }
 void ABunkerPlayerController::TransferSelected()
 {
-    auto* PS=GetPlayerState<ABunkerPlayerState>();if (!ViewedContainer || !PS) return;
+    auto* PS=GetPlayerState<ABunkerPlayerState>();
+    if (!ViewedContainer && PhysicalCabinet && PS && PS->Inventory.IsValidIndex(SelectedItem))
+    {
+        FVector Eye;FRotator R;GetPlayerViewPoint(Eye,R);FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(PhysicalPlace),false,GetPawn());
+        GetWorld()->LineTraceSingleByChannel(Hit,Eye,Eye+R.Vector()*350,ECC_Visibility,Q);
+        if (Hit.GetActor()==PhysicalCabinet) ServerPhysicalTransfer(PhysicalCabinet,PhysicalCabinet->SlotFor(Hit.GetComponent()),PS->Inventory[SelectedItem].Id,PhysicalRevision,false);
+        return;
+    }
+    if (!ViewedContainer || !PS) return;
     const auto& Entries=bContainerSide?ContainerEntries:PS->Inventory;
     if (Entries.IsValidIndex(SelectedItem)) ServerTransferItem(ViewedContainer,Entries[SelectedItem].Id,bContainerSide,ContainerRevision);
 }
@@ -84,4 +93,20 @@ void ABunkerPlayerController::ServerTransferItem_Implementation(ABunkerContainer
     NextInventoryTime=GetWorld()->GetTimeSeconds()+PS->Rules->InventoryActionInterval;
     PS->ForceNetUpdate();Storage->RefreshViewers();
     UE_LOG(LogTemp,Display,TEXT("C13_STORAGE_MOVE take=%d id=%s revision=%d"),bTake,*Id.ToString(),Storage->Revision);
+}
+
+void ABunkerPlayerController::ClientPhysicalSnapshot_Implementation(ABunkerReferenceCabinet* Cabinet,const TArray<FBunkerInventoryEntry>& Entries,int32 Rev)
+{
+    if (!Cabinet) return;
+    Cabinet->Present(Entries,Rev);
+    if (Rev<0) {if (PhysicalCabinet==Cabinet) {PhysicalCabinet=nullptr;PhysicalEntries.Empty();PhysicalRevision=-1;}return;}
+    PhysicalCabinet=Cabinet;PhysicalEntries=Entries;PhysicalRevision=Rev;
+    UE_LOG(LogTemp,Display,TEXT("C13_PHYSICAL_SNAPSHOT count=%d revision=%d modal=%d"),Entries.Num(),Rev,bInventoryOpen);
+}
+void ABunkerPlayerController::ServerPhysicalTransfer_Implementation(ABunkerReferenceCabinet* Cabinet,int32 Slot,FGuid Id,int32 Rev,bool bTake)
+{
+    if (GetWorld()->GetTimeSeconds()<NextInventoryTime) return;
+    if (IsValid(Cabinet) && Cabinet->Transfer(this,Slot,Id,Rev,bTake))
+        NextInventoryTime=GetWorld()->GetTimeSeconds()+GetPlayerState<ABunkerPlayerState>()->Rules->InventoryActionInterval;
+    else UE_LOG(LogTemp,Display,TEXT("C13_PHYSICAL_REJECT slot=%d revision=%d"),Slot,Rev);
 }
