@@ -57,6 +57,100 @@ void ABunkerPlayerController::RoundProbeTick(float DT)
  if(FParse::Param(FCommandLine::Get(),TEXT("C13AirlockTest"))){AirlockProbeTick();return;}
  if(FParse::Param(FCommandLine::Get(),TEXT("C13InfraTest"))){InfrastructureProbeTick();return;}
  auto* R=ABunkerRound::Find(GetWorld());if(!R)return;const float T=GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();const bool Host=HasAuthority();
+ if(FParse::Param(FCommandLine::Get(),TEXT("C13CinematicTest")))
+ {
+  if(T>3){UE_LOG(LogTemp,Display,TEXT("C13_MENU_MATCH_LOADED pass=%d"),R->Phase==1&&GetWorld()->GetAuthGameMode<ABunkerGameMode>()->bPersistenceReady);FGenericPlatformMisc::RequestExit(false);}
+  return;
+ }
+ if(FParse::Param(FCommandLine::Get(),TEXT("C13LobbyTest")))
+ {
+  auto* HUD=GetHUD<ABunkerHUD>();
+  if(T>3&&RoundProbeStage==0&&HUD&&HUD->IsLobbyVisible())
+  {
+   int32 W,H;GetViewportSize(W,H);const float S=FMath::Min(W/960.f,H/540.f);
+   SetMouseLocation(FMath::RoundToInt((W-960*S)*.5f+210*S),FMath::RoundToInt((H-540*S)*.5f+391*S));
+   FScreenshotRequest::RequestScreenshot(TEXT("main_lobby.png"),false,false);
+   RoundProbeStage=1;
+  }
+  if(T>5&&RoundProbeStage==1&&HUD)
+  {
+   UE_LOG(LogTemp,Display,TEXT("C13_LOBBY_BUTTON_AIM pass=%d"),HUD->IsLobbyButtonHovered()&&bShowMouseCursor);
+   ProbeKey(EKeys::LeftMouseButton);RoundProbeStage=2;
+  }
+  if(T>7&&RoundProbeStage==2&&HUD)
+  {
+   UE_LOG(LogTemp,Display,TEXT("C13_LOBBY_ENTERED_MATCH pass=%d"),R->Phase==1&&!HUD->IsLobbyVisible()&&!bShowMouseCursor&&!IsMoveInputIgnored()&&!IsLookInputIgnored());
+   RoundProbeStage=3;
+  }
+  if(T>9)FGenericPlatformMisc::RequestExit(false);
+  return;
+ }
+ if(FParse::Param(FCommandLine::Get(),TEXT("C13MarketDisplayTest")))
+ {
+  auto* PS=GetPlayerState<ABunkerPlayerState>();
+  ABunkerInteractable* Water=nullptr;int32 Count=0;
+  for(TActorIterator<ABunkerInteractable> It(GetWorld());It;++It)
+  {
+   if(It->ActorHasTag(TEXT("C13_RoundLootFirst"))){Water=*It;++Count;}
+   else if(It->ActorHasTag(TEXT("C13_RoundLoot")))++Count;
+  }
+  const auto AimAtWater=[&]()
+  {
+   auto* C=Cast<ACharacter>(GetPawn());
+   if(!C||!Water||!Water->Mesh->GetStaticMesh())return;
+   const FVector Aim=Water->Mesh->GetComponentTransform().TransformPosition(Water->Mesh->GetStaticMesh()->GetBounds().Origin);
+   C->SetActorRotation(FRotator(0,(Aim-C->GetActorLocation()).Rotation().Yaw,0));
+   for(int I=0;I<3;++I){FMinimalViewInfo View;C->CalcCamera(0,View);SetControlRotation((Aim-View.Location).Rotation());}
+   ClientSetRotation(GetControlRotation(),true);
+  };
+  if(T>3&&RoundProbeStage==0){ProbeKey(EKeys::R);RoundProbeStage=1;}
+  if(T>4&&RoundProbeStage==1&&Water&&PS)
+  {
+   const FVector P=Water->GetActorLocation()+FVector(0,-120,0);
+   GetPawn()->SetActorLocation(FVector(P.X,P.Y,410));
+   AimAtWater();
+   UE_LOG(LogTemp,Display,TEXT("C13_MARKET_STOCK pass=%d count=%d"),Count==12&&Water->bActive,Count);
+   SupplyFuelId=Water->ItemId;RoundProbeStage=2;
+  }
+  if(T>6&&RoundProbeStage==2&&Water)
+  {
+   AimAtWater();
+   FScreenshotRequest::RequestScreenshot(TEXT("market_display_hud.png"),true,false);RoundProbeStage=3;
+  }
+  if(T>7&&RoundProbeStage==3){ProbeKey(EKeys::E);RoundProbeStage=4;}
+  if(T>8&&RoundProbeStage==4&&Water&&PS)
+  {
+   const bool Owned=PS->Inventory.ContainsByPredicate([&](const auto& E){return E.Id==SupplyFuelId;});
+   UE_LOG(LogTemp,Display,TEXT("C13_MARKET_PICKUP pass=%d"),Owned&&!Water->bActive);
+   RoundProbeStage=5;
+  }
+  if(T>10)FGenericPlatformMisc::RequestExit(false);
+  return;
+ }
+ if(FParse::Param(FCommandLine::Get(),TEXT("C13ExteriorPreviewTest")))
+ {
+  if(T>4&&RoundProbeStage==0){ProbeKey(EKeys::R);RoundProbeStage=1;}
+  if(T>5&&RoundProbeStage==1)
+  {
+   UE_LOG(LogTemp,Display,TEXT("C13_EXTERIOR_PREVIEW_START pass=%d"),R->Phase==1);
+   const auto* GM=GetWorld()->GetAuthGameMode<ABunkerGameMode>();
+   UE_LOG(LogTemp,Display,TEXT("C13_EXTERIOR_PREVIEW_NOSAVE ready=%d"),GM&&GM->bPersistenceReady);
+   GetPawn()->SetActorLocation(FVector(2825,3000,392));
+   SetControlRotation((FVector(2980,3250,330)-FVector(2825,3000,456)).Rotation());
+   RoundProbeStage=2;
+  }
+  if(T>7&&RoundProbeStage==2){FScreenshotRequest::RequestScreenshot(TEXT("exterior_polish_overview.png"),true,false);RoundProbeStage=3;}
+  if(T>8&&RoundProbeStage==3)
+  {
+   const FVector P(2730,3190,392),Target(2730,2410,565);
+   GetPawn()->SetActorLocation(P);
+   SetControlRotation((Target-(P+FVector(0,0,64))).Rotation());
+   RoundProbeStage=4;
+  }
+  if(T>10&&RoundProbeStage==4){FScreenshotRequest::RequestScreenshot(TEXT("exterior_polish_market.png"),true,false);RoundProbeStage=5;}
+  if(T>12)FGenericPlatformMisc::RequestExit(false);
+  return;
+ }
  if(FParse::Param(FCommandLine::Get(),TEXT("C13ClockLoad")))
  {if(T>4&&RoundProbeStage==0){RoundProbeStage=1;UE_LOG(LogTemp,Display,TEXT("C13_CLOCK_LOAD_CHECK elapsed=%.3f day=%d day_seconds=%.1f phase=%d"),R->ShelterSeconds(),R->SurvivalDay(),R->DaySeconds,R->Phase);FScreenshotRequest::RequestScreenshot(TEXT("clock_resumed.png"),true,false);}if(T>5)FGenericPlatformMisc::RequestExit(false);return;}
  if(FParse::Param(FCommandLine::Get(),TEXT("C13ClockSave"))&&T>52)

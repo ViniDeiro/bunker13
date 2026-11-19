@@ -1,4 +1,5 @@
 #include "BunkerObservedAction.h"
+#include "BedroomReachMotion.h"
 #include "BunkerNetwork.h"
 #include "BunkerReferenceCabinet.h"
 #include "Components/StaticMeshComponent.h"
@@ -30,17 +31,29 @@ void ABunkerObservedAction::Tick(float DT)
     if(Kind==3 && T>.22f && (Visual.ItemType==TEXT("Water") || Visual.ItemType==TEXT("Food")))
         if(auto* Open=LoadObject<UStaticMesh>(nullptr,*(TEXT("/Game/Bunker/Hands/SM_Use_")+Visual.ItemType.ToString()+TEXT(".SM_Use_")+Visual.ItemType.ToString())))Desired=Open;
     if (Item->GetStaticMesh()!=Desired) {Item->SetStaticMesh(Desired);for(int I=0;I<Visual.Materials.Num();I++)Item->SetMaterial(I,Visual.Materials[I]);Item->SetWorldScale3D(Visual.WorldScale);}
-    if(!bObservedLogged) {UE_LOG(LogTemp,Display,TEXT("C13_OBSERVED_ACTION kind=%d hands=%d item=%s"),Kind,Left->GetStaticMesh()!=nullptr && Right->GetStaticMesh()!=nullptr,*GetNameSafe(Item->GetStaticMesh()));bObservedLogged=true;}
+
     const FTransform Body(FRotator(0,Performer->GetActorRotation().Yaw,0),Performer->GetActorLocation());
     const FVector Rest=Body.TransformPosition(FVector(25,0,15));FVector P;
     if(Kind==3) P=FMath::Lerp(Rest,Body.TransformPosition(FVector(18,0,60)),FMath::Sin(T*PI));
     else if(Kind==2)
     {FVector Point=Contact;if(auto* Cabinet=Cast<ABunkerReferenceCabinet>(ContactTarget))Point=Cabinet->Hinge->GetComponentTransform().TransformPosition(FVector(101.8f,7,110));else if(ContactTarget)Point=ContactTarget->GetActorTransform().TransformPosition(ContactLocal);P=FMath::Lerp(Rest,Point,FMath::SmoothStep(0.f,.18f,T)*(1-FMath::SmoothStep(.78f,1.f,T)));}
     else P=FMath::Lerp(Kind==1?Rest:Contact,Kind==1?Contact:Rest,FMath::SmoothStep(0.f,1.f,T));
+    const bool BedroomTransfer=Kind<=1 && GetWorld()->GetMapName().Contains(TEXT("Bedroom_Study"));
+    if(BedroomTransfer)P=BedroomReachMotion::Position(Rest,Contact,T,Kind==1);
+    const FVector ItemP=BedroomTransfer?BedroomReachMotion::ItemPosition(Rest,Contact,T,Kind==1):P;
     SetActorLocation(Performer->GetActorLocation());const FRotator Look=Performer->GetActorRotation();
     const bool Eating=Kind==3 && Visual.ItemType==TEXT("Food");
     if(Eating)P=Body.TransformPosition(FVector(35,-9,22));
-    Item->SetWorldLocationAndRotation(P,Look+FRotator(Kind==3 && !Eating?FMath::Sin(T*PI)*55:0,90,0));Item->SetVisibility(Kind!=2 && !(Kind==1 && T>.88f));
+    Item->SetWorldLocationAndRotation(BedroomTransfer?ItemP:P,Look+FRotator(Kind==3 && !Eating?FMath::Sin(T*PI)*55:0,90,0));Item->SetVisibility(Kind!=2 && !(Kind==1 && T>.88f) && (!BedroomTransfer || BedroomReachMotion::ItemVisible(T,Kind==1)));
+    const FQuat Shelf=ContactTarget?ContactTarget->GetActorQuat():FQuat::Identity;
+    if(BedroomTransfer)Item->SetWorldRotation(BedroomReachMotion::ItemRotation((Look+FRotator(0,90,0)).Quaternion(),Shelf,T,Kind==1));
+    if(!bObservedLogged)
+    {
+        UE_LOG(LogTemp,Display,TEXT("C13_OBSERVED_ACTION kind=%d hands=%d item=%s"),Kind,Left->GetStaticMesh()!=nullptr && Right->GetStaticMesh()!=nullptr,*GetNameSafe(Item->GetStaticMesh()));
+        if(BedroomTransfer && Kind==0)
+            UE_LOG(LogTemp,Display,TEXT("C13_REMOTE_SHELF t=%.3f item_shelf_cm=%.3f hands_contact_cm=%.3f visible=%d angle_deg=%.4f"),T,FVector::Distance(Item->GetComponentLocation(),Contact),FVector::Distance(P,Contact),Item->IsVisible(),FMath::RadiansToDegrees(Item->GetComponentQuat().AngularDistance(Shelf)));
+        bObservedLogged=true;
+    }
     Right->SetWorldLocationAndRotation(P+Body.TransformVectorNoScale(FVector(-11,5,7)),Look+FRotator(15,90,0));
     Left->SetWorldLocationAndRotation(P+Body.TransformVectorNoScale(FVector(-11,-6,7)),Look+FRotator(15,90,0));
     Accessory->SetVisibility(Eating);

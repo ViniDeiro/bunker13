@@ -1,0 +1,168 @@
+{
+  "date": "2026-11-16",
+  "scope": "Bedroom cosmetic reach phases, hand lighting and redundant rest evaluation reduction; no gameplay schema changes",
+  "passed": true,
+  "cabinet": {
+    "passed": true,
+    "checks": {
+      "clean_exit": true,
+      "two_players": true,
+      "no_campaign_write": true,
+      "all_server_audits": true,
+      "no_modal": true,
+      "stale_rejected": true,
+      "take_and_put": true,
+      "same_water_id": true,
+      "both_captures": true,
+      "host_visible_snapshots": true,
+      "host_door_replication": true,
+      "client_visible_snapshots": true,
+      "client_door_replication": true,
+      "fps_both": true,
+      "take_contact": true,
+      "store_contact": true,
+      "approach_empty": true,
+      "hand_retracts_after_store": true
+    },
+    "fps": {
+      "host": [
+        {
+          "samples": 1045,
+          "mean": 29.86,
+          "p95_ms": 33.5
+        }
+      ],
+      "client": [
+        {
+          "samples": 1048,
+          "mean": 29.94,
+          "p95_ms": 33.46
+        }
+      ]
+    },
+    "captures": [
+      "bedcab_contact_take.png",
+      "bedcab_host_02.png",
+      "bedcab_host_17.png",
+      "bedcab_client_08.png",
+      "bedcab_client_23.png",
+      "bedcab_host_05.png",
+      "bedcab_host_08.png",
+      "bedcab_host_23.png",
+      "bedcab_client_05.png",
+      "bedcab_client_17.png",
+      "bedcab_client_02.png",
+      "bedcab_contact_store.png"
+    ],
+    "profiles": {
+      "host_window": [
+        960,
+        540
+      ],
+      "client_window": [
+        800,
+        450
+      ],
+      "internal_percentage": 70,
+      "shadows": 0,
+      "ao": 0,
+      "cap": 30
+    },
+    "video_capture": false,
+    "scope": "Two simultaneous rendered Unreal Editor game processes with scripted E/X input and server audits, local loopback; no human or packaged/Steam test."
+  },
+  "rest": {
+    "driver_error": null,
+    "passed": true,
+    "checks": {
+      "driver_completed": true,
+      "clean_exit": true,
+      "client_joined": true,
+      "no_campaign_write": true,
+      "occupied_rejected": true,
+      "host_actual_bones_lying": true,
+      "host_restores_after_each_exit": true,
+      "host_inventory_unchanged": true,
+      "host_energy_increases": true,
+      "client_actual_bones_lying": true,
+      "client_restores_after_each_exit": true,
+      "client_inventory_unchanged": true,
+      "client_energy_increases": true,
+      "mid_transition_enter": true,
+      "mid_transition_leave": true,
+      "no_orphan_pose_actors": true,
+      "remote_captures": true,
+      "fps_recorded": true
+    },
+    "fps": {
+      "host": [
+        {
+          "samples": 683,
+          "mean": 29.69,
+          "p95_ms": 33.54
+        }
+      ],
+      "client": [
+        {
+          "samples": 688,
+          "mean": 29.92,
+          "p95_ms": 33.52
+        }
+      ]
+    },
+    "captures": [
+      "restpose_host_04.png",
+      "restpose_host_standing.png",
+      "restpose_host_09.png"
+    ],
+    "profile": {
+      "host_window": [
+        960,
+        540
+      ],
+      "client_window": [
+        800,
+        450
+      ],
+      "internal_percentage": 70,
+      "cap": 30,
+      "shadows": 0,
+      "ao": 0
+    },
+    "headless_client": true,
+    "scope": "Two simultaneous local Editor game instances (client optionally headless) with scripted inputs, real skeletal bones and screenshots; not a human, internet or packaged test."
+  },
+  "rest_assets_preserved": {
+    "blender/Bedroom_Rest_Animation_v001.blend": true,
+    "exports/bedroom_rest_rig.json": true,
+    "exports/bedroom_rest_animation.json": true,
+    "unreal/Condominio13/Content/Bunker/BedroomRest/A_Bedroom_Rest.uasset": true,
+    "unreal/Condominio13/Content/Bunker/BedroomRest/Lvl_Bedroom_Study_Rest.umap": true
+  },
+  "baseline_assets_verified": 449,
+  "visual_review": {
+    "performed": true,
+    "take_and_store_captures": "Lit blue bottle and rigid glove meshes visible at shelf contact; no anatomical approval",
+    "rest_capture": "Remote Manny lying on the original bed"
+  },
+  "sha256": {
+    "unreal/Condominio13/Source/Condominio13/BedroomReachMotion.h": "661a68d1566784eaca3effe426faed73dee1c42b0fe51461cf9d8b0832cd35d0",
+    "unreal/Condominio13/Source/Condominio13/BunkerItemPresentation.cpp": "05da7552ce20ebd54d448e224270f945e12b4baaae914124999619d639b441bf",
+    "unreal/Condominio13/Source/Condominio13/BunkerItemPresentation.h": "36a89347edcdc8b177f4a9bd8145a63c610fecc8819a3b65215b9a5b6cc45cae",
+    "unreal/Condominio13/Source/Condominio13/BunkerObservedAction.cpp": "471e2817e413bf333a877115e0a02728a90f3f6a695dea0e11451c3ba7bdf990",
+    "unreal/Condominio13/Source/Condominio13/BedroomRestPose.cpp": "1a7d232e40877a2d314107ddff43b639a081df9be56feccfdd4352c7745e23f8",
+    "unreal/Condominio13/Source/Condominio13/BedroomRestPose.h": "f90ecfbe46d872eeeb93c28e435fd5661969d04c3dfe1c8280181a6e3fede261",
+    "screenshots/bedcab_contact_take.png": "2f639203aefdcb458ab6e8c154a59caba7336672260e961a5e5708bc5720bbb0",
+    "screenshots/bedcab_contact_store.png": "9911cb8fc0d1d7ce29aca5ecc9a17f457eb604a6ca7e8233888b083a2ae9f1bb",
+    "screenshots/restpose_host_09.png": "1783d408b3090ae9c4a9b7ec46a5a6036d3557b4a3c4c88c17238df2ef2b227d"
+  },
+  "limits": [
+    "Rigid gloves without articulated fingers or forearm IK",
+    "Contact checks validate item pivot, not anatomical grip",
+    "Server transfers ownership immediately: brief pickup visual gap remains possible",
+    "Rest uses one rendered host and one headless client",
+    "Short capped Editor tests; not controlled performance A/B or packaged performance",
+    "No new package, video, four players, reconnect or GitHub publication",
+    "Save regressions not repeated: storage/save code unchanged"
+  ]
+}

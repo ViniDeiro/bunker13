@@ -41,9 +41,19 @@ static void AuditOpenPlan(UWorld* W, APawn* Pawn)
     UE_LOG(LogTemp,Display,TEXT("C13_OPEN_PLAN_AUDIT zones=%d total=6 free=%d reachable=%d four_capsules=%d"),Count,Free.Num(),Reached.Num(),Four);
 }
 
+void C13BedroomStudy(ABunkerPlayerController* PC,float DT);
+void C13ExportBedroomRig(ABunkerPlayerController* PC);
+void C13BedroomRestTick(ABunkerPlayerController* PC,float DT);
+void C13BedroomRestServer(ABunkerPlayerController* PC,int32 Step);
+void C13BedroomCabinetTick(ABunkerPlayerController* PC,float DT);
+void C13BedroomCabinetServer(ABunkerPlayerController* PC,int32 Step);
 void ABunkerPlayerController::ReferenceProbeTick(float DT)
 {
 #if !UE_BUILD_SHIPPING
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13BedroomRestTest"))){C13BedroomRestTick(this,DT);return;}
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13RestRigExport"))){C13ExportBedroomRig(this);return;}
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13BedroomCabinetTest"))){C13BedroomCabinetTick(this,DT);return;}
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13RoomStudyTest"))){C13BedroomStudy(this,DT);return;}
     if (!IsLocalController() || !FParse::Param(FCommandLine::Get(),TEXT("C13Reference")) || !GetPawn()) return;
     if (FParse::Param(FCommandLine::Get(),TEXT("C13PhysicalTest"))) {PhysicalProbeTick(DT);return;}
     if(FParse::Param(FCommandLine::Get(),TEXT("C13ReferenceShowcase")) && ReferenceStage>0)return;
@@ -112,6 +122,8 @@ void ABunkerPlayerController::ReferenceProbeTick(float DT)
 void ABunkerPlayerController::ServerReferenceStep_Implementation(int32 Step)
 {
 #if !UE_BUILD_SHIPPING
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13BedroomRestTest"))){C13BedroomRestServer(this,Step);return;}
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13BedroomCabinetTest"))){C13BedroomCabinetServer(this,Step);return;}
     if (!FParse::Param(FCommandLine::Get(),TEXT("C13PhysicalTest"))) return;
     TActorIterator<ABunkerReferenceCabinet> BoxIt(GetWorld());ABunkerReferenceCabinet* Box=BoxIt?*BoxIt:nullptr;
     auto* PS=GetPlayerState<ABunkerPlayerState>();if(!Box || !PS || !GetPawn())return;

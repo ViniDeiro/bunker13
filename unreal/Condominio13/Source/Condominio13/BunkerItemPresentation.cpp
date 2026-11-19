@@ -1,4 +1,8 @@
 #include "BunkerItemPresentation.h"
+#include "BedroomReachMotion.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
+#include "UnrealClient.h"
 #include "BunkerNetwork.h"
 #include "BunkerReferenceCabinet.h"
 #include "Components/StaticMeshComponent.h"
@@ -38,7 +42,7 @@ ABunkerItemPresentation::ABunkerItemPresentation()
 void ABunkerItemPresentation::Play(ABunkerPlayerController* PC,FName Type,UStaticMesh* Mesh,const TArray<TObjectPtr<UMaterialInterface>>& Materials,FVector Scale,bool bConsume,float Duration)
 {
     if (!PC || !PC->IsLocalController() || !Mesh) return;
-    bReach=false;bPlace=false;bHandle=false;ContactCabinet=nullptr;ContactActor=nullptr;Viewer=PC;ItemType=Type;bUsing=bConsume;Elapsed=0;Length=FMath::Max(.2f,Duration);bPlaying=true;
+    LastReachPhase=-1;bReach=false;bPlace=false;bHandle=false;ContactCabinet=nullptr;ContactActor=nullptr;Viewer=PC;ItemType=Type;bUsing=bConsume;Elapsed=0;Length=FMath::Max(.2f,Duration);bPlaying=true;
     Left->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Hands/SM_Hands_Left.SM_Hands_Left")));
     Right->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Hands/SM_Hands_Right.SM_Hands_Right")));
     ClosedMesh=Mesh;OpenMesh=nullptr;
@@ -49,6 +53,9 @@ void ABunkerItemPresentation::Play(ABunkerPlayerController* PC,FName Type,UStati
     Accessory->SetVisibility(bConsume && (Type==TEXT("Food") || Type==TEXT("Medkit")));
     if (Type==TEXT("Food")) Accessory->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Hands/SM_Hands_Spoon.SM_Hands_Spoon")));
     if (Type==TEXT("Medkit")) Accessory->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Hands/SM_Hands_Bandage.SM_Hands_Bandage")));
+    const bool Bedroom=GetWorld()->GetMapName().Contains(TEXT("Bedroom_Study"));
+    for(auto* M:{Left.Get(),Right.Get(),Item.Get(),Accessory.Get()})M->SetLightingChannels(Bedroom,true,false);
+    KeyLight->SetRelativeLocation(FVector(12,-28,10));FillLight->SetRelativeLocation(FVector(30,28,0));
     SetActorHiddenInGame(false);KeyLight->SetVisibility(true);FillLight->SetVisibility(true);
     UE_LOG(LogTemp,Display,TEXT("C13_HAND_ACTION type=%s consume=%d mesh=%s hands=%d local=%d"),*Type.ToString(),bConsume,*GetNameSafe(Mesh),Left->GetStaticMesh()!=nullptr && Right->GetStaticMesh()!=nullptr,PC->IsLocalController());
     Tick(0);
@@ -99,6 +106,8 @@ void ABunkerItemPresentation::Tick(float DT)
     if (bUsing && ItemType==TEXT("Water"))
     {L=P+FVector(-14,-5,8);R=P+FVector(-14,5,8);}
     if (bUsing && ItemType==TEXT("Food")) L=P+FVector(-14,-4,5);
+    FVector ItemP=P;
+    bool SeparateItem=false;
     if (bReach)
     {
         const FVector WorldContact=bHandle && ContactCabinet?ContactCabinet->Hinge->GetComponentTransform().TransformPosition(FVector(101.8f,7,110)):bHandle && ContactActor?ContactActor->GetActorTransform().TransformPosition(ContactLocal):ContactPoint;
@@ -106,12 +115,46 @@ void ABunkerItemPresentation::Tick(float DT)
         const FVector Rest(30,4,-43);
         const float U=FMath::SmoothStep(0.f,1.f,T);
         P=bHandle?FMath::Lerp(Rest,Contact,FMath::SmoothStep(0.f,.18f,T)*(1-FMath::SmoothStep(.78f,1.f,T))):FMath::Lerp(bPlace?Rest:Contact,bPlace?Contact:Rest,U);
+        if (!bHandle && GetWorld()->GetMapName().Contains(TEXT("Bedroom_Study")))
+        {
+            P=BedroomReachMotion::Position(Rest,Contact,T,bPlace);
+            ItemP=BedroomReachMotion::ItemPosition(Rest,Contact,T,bPlace);SeparateItem=true;
+#if !UE_BUILD_SHIPPING
+            if(FParse::Param(FCommandLine::Get(),TEXT("C13BedroomCabinetTest")))
+            {
+                const int Phase=T<.25f?0:T<.34f?1:T<.72f?2:T<.88f?3:4;
+                if(Phase!=LastReachPhase)
+                {
+                    LastReachPhase=Phase;
+                    const float Error=FVector::Distance(P,Contact);
+                    UE_LOG(LogTemp,Display,TEXT("C13_REACH_SAMPLE place=%d phase=%d t=%.3f contact_cm=%.3f visible=%d item_shelf_cm=%.3f"),bPlace,Phase,T,Error,BedroomReachMotion::ItemVisible(T,bPlace),FVector::Distance(ItemP,Contact));
+                    if((!bPlace&&(Phase==0||Phase==1))||(bPlace&&Phase==3))
+                        FScreenshotRequest::RequestScreenshot(FString::Printf(TEXT("bedcab_contact_%s.png"),bPlace?TEXT("store"):Phase==0?TEXT("approach"):TEXT("take")),true,false);
+                }
+            }
+#endif
+        }
         R=P+FVector(-14,3,6);L=P+FVector(-14,-5,6);
         if (bHandle) {L=FVector(25,-12,-55);Item->SetVisibility(false);}
     }
+    if(bReach && GetWorld()->GetMapName().Contains(TEXT("Bedroom_Study")))
+    {
+        // The isolated hand lights must follow a world-space reach beyond their 90 cm radius.
+        KeyLight->SetRelativeLocation((SeparateItem?ItemP:P)+FVector(-34,-28,10));
+        FillLight->SetRelativeLocation((SeparateItem?ItemP:P)+FVector(-16,28,0));
+    }
     Left->SetRelativeLocationAndRotation(L,GripRotation(LR.Pitch,LR.Yaw,LR.Roll));
     Right->SetRelativeLocationAndRotation(R,GripRotation(RR.Pitch,RR.Yaw,RR.Roll));
-    Item->SetRelativeLocationAndRotation(P,GripRotation(IR.Pitch,IR.Yaw,IR.Roll));
+    Item->SetRelativeLocationAndRotation(SeparateItem?ItemP:P,GripRotation(IR.Pitch,IR.Yaw,IR.Roll));
+    if(SeparateItem)
+    {
+        const FQuat Shelf=ContactActor?ContactActor->GetActorQuat():FQuat::Identity;
+        Item->SetWorldRotation(BedroomReachMotion::ItemRotation(GetActorQuat()*GripRotation(IR.Pitch,IR.Yaw,IR.Roll).Quaternion(),Shelf,T,bPlace));
+#if !UE_BUILD_SHIPPING
+        if(!bPlace && T<.25f && Elapsed-DT<.0001f && FParse::Param(FCommandLine::Get(),TEXT("C13BedroomCabinetTest")))
+            UE_LOG(LogTemp,Display,TEXT("C13_LOCAL_SHELF angle_deg=%.4f item_shelf_cm=%.4f"),FMath::RadiansToDegrees(Item->GetComponentQuat().AngularDistance(Shelf)),FVector::Distance(Item->GetComponentLocation(),ContactPoint));
+#endif
+    }
     Item->SetVisibility(!bHandle && !(bReach && bPlace && T>.88f) && !(bUsing && ItemType==TEXT("Medkit") && T>.22f));
 }
 
@@ -131,6 +174,7 @@ void ABunkerPlayerController::ClientPlayItemAction_Implementation(const FBunkerI
 
 void ABunkerPlayerController::ClientReachAction_Implementation(const FBunkerInventoryEntry& Entry,FVector Contact,bool bPlace,bool bHandle,AActor* Target)
 {
+    if(!bHandle && HudNotice==TEXT("Aproxime-se da prateleira para pegar ou guardar.")){HudNotice.Empty();HudNoticeUntil=0;}
     FBunkerInventoryEntry E=Entry;
     if (!E.WorldMesh) E.WorldMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Bunker/Hands/SM_Hands_Right.SM_Hands_Right"));
     ClientPlayItemAction_Implementation(E,false);

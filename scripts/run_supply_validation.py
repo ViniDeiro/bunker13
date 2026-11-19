@@ -2,11 +2,11 @@
 from pathlib import Path
 import subprocess, time, json, re, os, shutil, argparse
 R=Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser();p.add_argument('mode',choices=['full','seed','continue','load','race']);p.add_argument('--editor',action='store_true');p.add_argument('--headless',action='store_true');p.add_argument('--players',type=int,choices=[1,2,4],default=4);p.add_argument('--resolution',default='960x540');a=p.parse_args();resx,resy=a.resolution.split('x')
+p=argparse.ArgumentParser();p.add_argument('mode',choices=['full','seed','continue','load','race']);p.add_argument('--radiation',action='store_true');p.add_argument('--editor',action='store_true');p.add_argument('--headless',action='store_true');p.add_argument('--players',type=int,choices=[1,2,4],default=4);p.add_argument('--resolution',default='960x540');a=p.parse_args();resx,resy=a.resolution.split('x')
 exe=os.environ.get('C13_TEST_EXE',str(R/'builds/Mac/Condominio13-Expedition.app/Contents/MacOS/Condominio13'))
-base=[exe] if not a.editor else ['/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor-Cmd',str(R/'unreal/Condominio13/Condominio13.uproject')]
+base=[exe] if not a.editor else [('/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor-Cmd' if a.headless else '/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor'),str(R/'unreal/Condominio13/Condominio13.uproject')]
 os.environ['DEVELOPER_DIR']='/Applications/Xcode.app/Contents/Developer';os.environ['TOOLCHAINS']='com.apple.dt.toolchain.Metal.32023.883'
-kind=('editor_' if a.editor else 'package_')+a.mode
+kind=('editor_' if a.editor else 'package_')+('radiation_' if a.radiation else '')+a.mode
 count=1 if a.mode=='load' else a.players
 roles=['host']+[f'client{i}' for i in range(1,count)]
 processes=[];files=[];start=time.time()
@@ -17,6 +17,7 @@ try:
   cmd=base+[url,'-game','-C13Round','-C13Expedition','-C13RoundTest','-C13SupplyTest',f'-C13SupplyPlayers={count}',f'-C13SupplyRole={i}','-port=7797','-PktLag=80','-PktLoss=2','-windowed',f'-ResX={resx}',f'-ResY={resy}','-ForceRes','-stdout','-FullStdOutLogOutput']
   if a.mode in ('full','seed','race'):cmd+=['-C13RoundReset']
   if a.mode!='full':cmd += [{'seed':'-C13SupplySeedOutside','continue':'-C13SupplyContinue','load':'-C13SupplyLoad','race':'-C13SupplyRace'}[a.mode]]
+  if a.radiation:cmd+=['-C13RadiationTest','-ExecCmds=t.IdleWhenNotForeground 0,t.MaxFPS 30,r.BufferVisualizationOverviewTargets None,r.ScreenPercentage 70,r.ShadowQuality 0,r.AmbientOcclusionLevels 0']
   if i:cmd += [f'-C13RoundProfile={i}']
   if a.headless or i>=2:cmd += ['-nullrhi','-nosound','-unattended']
   processes.append(subprocess.Popen(cmd,stdout=out,stderr=subprocess.STDOUT))
@@ -54,6 +55,10 @@ else:
   checks['all_clients_see_power']=all(logs[role].rfind('C13_INFRA_POWER light=1 services=1')>logs[role].find('C13_INFRA_POWER light=0 services=0')>=0 for role in roles[1:])
   if a.mode=='continue':checks['outside_checkpoint_resumed']='C13_SUPPLY_RESUME_OUTSIDE pass=1' in host
  checks['strict_schema']='C13_SUPPLY_SCHEMA missing=1 mixed=1 migration=1 duplicate=1' in host
+if a.radiation:
+ if a.mode in ('full','seed'):checks['outdoor_dose']='C13_RADIATION_OUTSIDE pass=1' in host
+ if a.mode=='continue':checks['outside_checkpoint_dose']='C13_RADIATION_LOADED pass=1' in host
+ if a.mode in ('full','continue'):checks['shelter_dose_stable_and_health_falls']='C13_RADIATION_RETURN pass=1' in host
 ids={m[1]:dict(id=m[2],active=int(m[3])) for m in re.finditer(r'C13_SUPPLY_ID key=(\w+) id=([A-Fa-f0-9]{32}) active=(\d)',host)}
 if not ids:ids={m[1]:dict(id=m[2],active=1) for m in re.finditer(r'C13_SUPPLY_SPAWN key=(\w+) id=([A-Fa-f0-9]{32})',host)}
 collected=re.search(r'C13_SUPPLY_COLLECTED fuel=([A-Fa-f0-9]{32}) parts=([A-Fa-f0-9]{32})',host)

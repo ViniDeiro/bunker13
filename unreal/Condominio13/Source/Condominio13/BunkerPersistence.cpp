@@ -72,7 +72,7 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
     if(S->bRoundMode!=(ABunkerRound::Find(W)!=nullptr) || (S->bRoundMode && (S->RoundPhase>3 || !FMath::IsFinite(S->RoundRemaining) || S->RoundRemaining<0 || S->RoundRemaining>120 || (S->RoundPhase!=1 && S->RoundRemaining!=0))))return false;
     if(!FMath::IsFinite(S->ShelterSeconds)||S->ShelterSeconds<0||S->ShelterSeconds>1.e9||!FMath::IsFinite(S->ShelterDaySeconds)||S->ShelterDaySeconds<1||S->ShelterDaySeconds>3600||(S->RoundPhase!=3&&S->ShelterSeconds!=0))return false;
     if(S->bInfrastructure && (!ABunkerInfrastructure::Find(W)||!ABunkerInfrastructure::Valid(S->Infrastructure)||S->Infrastructure.Fuel>PS->Rules->FuelCapacityLiters+.001f||S->Infrastructure.RawWater>PS->Rules->RawWaterCapacityLiters+.001f||S->Infrastructure.CleanWater>PS->Rules->CleanWaterCapacityLiters+.001f))return false;
-    for (float Value:{S->Health,S->Food,S->Water,S->Energy})
+    for (float Value:{S->Health,S->Food,S->Water,S->Energy,S->RadiationBurden})
         if (!FMath::IsFinite(Value) || Value<0 || Value>100) return false;
     TSet<FGuid> Owned;
     auto Item=[&](const FBunkerInventoryEntry& E,bool bOwned=true)
@@ -100,7 +100,7 @@ bool Valid(UBunkerSaveGame* S,UWorld* W,ABunkerPlayerState* PS)
         if (!R.Key.IsValid() || PlayerKeys.Contains(R.Key) || R.TicketHash.Len()!=64 || TicketHashes.Contains(R.TicketHash) ||
             !Point(R.Location) || R.Rotation.ContainsNaN()) return false;
         for (TCHAR C:R.TicketHash) if (!FChar::IsHexDigit(C)) return false;
-        for (float V:{R.Health,R.Food,R.Water,R.Energy}) if (!FMath::IsFinite(V) || V<0 || V>100) return false;
+        for (float V:{R.Health,R.Food,R.Water,R.Energy,R.RadiationBurden}) if (!FMath::IsFinite(V) || V<0 || V>100) return false;
         if (!Items(R.Inventory,PS->Rules->MaxSlots,PS->Rules->MaxWeightKg)) return false;
         PlayerKeys.Add(R.Key);TicketHashes.Add(R.TicketHash);
     }
@@ -162,6 +162,11 @@ void ABunkerGameMode::StartPersistence()
 #if !UE_BUILD_SHIPPING
     if (FParse::Param(FCommandLine::Get(),TEXT("C13ReconnectTest")) && GetNetMode()!=NM_ListenServer) return;
 #endif
+    if(GetNetMode()==NM_Standalone && FParse::Param(FCommandLine::Get(),TEXT("C13PlaytestNoSave")))
+    {
+        bPersistenceReady=true;
+        return;
+    }
     SavePrefix=Probe()?TEXT("C13_AutomatedCheckpoint"):TEXT("C13_SoloCheckpoint");
     // All older test fixtures must remain independent of a real player's campaign.
     const TCHAR* Flags[]={TEXT("C13NetTest"),TEXT("C13SurvivalTest"),TEXT("C13StorageTest"),TEXT("C13StorageVisual"),
@@ -183,7 +188,7 @@ void ABunkerGameMode::StartPersistence()
     }
     if(FParse::Param(FCommandLine::Get(),TEXT("C13Round")))SavePrefix=GetNetMode()==NM_ListenServer?TEXT("C13_MvpRoundCoop"):TEXT("C13_MvpRoundSolo");
 #if !UE_BUILD_SHIPPING
-    if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))SavePrefix=TEXT("C13_TestRound");
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))SavePrefix=FParse::Param(FCommandLine::Get(),TEXT("C13RadiationTest"))?TEXT("C13_TestRadiation"):TEXT("C13_TestRound");
     if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")) && FParse::Param(FCommandLine::Get(),TEXT("C13RoundReset"))){UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_A"),0);UGameplayStatics::DeleteGameInSlot(SavePrefix+TEXT("_B"),0);}
 #endif
     if (!Probe() || FParse::Param(FCommandLine::Get(),TEXT("C13SaveExit")))
@@ -214,6 +219,7 @@ void ABunkerGameMode::C13AutoSave() {SaveCheckpoint();}
 
 bool ABunkerGameMode::SaveCheckpoint()
 {
+    if(GetNetMode()==NM_Standalone && FParse::Param(FCommandLine::Get(),TEXT("C13PlaytestNoSave")))return false;
     auto* PC=Local(GetWorld());auto* PS=PC?PC->GetPlayerState<ABunkerPlayerState>():nullptr;APawn* Pawn=PC?PC->GetPawn().Get():nullptr;
     if (!bPersistenceReady || bPersistenceBlocked || bCheckpointEnding || (GetNetMode()!=NM_Standalone && !UsesCoopPersistence()) || !Pawn || !PS) return false;
     auto* S=NewObject<UBunkerSaveGame>(this);S->Sequence=SaveSequence+1;S->Layout=Layout(GetWorld());
@@ -226,7 +232,7 @@ bool ABunkerGameMode::SaveCheckpoint()
             if (It->bNewReconnectRecord && (!It->GetPlayerState<ABunkerPlayerState>() || !It->GetPlayerState<ABunkerPlayerState>()->bSessionReady))
                 S->RemotePlayers.RemoveAll([&](const auto& R){return R.Key==It->SessionPlayerKey;});
     }
-    S->Inventory=PS->Inventory;S->Health=PS->Health;S->Food=PS->Food;S->Water=PS->Water;S->Energy=PS->Energy;
+    S->Inventory=PS->Inventory;S->Health=PS->Health;S->Food=PS->Food;S->Water=PS->Water;S->Energy=PS->Energy;S->RadiationBurden=PS->RadiationBurden;
     S->PlayerLocation=PC->CheckpointLocation();S->PlayerRotation=PC->GetControlRotation();
     for (TActorIterator<ABunkerInteractable> It(GetWorld());It;++It)
     {
@@ -312,7 +318,9 @@ bool ABunkerGameMode::LoadCheckpoint()
     }
     if (UsesCoopPersistence()) {RemotePlayers=S->RemotePlayers;CampaignId=S->CampaignId;}
     PC->ReleaseBed();PC->CloseContainerView();
-    PS->Inventory=S->Inventory;PS->Health=S->Health;PS->Food=S->Food;PS->Water=S->Water;PS->Energy=S->Energy;PS->ForceNetUpdate();
+    PS->Inventory=S->Inventory;PS->Health=S->Health;PS->Food=S->Food;PS->Water=S->Water;PS->Energy=S->Energy;PS->RadiationBurden=S->RadiationBurden;PS->ForceNetUpdate();
+    if(FParse::Param(FCommandLine::Get(),TEXT("C13RadiationTest")))
+        UE_LOG(LogTemp,Display,TEXT("C13_RADIATION_LOADED pass=%d dose=%.4f"),PS->RadiationBurden>=30,PS->RadiationBurden);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(CheckpointPosition),false,Pawn);
     const auto Shape=FCollisionShape::MakeCapsule(Pawn->GetCapsuleComponent()->GetScaledCapsuleRadius(),Pawn->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()-2);
     FHitResult Floor;

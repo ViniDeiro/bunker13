@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "exact_dose_after_restart": true,
+    "six_guids_preserved": true,
+    "both_runtime_checks_passed": true
+  },
+  "passed": true,
+  "connections": 1,
+  "saved_dose": 31.4893,
+  "shelter_dose": 35.9732,
+  "shelter_health_start": 78.997,
+  "shelter_health_end": 72.703,
+  "model_checks": 25,
+  "baseline_assets": 449,
+  "fps": {
+    "seed": [
+      {
+        "role": "host",
+        "samples": 477,
+        "fps": 29.8,
+        "p95_ms": 33.84
+      }
+    ],
+    "return": [
+      {
+        "role": "host",
+        "samples": 479,
+        "fps": 29.89,
+        "p95_ms": 33.48
+      }
+    ]
+  },
+  "limits": [
+    "One local rendered host, no remote player",
+    "No legacy-package migration certification, protection or treatment",
+    "No new packaged executable"
+  ]
+}

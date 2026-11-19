@@ -1,0 +1,163 @@
+{
+  "date": "2026-11-16",
+  "milestone": "Bedroom pickup continuity and authoritative horizontal proximity",
+  "passed": true,
+  "runtime": {
+    "passed": true,
+    "checks": {
+      "clean_exit": true,
+      "two_players": true,
+      "no_campaign_write": true,
+      "all_server_audits": true,
+      "no_modal": true,
+      "stale_rejected": true,
+      "take_and_put": true,
+      "same_water_id": true,
+      "both_captures": true,
+      "host_visible_snapshots": true,
+      "host_door_replication": true,
+      "client_visible_snapshots": true,
+      "client_door_replication": true,
+      "fps_both": true,
+      "take_contact": true,
+      "store_contact": true,
+      "item_waits_on_shelf": true,
+      "far_transfer_rejected": true,
+      "approach_capture": true,
+      "remote_item_waits_on_shelf": true,
+      "local_shelf_orientation": true,
+      "remote_shelf_orientation": true,
+      "hand_retracts_after_store": true
+    },
+    "fps": {
+      "host": [
+        {
+          "samples": 1036,
+          "mean": 29.59,
+          "p95_ms": 33.63
+        }
+      ],
+      "client": [
+        {
+          "samples": 1037,
+          "mean": 29.62,
+          "p95_ms": 33.5
+        }
+      ]
+    },
+    "captures": [
+      "bedcab_contact_take.png",
+      "bedcab_host_02.png",
+      "bedcab_host_17.png",
+      "bedcab_client_08.png",
+      "bedcab_client_23.png",
+      "bedcab_host_05.png",
+      "bedcab_contact_approach.png",
+      "bedcab_host_08.png",
+      "bedcab_host_23.png",
+      "bedcab_client_05.png",
+      "bedcab_client_17.png",
+      "bedcab_client_02.png",
+      "bedcab_contact_store.png"
+    ],
+    "profiles": {
+      "host_window": [
+        960,
+        540
+      ],
+      "client_window": [
+        800,
+        450
+      ],
+      "internal_percentage": 70,
+      "shadows": 0,
+      "ao": 0,
+      "cap": 30
+    },
+    "video_capture": false,
+    "scope": "Two simultaneous rendered Unreal Editor game processes with scripted E/X input and server audits, local loopback; no human or packaged/Steam test."
+  },
+  "legacy_save_regression": {
+    "passed": true,
+    "checkpoint_prefix": "C13_AutomatedCheckpoint",
+    "original_bunker_map": true,
+    "compiled_current_module": true,
+    "checks": [
+      {
+        "phase": "reference_seed",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.16-14.39.57:965][122]LogTemp: Display: C13_SAVE_COMMIT sequence=1 actors=34",
+          "[2026.11.16-14.39.57:965][122]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_seed sequence=1"
+        ]
+      },
+      {
+        "phase": "reference_load",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.16-14.40.11:530][123]LogTemp: Display: C13_SAVE_LOAD sequence=1 position=1 inventory=0",
+          "[2026.11.16-14.40.11:530][123]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_load sequence=1"
+        ]
+      },
+      {
+        "phase": "reference_badslot",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.16-14.40.25:109][122]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_badslot sequence=0"
+        ]
+      },
+      {
+        "phase": "reference_legacy",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.16-14.40.39:725][122]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_legacy sequence=0"
+        ]
+      },
+      {
+        "phase": "reference_migrate",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.16-14.40.53:861][122]LogTemp: Display: C13_SAVE_LOAD sequence=2 position=1 inventory=1",
+          "[2026.11.16-14.40.53:864][122]LogTemp: Display: C13_SAVE_COMMIT sequence=3 actors=34",
+          "[2026.11.16-14.40.53:864][122]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_migrate sequence=3"
+        ]
+      }
+    ]
+  },
+  "baseline_assets_verified": 449,
+  "rest_sources_assets_maps_preserved": {
+    "blender/Bedroom_Rest_Animation_v001.blend": true,
+    "exports/bedroom_rest_rig.json": true,
+    "exports/bedroom_rest_animation.json": true,
+    "unreal/Condominio13/Content/Bunker/BedroomRest/A_Bedroom_Rest.uasset": true,
+    "unreal/Condominio13/Content/Bunker/BedroomRest/Lvl_Bedroom_Study_Rest.umap": true
+  },
+  "visual_review": {
+    "performed": true,
+    "captures": "approach/take/store actual Unreal screenshots",
+    "findings": "Bottle remains at the shelf with cabinet orientation during approach; distance warning cleared after accepted transfer; gloves remain rigid"
+  },
+  "sha256": {
+    "unreal/Condominio13/Source/Condominio13/BedroomReachMotion.h": "a51b8508e1d06e100c4f88c09cd4edbb7c4d2843b058d166287287d12c122ebc",
+    "unreal/Condominio13/Source/Condominio13/BunkerItemPresentation.cpp": "d88b68c3cc425cfe6b4ee61e8c42e85b31fcb0c51af41ed0b6be804273a77fa0",
+    "unreal/Condominio13/Source/Condominio13/BunkerObservedAction.cpp": "8fd98bf67c5c751be4d9a2a65fac3cf0e1830e7ccf268c0cf946e6a1468f911b",
+    "unreal/Condominio13/Source/Condominio13/BunkerReferenceCabinet.cpp": "5ffa94da0d8b3a9af1ff4ac6f91ef91b4bc25e7e164d573ac35b050323420b50",
+    "unreal/Condominio13/Source/Condominio13/BedroomCabinetValidation.cpp": "cf724a2d6e3126f43943564a6daa997a835cff20e764a8cb9ac54d4d06caa463",
+    "scripts/run_bedroom_cabinet.py": "b01c663b86840c6d7b6d48b2ef7cb42c8ca4164c3901cee19c13220297346ead",
+    "screenshots/bedroom_reach_continuity/bedcab_contact_approach.png": "53b2a12cb7a3e09880db0b78a43fdd3d1a29ba5b2749e6b1e8660b993863b63b",
+    "screenshots/bedroom_reach_continuity/bedcab_contact_take.png": "21b49aa6118d1e3222c1429df4643b5937802ce83b480463fd1f194bd8fe34ae",
+    "screenshots/bedroom_reach_continuity/bedcab_contact_store.png": "90cbd55425738e55a413595fa020a045613134bd0d48f0772dfda7207f8c49d7"
+  },
+  "limitations": [
+    "Two local rendered Editor instances with scripted inputs; no four-player, internet, reconnect or latency simulation",
+    "Horizontal 110 cm proximity only; vertical reach and skeletal arms/finger articulation still pending",
+    "Canonical ownership changes immediately; snapshot and cosmetic actor arrival can differ under network latency",
+    "No new Blender scene, packaged executable, video or GitHub publication",
+    "Rest source unchanged; rest runtime regression not repeated this milestone"
+  ]
+}

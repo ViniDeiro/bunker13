@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "room": {
+    "before": {
+      "passed": true,
+      "checks": {
+        "C13_BEDROOM_REST": true,
+        "C13_BEDROOM_RELEASE": true,
+        "C13_BEDROOM_WALK": true,
+        "C13_BEDROOM_REST_CAMERA": true,
+        "C13_BEDROOM_CAMERA_BLEND": true,
+        "overview": true,
+        "rest": true,
+        "clean_exit": true,
+        "no_campaign_save": true,
+        "fps": true
+      },
+      "fps": {
+        "samples": 582,
+        "mean": 29.12,
+        "p95_ms": 41.65
+      }
+    },
+    "after": {
+      "passed": true,
+      "checks": {
+        "C13_BEDROOM_REST": true,
+        "C13_BEDROOM_RELEASE": true,
+        "C13_BEDROOM_WALK": true,
+        "C13_BEDROOM_REST_CAMERA": true,
+        "C13_BEDROOM_CAMERA_BLEND": true,
+        "overview": true,
+        "rest": true,
+        "clean_exit": true,
+        "no_campaign_save": true,
+        "fps": true
+      },
+      "fps": {
+        "samples": 596,
+        "mean": 29.82,
+        "p95_ms": 33.34
+      }
+    },
+    "bed02": {
+      "passed": true,
+      "checks": {
+        "C13_BEDROOM_REST": true,
+        "C13_BEDROOM_RELEASE": true,
+        "C13_BEDROOM_WALK": true,
+        "C13_BEDROOM_REST_CAMERA": true,
+        "C13_BEDROOM_CAMERA_BLEND": true,
+        "overview": true,
+        "rest": true,
+        "clean_exit": true,
+        "no_campaign_save": true,
+        "fps": true
+      },
+      "fps": {
+        "samples": 595,
+        "mean": 29.74,
+        "p95_ms": 33.47
+      }
+    }
+  },
+  "drawing": {
+    "passed": true,
+    "checks": {
+      "exit_clean": true,
+      "pickup": true,
+      "trace_and_release": true,
+      "return_and_clear": true,
+      "screenshot": true,
+      "no_campaign_save": true
+    },
+    "fps": {
+      "mean": 29.99,
+      "p95_ms": 33.34,
+      "samples": 120
+    }
+  },
+  "asset_manifest_verified": 449,
+  "capture_sha256": {
+    "before_overview": "62e44d7665f848f7156275e3b9d59761290f9407d352ec6d57f91cc776c0221d",
+    "after_overview": "67f776dd37c49ab74c51ed65d82dd98a716925324d0cadda9fdbf3bf0690eff7",
+    "drawing": "c670a03542d893b0455c95ec01d697fa3efa4d04db99f99a88ee6d15859627aa",
+    "bed02_rest": "d2a78068fc5766efc23e162e11522ee2cc8d8a667af248c4d5dc57efe7d94e3f"
+  },
+  "scope": "Rendered local Editor scripted tests; no new package, network drawing, long session or human playtest."
+}

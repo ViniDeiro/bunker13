@@ -106,6 +106,8 @@ Parte inicial do marco de expedição: intertravamento, equalização dependente
 Primeiro percurso de reposição funcional no estacionamento existente: coleta física, antecâmara, retorno e uso dos mesmos GUIDs para recuperar o gerador. Estoque finito e migração aditiva verificados; quatro conexões com reinício do host e execução contínua com uma instância. Corrigidos vão no acesso e canal de luz do piso externo. Relatório: `docs/EXPEDITION_REPORT.md`; manifesto: `logs/supply_delivery_manifest.json`. Não marcar U3/MVP como concluído: radiação, inimigo/combate, morte, comunicação, eventos e encerramento continuam pendentes; sem expansão de mapa.
 # Continuidade — 09/11/2026
 
+Atualização de 13/11: [primeiro quarto de referência industrial estilizado](BEDROOM_STYLE_STUDY.md), em mapa separado e com fonte Blender editável. Descanso, liberação da cama e caminhada testados no modo de jogo do Editor; 449 assets anteriores intactos. Aguardar avaliação visual antes de aplicar ao bunker. Sem novo pacote ou push desta etapa; armário decorativo, animação corporal e otimização continuam pendentes no estudo. O marco funcional de radiação não foi declarado integrado.
+
 Publicação autorizada posteriormente em [ViniDeiro/bunker13](https://github.com/ViniDeiro/bunker13), branch main. Fontes, Content e assets LFS enviados; clone remoto independente com 449 hashes conferidos, Editor compilado e mapa carregado sem erros/avisos no commandlet. [Registro e limites](GITHUB_PUBLICATION.md). O parágrafo de preparação abaixo descreve o estado anterior ao envio. Não houve nova versão jogável com radiação.
 
 Auditoria de arquitetura e preparação para GitHub: [arquitetura](ARCHITECTURE.md), [publicação](GITHUB_HANDOFF.md). Git LFS instalado/configurado localmente; fontes Blender/Painter e exports deixaram de ser ignorados, com regras LFS. Sem remoto, commit ou upload nesta etapa. Assets antigos ainda exigem preparação no índice; logs já rastreados exigem revisão. O README agora aponta para 0.4.2 e para a meta vigente de janeiro.
@@ -113,3 +115,35 @@ Auditoria de arquitetura e preparação para GitHub: [arquitetura](ARCHITECTURE.
 Radiação etapa 5A: modelo de regras isolado com 25 verificações C++/sanitizadores, build do Editor e automação `C13.Unit.Radiation.Model` aprovados. [Dependências, critérios e limite](RADIATION_ACCEPTANCE.md). Ainda sem integração ao gameplay/persistência/equipamento; não é radiação jogável. Aplicativo 0.4.2 preservado.
 
 Regressão da retomada no pacote 0.4.2 aprovada no modo solo correspondente ao checkpoint da migração, preservando GUID/cronômetro. Uma primeira tentativa selecionou listen server para o checkpoint solo e foi bloqueada pelo validador; o ensaio foi interrompido e a causa registrada. Não houve redefinição dos saves pessoais. Nenhum FPS novo medido nesta etapa.
+
+
+Em 13/11, continuidade do quarto: transição de câmera em primeira pessoa ao descansar/levantar implementada e testada no jogo; nove verificações passaram e os 449 assets anteriores permaneceram íntegros. Rodada curta com limite explícito de 45 FPS: média 43,86 FPS e frame p95 de 22,23 ms. Isso não é animação corporal nem validação multiplayer; o armário do novo quarto permanece decorativo. Evidências em `docs/validation/bedroom_rest_2026-11-13.json` e detalhes em `BEDROOM_STYLE_STUDY.md`.
+
+
+Em 13/11, quarto v002: armário físico com folha móvel, colisão, sons atribuídos, prateleiras e recursos reais do inventário. Duas instâncias renderizadas passaram nas 14 verificações finais de coleta/devolução, ID único, rejeições, ausência de modal e estado compartilhado; as cinco regressões de salvamento do armário original passaram. FPS medidos com duas instâncias e limite de 30: host 27,05 / cliente 26,51. A cena segue isolada, sem gravação da campanha e sem novo pacote. Vídeo de 34,64 s demonstra apenas o host e ficou sem áudio; a queda do cliente durante a rodada de gravação e a limitação de áudio estão registradas. Ver `BEDROOM_CABINET.md` e `validation/bedroom_cabinet_2026-11-13.json`.
+
+
+Em 13/11, quarto v003: primeira animação esquelética de deitar/levantar, com apresentação replicada e ação editável no Blender. Rodada final com um host renderizado e um cliente sem janela passou nas 18 verificações: poses intermediárias e finais, energia, cama ocupada, interrupção, restauração e inventário intacto. Os 449 assets anteriores e os mapas/fontes v001/v002 foram preservados. Host medido em 25,08 FPS (limite 30; p95 48,79 ms); duas telas renderizadas, quatro jogadores, polimento, reconexão e novo pacote permanecem pendentes. Ver `BEDROOM_REST_ANIMATION.md` e `validation/bedroom_rest_body_2026-11-13.json`.
+
+
+## 16/11/2026 — Contato das mãos no quarto
+
+Trajetória compartilhada entre apresentação local/remota para aproximar, tocar e recolher; luz das mãos corrigida durante alcance na prateleira. Pose de descanso evita avaliações explícitas repetidas quando estabilizada. Armário: 18 critérios com duas janelas renderizadas passaram, host 29,86 / cliente 29,94 FPS (limite 30). Descanso: 18 verificações passaram com host renderizado (29,69 FPS) e cliente sem janela. Os 449 assets anteriores permanecem íntegros. Medições curtas e carga variável não comprovam ganho isolado de desempenho. Persistem luvas rígidas, alcance anatômico limitado e possível lacuna visual curta na retirada. Sem novos ambientes, pacote ou publicação. Ver `BEDROOM_INTERACTION_POLISH_2026-11-16.md`.
+
+
+## 16/11/2026 — Continuidade na prateleira e proximidade
+
+O item mantém posição e orientação do armário enquanto as mãos se aproximam, antes de acompanhar a retirada. A mesma curva atende jogador e observador. O host rejeita transferências acima de 110 cm de distância horizontal no quarto; a recusa não altera posse nem revisão. Rodada final: 23 critérios de interação e cinco regressões de salvamento/migração passaram. Host 29,59 / cliente 29,62 FPS (duas janelas, limite 30, resolução interna 70%, sombras/AO desligados). Assets e fonte do descanso preservados. Luvas rígidas, alcance vertical e comportamento sob latência permanecem pendentes; não houve novo pacote. Ver `BEDROOM_REACH_CONTINUITY_2026-11-16.md`.
+
+## 17/11/2026 — Radiação 5B
+
+Exposição pessoal agora afeta a expedição na Unreal: acumula no estacionamento, persiste no checkpoint e continua causando sintomas após o retorno. Ensaio renderizado com um host verificou a rota inteira, reinício e recuperação do gerador com os mesmos itens. Exposição 31,4893 restaurada exatamente; no abrigo estabilizou em 35,9732. Taxas ajustáveis, sem expansão de mapa. Proteção, tratamento, reconexão remota com dose e novo pacote pendentes. Ver `RADIATION_ACCEPTANCE.md`.
+
+Variante isolada do quarto: dois leitos funcionais testados separadamente, direção de luz revisada e quadro local com caneta, traço, limpeza e devolução. Comparação na Unreal e teste de desenho concluídos. Sem novo pacote ou mudança de outros ambientes. Consulte `BEDROOM_VISUAL_AND_DRAWING.md`.
+
+Quarto clareado com dois preenchimentos revisados e comparação em jogo. Partida atual recebe objetivos de abrigo baseados no estado da infraestrutura. Rota renderizada com uma instância passou em sequência contínua, da coleta inicial até a recuperação do gerador com exposição persistente. Atalho de avaliação não grava campanha; executável independente permanece 0.4.2. Ver `PLAYTEST_GAMEPLAY.md`.
+
+Mercado Aurora e estacionamento: fachada do acesso, orientação para carga, iluminação dos caixas e pátio demarcado. Passagem e IDs preservados; rota contínua e captura pós-correção verificadas na Unreal. Ver `EXTERIOR_POLISH.md`.
+
+
+Menu cinematográfico isolado: cena 3D e widgets UMG, câmera com parallax, controles de acessibilidade e avanço/fade antes de carregar a coleta. Funcionalidade testada em 720p/1080p/1440p; vídeo real e fonte Blender reaberta. A referência é apenas guia de composição. Fidelidade artística e playtest humano continuam pendentes. Não houve novo pacote ou substituição do mapa padrão. Ver `CINEMATIC_MAIN_MENU.md`.

@@ -75,6 +75,8 @@ void ABunkerPlayerController::SupplyProbeTick()
  if(!C||!PS||!PS->bSessionReady||!I||!R||!R->Gate||!R->InnerGate)return;
  const bool Host=HasAuthority(),Race=FParse::Param(FCommandLine::Get(),TEXT("C13SupplyRace")),Load=FParse::Param(FCommandLine::Get(),TEXT("C13SupplyLoad")),Continue=FParse::Param(FCommandLine::Get(),TEXT("C13SupplyContinue"));
  const float Now=GetWorld()->GetGameState()->GetServerWorldTimeSeconds();
+ const bool Radiation=FParse::Param(FCommandLine::Get(),TEXT("C13RadiationTest"));
+ static float ShelterDose=0,ShelterHealth=0;
  auto Key=[this](EInputEvent Event){InputKey(FInputKeyEventArgs(nullptr,INPUTDEVICEID_NONE,EKeys::E,Event,Event==IE_Pressed?1.f:0.f,false,FPlatformTime::Cycles64()));};
  auto Press=[&](){Key(IE_Pressed);Key(IE_Released);};
  if(Load)
@@ -150,9 +152,10 @@ void ABunkerPlayerController::SupplyProbeTick()
  else if(RoundProbeStage==7&&Move({{2550,350},{2550,500},{2550,650},{2550,800},{2550,900},{2650,900},{2650,1800},{2750,1850},{2750,2250},{2750,2600},{2860,3070}}))RoundProbeStage=8;
  else if(RoundProbeStage==8){if(Has(SupplyFuelId))RoundProbeStage=9;else Use(TEXT("SupplyV1_0"));}
  else if(RoundProbeStage==9){if(Has(SupplyPartsId))RoundProbeStage=10;else Use(TEXT("SupplyV1_2"));}
- else if(RoundProbeStage==10)
+ else if(RoundProbeStage==10&&(!Radiation||PS->RadiationBurden>=31))
  {
   UE_LOG(LogTemp,Display,TEXT("C13_SUPPLY_COLLECTED fuel=%s parts=%s y=%.1f"),*SupplyFuelId.ToString(EGuidFormats::Digits),*SupplyPartsId.ToString(EGuidFormats::Digits),C->GetActorLocation().Y);
+  if(Radiation)UE_LOG(LogTemp,Display,TEXT("C13_RADIATION_OUTSIDE pass=%d dose=%.4f health=%.4f"),PS->RadiationBurden>=31,PS->RadiationBurden,PS->Health);
   C13Save();FScreenshotRequest::RequestScreenshot(TEXT("supply_exterior.png"),true,false);RoundProbeStage=11;
   if(FParse::Param(FCommandLine::Get(),TEXT("C13SupplySeedOutside"))){UE_LOG(LogTemp,Display,TEXT("C13_SUPPLY_SEED_OUTSIDE"));FGenericPlatformMisc::RequestExit(false);return;}
  }
@@ -162,11 +165,13 @@ void ABunkerPlayerController::SupplyProbeTick()
  else if(RoundProbeStage==14&&Door(R->Gate,false))RoundProbeStage=15;
  else if(RoundProbeStage==15&&Door(R->InnerGate,true))RoundProbeStage=16;
  else if(RoundProbeStage==16&&Move({{2550,-900},{2100,-1000},{1900,-1350},{1740,-1390}}))RoundProbeStage=17;
+ else if(Radiation&&RoundProbeStage==17&&ShelterDose==0){ShelterDose=PS->RadiationBurden;ShelterHealth=PS->Health;}
  else if(RoundProbeStage==17){if(!Has(SupplyFuelId)&&I->State.Fuel>1.9f)RoundProbeStage=18;else if(I->Task==0)Use(TEXT("InfraV1_FuelPort"));}
  else if(RoundProbeStage==18){if(!Has(SupplyPartsId)&&I->State.Condition>59)RoundProbeStage=19;else if(I->Task==0)Use(TEXT("InfraV1_RepairPort"));}
  else if(RoundProbeStage==19){if(I->Powered()){SupplyNextAction=Now+4;RoundProbeStage=20;}else Use(TEXT("InfraV1_GeneratorSwitch"));}
  else if(RoundProbeStage==20&&Now>SupplyNextAction)
  {
+  if(Radiation)UE_LOG(LogTemp,Display,TEXT("C13_RADIATION_RETURN pass=%d dose=%.4f shelter_start=%.4f health=%.4f shelter_health=%.4f"),ShelterDose>=31&&FMath::IsNearlyEqual(ShelterDose,PS->RadiationBurden)&&PS->Health<ShelterHealth,PS->RadiationBurden,ShelterDose,PS->Health,ShelterHealth);
   const bool OK=!Fuel->bActive&&!Parts->bActive&&!Has(SupplyFuelId)&&!Has(SupplyPartsId)&&I->Powered()&&I->State.Fuel>1.8f&&I->State.Condition>58;
   UE_LOG(LogTemp,Display,TEXT("C13_SUPPLY_RESTORED pass=%d fuel_id=%s parts_id=%s fuel=%.3f condition=%.3f"),OK,*SupplyFuelId.ToString(EGuidFormats::Digits),*SupplyPartsId.ToString(EGuidFormats::Digits),I->State.Fuel,I->State.Condition);
   for(TActorIterator<ABunkerInteractable> It(GetWorld());It;++It)if(ABunkerInfrastructure::SupplyExtension(*It))UE_LOG(LogTemp,Display,TEXT("C13_SUPPLY_ID key=%s id=%s active=%d"),*It->WorldKey,*It->ItemId.ToString(EGuidFormats::Digits),It->bActive);

@@ -34,6 +34,7 @@ public:
  UPROPERTY() TObjectPtr<UBunkerSurvivalRules> Rules;
  UPROPERTY() TArray<TObjectPtr<ABunkerInteractable>> Terminals;
  virtual void BeginPlay()override;
+ bool bSupplyRouteDressed=false;
  virtual void Tick(float DT)override;
  virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out)const override;
  UFUNCTION() void OnRep_State();

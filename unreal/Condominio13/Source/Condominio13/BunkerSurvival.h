@@ -44,6 +44,11 @@ public:
     UPROPERTY(EditAnywhere,BlueprintReadWrite) TArray<FBunkerItemDefinition> Items;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) float MaxWeightKg = 20;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) int32 MaxSlots = 12;
+    // Axis-aligned exposure volume in world centimeters, limited to expedition maps.
+    UPROPERTY(EditAnywhere, Category="Radiation") FBox RadiationZone = FBox(FVector(2100,2650,260),FVector(3350,3700,650));
+    UPROPERTY(EditAnywhere, Category="Radiation") float RadiationPerSecond = 1.5f;
+    UPROPERTY(EditAnywhere, Category="Radiation") float RadiationSymptomThreshold = 30.f;
+    UPROPERTY(EditAnywhere, Category="Radiation") float RadiationDamagePerSecond = .35f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) float FoodLossPerMinute = .6f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) float WaterLossPerMinute = 1.f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite) float EnergyLossPerMinute = .4f;
@@ -63,4 +68,9 @@ class CONDOMINIO13_API ABunkerHUD : public AHUD
     GENERATED_BODY()
 public:
     virtual void DrawHUD() override;
+    bool IsLobbyVisible() const {return bLobbyInput;}
+    bool IsLobbyButtonHovered() const;
+private:
+    bool bLobbyInput=false;
+    void DrawLobby(class ABunkerPlayerController& PC);
 };

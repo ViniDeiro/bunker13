@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-13",
+  "milestone": "Bedroom-only first-person rest camera transition",
+  "runtime": {
+    "passed": true,
+    "checks": {
+      "exit_clean": true,
+      "rest_raises_energy": true,
+      "leave_releases_bed": true,
+      "walk": true,
+      "no_campaign_commit": true,
+      "overview_image": true,
+      "rest_camera_position": true,
+      "camera_blends_instead_of_snapping": true,
+      "fps_recorded": true
+    },
+    "fps": {
+      "samples": 877,
+      "mean": 43.86,
+      "p95_ms": 22.23
+    },
+    "resolution": "1280x720",
+    "study_quality": {
+      "screen_percentage": 100,
+      "shadow_quality": 2,
+      "shadow_resolution": 512,
+      "ao_levels": 1,
+      "fps_cap": 45
+    },
+    "scope": "One rendered Unreal Editor game process, automated fixture, 20s window including captures; not packaged multiplayer or human playtest."
+  },
+  "baseline_assets_unchanged": 449,
+  "sha256": {
+    "unreal/Condominio13/Source/Condominio13/BedroomRestCamera.h": "c85add9df9ebc6721802a51c8fe76530d4e885faf61cc009a37c73a6eb6b2586",
+    "unreal/Condominio13/Source/Condominio13/BedroomRestCamera.cpp": "eb9ec4c6e73f073069eb4c150ac9b41a6f539bbb8796bdad4ebe04361ba6791f",
+    "unreal/Condominio13/Source/Condominio13/BedroomStudyValidation.cpp": "44ec146c163401c9d9334dd8d4e387a7e28b5bcd016779e540a82d1e5b205bd0",
+    "screenshots/bedroom_unreal_rest.png": "4bbf8781ff1c36838580bfc1c47440dc73bb861ad0855d0575b170f727778b28"
+  },
+  "limits": [
+    "No full-body lying animation",
+    "No new multiplayer test",
+    "Study cabinet remains decorative",
+    "No new packaged executable or GitHub push"
+  ]
+}

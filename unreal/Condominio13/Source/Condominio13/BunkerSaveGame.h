@@ -29,6 +29,7 @@ struct FBunkerSavedPlayer
     UPROPERTY() float Food=100;
     UPROPERTY() float Water=100;
     UPROPERTY() float Energy=100;
+    UPROPERTY() float RadiationBurden=0;
     UPROPERTY() FVector Location=FVector::ZeroVector;
     UPROPERTY() FRotator Rotation=FRotator::ZeroRotator;
 };
@@ -68,6 +69,7 @@ public:
     UPROPERTY() float Food=100;
     UPROPERTY() float Water=100;
     UPROPERTY() float Energy=100;
+    UPROPERTY() float RadiationBurden=0;
     UPROPERTY() FVector PlayerLocation;
     UPROPERTY() FRotator PlayerRotation;
     UPROPERTY() TArray<FBunkerSavedActor> Actors;

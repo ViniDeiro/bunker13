@@ -23,6 +23,7 @@ public:
     UPROPERTY() TObjectPtr<UStaticMesh> ClosedMesh;
     UPROPERTY() TObjectPtr<UStaticMesh> OpenMesh;
     float Elapsed=0,Length=1;
+    int LastReachPhase=-1;
     bool bUsing=false,bPlaying=false,bReach=false,bPlace=false,bHandle=false;
     FVector ContactPoint=FVector::ZeroVector;
     UPROPERTY() TObjectPtr<class ABunkerReferenceCabinet> ContactCabinet;

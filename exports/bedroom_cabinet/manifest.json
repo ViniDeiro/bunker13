@@ -1,0 +1,36 @@
+{
+  "meshes": {
+    "SM_Bedroom_Furniture": {
+      "objects": 24,
+      "triangles": 4512
+    },
+    "SM_Bedroom_Details": {
+      "objects": 28,
+      "triangles": 4496
+    },
+    "SM_Bedroom_CabinetBody": {
+      "objects": 13,
+      "triangles": 2444
+    },
+    "SM_Bedroom_CabinetLeaf": {
+      "objects": 14,
+      "triangles": 2296
+    }
+  },
+  "body_dimensions_cm": [
+    120,
+    54,
+    197.5
+  ],
+  "hinge_local_cm": [
+    -57.6,
+    27,
+    0
+  ],
+  "location_cm": [
+    373,
+    -411,
+    0
+  ],
+  "source": "blender/Bedroom_StyleStudy_v002.blend"
+}

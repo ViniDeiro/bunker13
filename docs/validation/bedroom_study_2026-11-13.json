@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-13",
+  "scope": "Isolated original bedroom art study, Unreal Editor game view, not new packaged game",
+  "checks": {
+    "exit_clean": true,
+    "rest_raises_energy": true,
+    "leave_releases_bed": true,
+    "walk": true,
+    "no_campaign_commit": true,
+    "overview_image": true
+  },
+  "fps": {
+    "samples": 637,
+    "mean": 31.78,
+    "p95_ms": 84.82
+  },
+  "quality": {
+    "screen_percentage": 100,
+    "shadow_quality": 2,
+    "shadow_resolution": 512,
+    "ao_levels": 1,
+    "fps_cap": 45
+  },
+  "blender": {
+    "passed": true,
+    "meshes": 183,
+    "uv_min": 2,
+    "packed_images": 2
+  },
+  "triangles": 44960,
+  "original_asset_hashes_unchanged": 449,
+  "files_sha256": {
+    "blender/Bedroom_StyleStudy_v001.blend": "9cae6f34bd7c11abf2560cfea7922c01990d5883bf67fd0eb71dbaa297f35717",
+    "unreal/Condominio13/Content/Bunker/BedroomStudy/Lvl_Bedroom_Study.umap": "150351d94991b09fbea41b2160d13c992d936cf56beff2f706198598d5971c96"
+  },
+  "limitations": [
+    "Not visually approved yet",
+    "No new lying-down animation",
+    "Cabinet and props in this map are decorative",
+    "No multiplayer test of this map",
+    "Visual profile still needs performance work"
+  ]
+}

@@ -7,12 +7,138 @@
 #include "EngineUtils.h"
 #include "Engine/PointLight.h"
 #include "Engine/StaticMeshActor.h"
+#include "Engine/TextRenderActor.h"
+#include "Components/TextRenderComponent.h"
 #include "Components/LightComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Components/MeshComponent.h"
 #include "Materials/MaterialInterface.h"
 #include "GameFramework/Character.h"
 #include "Net/UnrealNetwork.h"
+namespace
+{
+void DressSupplyRoute(UWorld* World)
+{
+ if(!World || World->GetNetMode()==NM_DedicatedServer)return;
+ auto* Cube=LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube"));
+ auto Material=[](const TCHAR* Path){return LoadObject<UMaterialInterface>(nullptr,Path);};
+ auto* Steel=Material(TEXT("/Game/Bunker/Materials/M_B2_DarkSteel.M_B2_DarkSteel"));
+ auto* Enamel=Material(TEXT("/Game/Bunker/Materials/M_B2_ModuleWhite.M_B2_ModuleWhite"));
+ auto* Wood=Material(TEXT("/Game/Bunker/Materials/M_B2_Wood.M_B2_Wood"));
+ auto* Stripe=Material(TEXT("/Game/Bunker/Materials/M_B2_SafetyOrange.M_B2_SafetyOrange"));
+ auto Box=[&](FVector Center,FVector Size,UMaterialInterface* Mat)
+ {
+  auto* A=World->SpawnActor<AStaticMeshActor>(Center,FRotator::ZeroRotator);
+  if(!A)return;
+  auto* M=A->GetStaticMeshComponent();
+  M->SetMobility(EComponentMobility::Movable);
+  M->SetStaticMesh(Cube);M->SetWorldScale3D(Size/100.);
+  M->SetMaterial(0,Mat);M->SetLightingChannels(false,true,false);
+  M->SetCollisionEnabled(ECollisionEnabled::NoCollision);M->SetCastShadow(false);
+ };
+ // Keep the player approach and all six item pivots. Stage them on raised-looking
+ // loading mats whose upper surface matches the existing pickup floor.
+ for(int Group=0;Group<3;++Group)
+ {
+  const float X=2832.5f+130*Group;
+  Box(FVector(X,3200,293.2),FVector(117,76,1.5),Steel);
+  for(int Slat=0;Slat<5;++Slat)
+   Box(FVector(X,3168+Slat*16,294.06),FVector(112,14,.35),Wood);
+  Box(FVector(X,3159,294.02),FVector(116,4,.4),Stripe);
+ }
+ // Nonblocking route strip and end markers on the existing apron.
+ for(int Segment=0;Segment<5;++Segment)
+  Box(FVector(2820,2320+Segment*77,294.34),FVector(8,34,.25),Stripe);
+ // A freestanding loading sign sits behind the inventory, facing the approach.
+ Box(FVector(2995,3310,353),FVector(358,9,68),Steel);
+ Box(FVector(2995,3304,353),FVector(346,2,56),Enamel);
+ for(float X:{2827.f,3163.f})
+  Box(FVector(X,3310,318),FVector(8,9,51),Steel);
+ if(auto* Sign=World->SpawnActor<ATextRenderActor>(FVector(2995,3301,356),FRotator(0,-90,0)))
+ {
+  auto* Text=Sign->GetTextRender();
+  Text->SetText(FText::FromString(TEXT("CARGA  /  MANUTENÇÃO")));
+  Text->SetHorizontalAlignment(EHTA_Center);Text->SetWorldSize(24);
+  Text->SetLightingChannels(false,true,false);
+  Text->SetTextRenderColor(FColor(247,226,167));
+ }
+ if(auto* Light=World->SpawnActor<APointLight>(FVector(3000,3160,565),FRotator::ZeroRotator))
+ {
+  auto* C=CastChecked<UPointLightComponent>(Light->GetLightComponent());
+  C->SetMobility(EComponentMobility::Movable);C->SetLightingChannels(false,true,false);
+  C->IntensityUnits=ELightUnits::Lumens;C->SetIntensity(600);
+  C->SetAttenuationRadius(430);C->SetCastShadows(false);
+  C->SetLightColor(FLinearColor(.77,.86,1));
+ }
+ // Hide only the old orange fascia's render mesh; keep authored collision.
+ for(TActorIterator<AStaticMeshActor> It(World);It;++It)
+  if(It->GetActorLocation().Equals(FVector(2550,2385,610),2.f))
+   if(auto* Mesh=It->GetStaticMeshComponent())
+    if(const auto* Mat=Mesh->GetMaterial(0);Mat && Mat->GetFName()==FName(TEXT("M_EXT_Warning")))
+     Mesh->SetVisibility(false);
+ // Market portal: retain the existing physical opening (X 2125–3400).
+ auto* Green=Material(TEXT("/Game/Bunker/Materials/M_B2_UtilityGreen.M_B2_UtilityGreen"));
+ Box(FVector(2740,2405,666),FVector(1330,78,85),Steel);
+ Box(FVector(2740,2446,662),FVector(1290,6,62),Green);
+ Box(FVector(2740,2447,633),FVector(1290,8,8),Stripe);
+ for(float X:{2095.f,3435.f})
+ {
+  Box(FVector(X,2390,473),FVector(42,60,326),Green);
+  Box(FVector(X,2423,369),FVector(44,9,103),Steel);
+ }
+ auto Wayfinding=[&](FVector Location,float Yaw,const TCHAR* Words,float Size)
+ {
+  auto* Sign=World->SpawnActor<ATextRenderActor>(Location,FRotator(0,Yaw,0));
+  if(!Sign)return;
+  auto* Label=Sign->GetTextRender();
+  Label->SetText(FText::FromString(Words));Label->SetWorldSize(Size);
+  Label->SetHorizontalAlignment(EHTA_Center);Label->SetLightingChannels(false,true,false);
+  Label->SetTextRenderColor(FColor(247,232,189));
+ };
+ Wayfinding(FVector(2740,2451,662),90,TEXT("MERCADO AURORA"),42);
+ Box(FVector(2740,2315,640),FVector(820,10,61),Steel);
+ Wayfinding(FVector(2740,2307,641),-90,TEXT("SAÍDA  /  ÁREA DE CARGA"),28);
+ // Dress the existing checkout counters without narrowing the main aisle.
+ for(int32 Counter=0;Counter<2;++Counter)
+ {
+  const float X=Counter==0?2450.f:3050.f;
+  Box(FVector(X,2100,388.5),FVector(365,69,2),Steel);
+  Box(FVector(X,2139,361),FVector(208,3,31),Green);
+  Wayfinding(FVector(X,2142,363),90,Counter==0?TEXT("CAIXA 03"):TEXT("CAIXA 04"),15);
+ }
+ // Connect the parking stripes to the main aisle on the higher market floor.
+ for(int32 Segment=0;Segment<3;++Segment)
+  Box(FVector(2750,2180+Segment*60,312.76),FVector(8,29,.25),Stripe);
+ // Fill the threshold from the existing ceiling, so the checkout silhouettes
+ // stay readable on the light Mac profile as well as in the darker shelter phase.
+ for(float X:{2440.f,3100.f})
+  if(auto* Light=World->SpawnActor<APointLight>(FVector(X,2190,616),FRotator::ZeroRotator))
+  {
+   auto* C=CastChecked<UPointLightComponent>(Light->GetLightComponent());
+   C->SetMobility(EComponentMobility::Movable);C->SetLightingChannels(true,true,false);
+   C->IntensityUnits=ELightUnits::Lumens;C->SetIntensity(1900);
+   C->SetAttenuationRadius(690);C->SetCastShadows(false);
+   C->SetLightColor(FLinearColor(.89,.96,1));
+  }
+ // Parking stall markings and wheel stops sit beyond the supply lane.
+ for(float X:{1610.f,1900.f,2190.f,3900.f,4190.f,4480.f})
+  Box(FVector(X,4230,294.27),FVector(8,440,.42),Enamel);
+ for(float X:{1755.f,2045.f,4045.f,4335.f})
+  Box(FVector(X,4445,303),FVector(146,27,18),Steel);
+ // A low service divider gives the parking area a clear background silhouette.
+ for(float X:{1580.f,2280.f,2980.f,3680.f,4380.f})
+ {
+  Box(FVector(X,4710,360),FVector(685,37,132),Green);
+  Box(FVector(X,4689,420),FVector(685,8,10),Stripe);
+ }
+ for(float X:{1240.f,1930.f,2630.f,3330.f,4030.f,4730.f})
+  Box(FVector(X,4696,370),FVector(22,69,152),Steel);
+ Wayfinding(FVector(2980,4687,379),-90,TEXT("PÁTIO DE SERVIÇO   /   02"),32);
+ UE_LOG(LogTemp,Display,TEXT("C13_EXTERIOR_MARKET_DRESSED portal=1 stalls=4 divider=1"));
+ UE_LOG(LogTemp,Display,TEXT("C13_SUPPLY_ROUTE_DRESSED bays=3"));
+}
+}
+
 ABunkerInfrastructure::ABunkerInfrastructure(){bReplicates=true;bAlwaysRelevant=true;PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.TickInterval=.1f;SetNetUpdateFrequency(5);}
 ABunkerInfrastructure* ABunkerInfrastructure::Find(UWorld* W){TActorIterator<ABunkerInfrastructure> It(W);return It?*It:nullptr;}
 bool ABunkerInfrastructure::Extension(const ABunkerInteractable* A){return A&&A->WorldKey.StartsWith(TEXT("InfraV1_"));}
@@ -91,7 +217,11 @@ bool ABunkerInfrastructure::Operate(ABunkerPlayerController* PC,ABunkerInteracta
 }
 void ABunkerInfrastructure::Tick(float DT)
 {
- Super::Tick(DT);ApplyPower();if(!HasAuthority())return;auto* GM=GetWorld()->GetAuthGameMode<ABunkerGameMode>();if(!GM||!GM->bPersistenceReady||GM->bPersistenceBlocked)return;
+ Super::Tick(DT);
+ if(!bSupplyRouteDressed && GetNetMode()!=NM_DedicatedServer)
+  if(auto* Round=ABunkerRound::Find(GetWorld());Round && Round->bAirlockEnabled)
+  {bSupplyRouteDressed=true;DressSupplyRoute(GetWorld());}
+ ApplyPower();if(!HasAuthority())return;auto* GM=GetWorld()->GetAuthGameMode<ABunkerGameMode>();if(!GM||!GM->bPersistenceReady||GM->bPersistenceBlocked)return;
  if(!Rules)for(TActorIterator<ABunkerPlayerState> It(GetWorld());It;++It)if(It->Rules){Rules=It->Rules;break;}
  auto* R=ABunkerRound::Find(GetWorld());if(!Rules||!R)return;
  if(!SettingsValid()||!Valid(State)||State.Fuel>Rules->FuelCapacityLiters+.001f||State.RawWater>Rules->RawWaterCapacityLiters+.001f||State.CleanWater>Rules->CleanWaterCapacityLiters+.001f){GM->bPersistenceBlocked=true;UE_LOG(LogTemp,Error,TEXT("C13_INFRA_INVALID_STATE"));return;}

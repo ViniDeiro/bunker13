@@ -36,7 +36,17 @@ ABunkerReferenceCabinet::ABunkerReferenceCabinet()
 }
 void ABunkerReferenceCabinet::BeginPlay()
 {
-    Super::BeginPlay();WorldKey=TEXT("C13_Reference_CommonCabinet_v1");NormalizeSlots();UpdateQueries(Contents);
+    Super::BeginPlay();
+    if (!PersistentKey.IsEmpty()) WorldKey=PersistentKey;
+    if (HasAuthority() && Contents.IsEmpty())
+        for (const auto& Seed:StartingItems)
+            if (Seed.Id.IsValid() && Seed.WorldMesh && Seed.StorageSlot>=0 && Seed.StorageSlot<12 &&
+                !Contents.ContainsByPredicate([&](const auto& V){return V.Id==Seed.Id||V.StorageSlot==Seed.StorageSlot;}))
+            {
+                FBunkerInventoryEntry E;E.Id=Seed.Id;E.ItemType=Seed.ItemType;E.Name=Seed.Name;
+                E.StorageSlot=Seed.StorageSlot;E.WorldMesh=Seed.WorldMesh;E.WorldScale=Seed.WorldScale;Contents.Add(E);
+            }
+    NormalizeSlots();UpdateQueries(Contents);
     FoleyAttenuation=NewObject<USoundAttenuation>(this);FoleyAttenuation->Attenuation.bAttenuate=true;FoleyAttenuation->Attenuation.AttenuationShapeExtents=FVector(75,0,0);FoleyAttenuation->Attenuation.FalloffDistance=450;
     VisualAngle=DoorAngle;
 }
@@ -98,7 +108,7 @@ void ABunkerReferenceCabinet::Present(const TArray<FBunkerInventoryEntry>& Entri
         auto* D=Displays[E.StorageSlot].Get();D->SetStaticMesh(E.WorldMesh);D->EmptyOverrideMaterials();
         for (int32 I=0;I<E.Materials.Num();I++) D->SetMaterial(I,E.Materials[I]);
         const auto B=E.WorldMesh->GetBounds();D->AddLocalOffset(FVector(0,0,-(B.Origin.Z-B.BoxExtent.Z)*E.WorldScale.Z));
-        D->SetRelativeScale3D(E.WorldScale);D->SetLightingChannels(false,false,true);
+        D->SetRelativeScale3D(E.WorldScale);D->SetLightingChannels(Mesh->LightingChannels.bChannel0,Mesh->LightingChannels.bChannel1,Mesh->LightingChannels.bChannel2);
         // Existing item pivots are at their base. Preserve physical scale.
     }
 }
@@ -153,11 +163,19 @@ bool ABunkerReferenceCabinet::Transfer(ABunkerPlayerController* PC,int32 Slot,FG
 {
     auto* PS=PC?PC->GetPlayerState<ABunkerPlayerState>():nullptr;
     if (!HasAuthority() || !PS || GetWorld()->GetTimeSeconds()<NextTransfer || !PC->CanAccessContainer(this) || DoorAngle<100 || !bDoorOpen || !Slots.IsValidIndex(Slot) || ExpectedRevision!=Revision) return false;
-    auto* C=Cast<ACharacter>(PC->GetPawn());FMinimalViewInfo V;C->CalcCamera(0,V);FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(PhysicalTransfer),false,C);
+    auto* C=Cast<ACharacter>(PC->GetPawn());
+    if(GetWorld()->GetMapName().Contains(TEXT("Bedroom_Study")) && FVector::DistSquared2D(C->GetActorLocation(),SlotPoint(Slot))>FMath::Square(110.f))
+    {
+        PC->ClientNotice(TEXT("Aproxime-se da prateleira para pegar ou guardar."));
+        UE_LOG(LogTemp,Display,TEXT("C13_REACH_REJECT distance_cm=%.2f revision=%d"),FVector::Dist2D(C->GetActorLocation(),SlotPoint(Slot)),Revision);
+        return false;
+    }
+    FMinimalViewInfo V;C->CalcCamera(0,V);FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(PhysicalTransfer),false,C);
     if (!GetWorld()->LineTraceSingleByChannel(Hit,V.Location,V.Location+PC->GetControlRotation().Vector()*350,ECC_Visibility,Q) || Hit.GetActor()!=this || SlotFor(Hit.GetComponent())!=Slot) return false;
     auto& Src=bTake?Contents:PS->Inventory;auto& Dst=bTake?PS->Inventory:Contents;
     const int32 I=Src.IndexOfByPredicate([&](const auto& E){return E.Id==Id && (!bTake || E.StorageSlot==Slot);});
     if (I<0 || Dst.ContainsByPredicate([&](const auto& E){return E.Id==Id || (!bTake && E.StorageSlot==Slot);})) return false;
+    if (!Src[I].WorldMesh) return false;
     const auto* Def=PS->Rules->Find(Src[I].ItemType);if (!Def) return false;
     float Weight=0;for (const auto& E:Dst) {auto* D=PS->Rules->Find(E.ItemType);if (!D) return false;Weight+=D->WeightKg;}
     if (Dst.Num()>=(bTake?PS->Rules->MaxSlots:MaxSlots) || Weight+Def->WeightKg>(bTake?PS->Rules->MaxWeightKg:MaxWeightKg)) return false;

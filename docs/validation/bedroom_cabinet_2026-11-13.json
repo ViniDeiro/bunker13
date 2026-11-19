@@ -1,0 +1,196 @@
+{
+  "date": "2026-11-13",
+  "scope": "Functional physical cabinet in isolated bedroom v002; not full commercial-room approval",
+  "functional_checks_passed": true,
+  "multiplayer": {
+    "passed": true,
+    "checks": {
+      "clean_exit": true,
+      "two_players": true,
+      "no_campaign_write": true,
+      "all_server_audits": true,
+      "no_modal": true,
+      "stale_rejected": true,
+      "take_and_put": true,
+      "same_water_id": true,
+      "both_captures": true,
+      "host_visible_snapshots": true,
+      "host_door_replication": true,
+      "client_visible_snapshots": true,
+      "client_door_replication": true,
+      "fps_both": true
+    },
+    "fps": {
+      "host": [
+        {
+          "samples": 1014,
+          "mean": 27.05,
+          "p95_ms": 34.95
+        }
+      ],
+      "client": [
+        {
+          "samples": 994,
+          "mean": 26.51,
+          "p95_ms": 36.76
+        }
+      ]
+    },
+    "captures": [
+      "bedcab_host_02.png",
+      "bedcab_host_17.png",
+      "bedcab_client_08.png",
+      "bedcab_client_23.png",
+      "bedcab_host_05.png",
+      "bedcab_host_08.png",
+      "bedcab_host_23.png",
+      "bedcab_client_05.png",
+      "bedcab_client_17.png",
+      "bedcab_client_02.png"
+    ],
+    "profiles": {
+      "host_window": [
+        960,
+        540
+      ],
+      "client_window": [
+        800,
+        450
+      ],
+      "internal_percentage": 70,
+      "shadows": 0,
+      "ao": 0,
+      "cap": 30
+    },
+    "video_capture": false,
+    "scope": "Two simultaneous rendered Unreal Editor game processes with scripted E/X input and server audits, local loopback; no human or packaged/Steam test."
+  },
+  "legacy_save_regression": {
+    "passed": true,
+    "checkpoint_prefix": "C13_AutomatedCheckpoint",
+    "original_bunker_map": true,
+    "compiled_current_module": true,
+    "checks": [
+      {
+        "phase": "reference_seed",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.13-18.28.41:339][121]LogTemp: Display: C13_SAVE_COMMIT sequence=1 actors=34",
+          "[2026.11.13-18.28.41:340][121]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_seed sequence=1"
+        ]
+      },
+      {
+        "phase": "reference_load",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.13-18.28.59:335][122]LogTemp: Display: C13_SAVE_LOAD sequence=1 position=1 inventory=0",
+          "[2026.11.13-18.28.59:335][122]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_load sequence=1"
+        ]
+      },
+      {
+        "phase": "reference_badslot",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.13-18.29.15:309][120]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_badslot sequence=0"
+        ]
+      },
+      {
+        "phase": "reference_legacy",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.13-18.29.32:300][122]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_legacy sequence=0"
+        ]
+      },
+      {
+        "phase": "reference_migrate",
+        "passed": true,
+        "exit_code": 0,
+        "markers": [
+          "[2026.11.13-18.29.48:444][122]LogTemp: Display: C13_SAVE_LOAD sequence=2 position=1 inventory=1",
+          "[2026.11.13-18.29.48:446][122]LogTemp: Display: C13_SAVE_COMMIT sequence=3 actors=34",
+          "[2026.11.13-18.29.48:446][122]LogTemp: Display: C13_SAVE_PROBE PASS phase=reference_migrate sequence=3"
+        ]
+      }
+    ]
+  },
+  "editable_source": {
+    "meshes": 193,
+    "triangles": 46504,
+    "uv_min": 2,
+    "packed_images": 2
+  },
+  "cabinet_geometry": {
+    "meshes": {
+      "SM_Bedroom_Furniture": {
+        "objects": 24,
+        "triangles": 4512
+      },
+      "SM_Bedroom_Details": {
+        "objects": 28,
+        "triangles": 4496
+      },
+      "SM_Bedroom_CabinetBody": {
+        "objects": 13,
+        "triangles": 2444
+      },
+      "SM_Bedroom_CabinetLeaf": {
+        "objects": 14,
+        "triangles": 2296
+      }
+    },
+    "body_dimensions_cm": [
+      120,
+      54,
+      197.5
+    ],
+    "hinge_local_cm": [
+      -57.6,
+      27,
+      0
+    ],
+    "location_cm": [
+      373,
+      -411,
+      0
+    ],
+    "source": "blender/Bedroom_StyleStudy_v002.blend"
+  },
+  "video": {
+    "file": "/Users/vini_deiro/bankers/output/Condominio13_Armario_Interacoes.mp4",
+    "frames": 233,
+    "duration_s": 34.64,
+    "audio_included": false,
+    "audio_duration_s": 3.7333333333333334,
+    "audio_issue": "Recorded audio is shorter than real capture timeline; omitted to avoid false synchronization.",
+    "pcm16_peak": 2087,
+    "bytes": 447185,
+    "connected_players": 1,
+    "scope": "Host-only demonstration from recording run where client failed before joining; not multiplayer proof.",
+    "capture": "Real gameplay sequence, requested 8 fps, variable captured timing; not a smooth 30/60 fps recording."
+  },
+  "preserved": {
+    "baseline_assets": 449,
+    "bedroom_v001_hashes_unchanged": true,
+    "packaged_expedition_unchanged": true
+  },
+  "sha256": {
+    "blender/Bedroom_StyleStudy_v002.blend": "c6ef0cb4005b483ec5f7a6cdb8cba6d6920cbdd7c914cdce88af6efd60f77073",
+    "unreal/Condominio13/Content/Bunker/BedroomCabinet/Lvl_Bedroom_Study_Cabinet.umap": "7a232d965afab5b591835a76504ef5d10a7c9598259caaebaa9f07f0bfabd923",
+    "screenshots/bedcab_host_08.png": "3cbb7b5f8932e8219e27ca2149a17d3d103a83f2c9b1bca86cbb122d7b85cc6b",
+    "screenshots/bedcab_client_08.png": "994ced3413012146d857ebfefb64af9f6a8eb1516146e5a180129e37041e9e30",
+    "output/Condominio13_Armario_Interacoes.mp4": "e6812aa89565c74bebaabe60b0c637fd0b216bb110c6c7e065ec8bfbb58ca52c"
+  },
+  "limitations": [
+    "No four-player test or internet/Steam validation",
+    "No reconnection test for new scene",
+    "Preview does not save campaign",
+    "Video is host-only and silent; client crashed before joining recording run",
+    "Separate final two-player validation passed",
+    "No new packaged executable or GitHub publication",
+    "Temporary Unreal mannequin and full-body resting animation remain pending"
+  ]
+}

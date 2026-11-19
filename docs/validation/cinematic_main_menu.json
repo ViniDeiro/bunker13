@@ -1,0 +1,109 @@
+{
+  "functional_tests_passed": true,
+  "visual_approval": false,
+  "reference_used_as_background": false,
+  "runs": {
+    "1280x720_video": {
+      "passed": true,
+      "checks": {
+        "clean_exit": true,
+        "screenshot": true,
+        "accessibility": true,
+        "entrance": true,
+        "travel": true,
+        "match": true,
+        "no_campaign_save": true,
+        "parallax": true,
+        "disabled_actions": true
+      },
+      "resolution": "1280x720",
+      "video": true,
+      "fps": {
+        "mean": 17.58,
+        "p95_ms": 150.63,
+        "samples": 87
+      }
+    },
+    "1920x1080": {
+      "passed": true,
+      "checks": {
+        "clean_exit": true,
+        "screenshot": true,
+        "accessibility": true,
+        "entrance": true,
+        "travel": true,
+        "match": true,
+        "no_campaign_save": true,
+        "parallax": true,
+        "disabled_actions": true
+      },
+      "resolution": "1920x1080",
+      "video": false,
+      "fps": {
+        "mean": 30.0,
+        "p95_ms": 33.35,
+        "samples": 150
+      }
+    },
+    "2560x1440": {
+      "passed": true,
+      "checks": {
+        "clean_exit": true,
+        "screenshot": true,
+        "accessibility": true,
+        "entrance": true,
+        "travel": true,
+        "match": true,
+        "no_campaign_save": true,
+        "parallax": true,
+        "disabled_actions": true
+      },
+      "resolution": "2560x1440",
+      "video": false,
+      "fps": {
+        "mean": 29.42,
+        "p95_ms": 36.79,
+        "samples": 147
+      }
+    },
+    "1280x720_quit": {
+      "passed": true,
+      "checks": {
+        "clean_exit": true,
+        "screenshot": true,
+        "no_campaign_save": true,
+        "quit_action": true
+      },
+      "resolution": "1280x720",
+      "video": false,
+      "fps": {
+        "mean": 30.0,
+        "p95_ms": 33.35,
+        "samples": 150
+      }
+    }
+  },
+  "video": {
+    "file": "/Users/vini_deiro/bankers/output/Condominio13_Menu_Cinematico.mp4",
+    "real_frames": 56,
+    "duration": 9.68,
+    "audio": false,
+    "scope": "Timestamped native screenshots requested at 8 fps. Silent demonstration; recording overhead is separate from game FPS."
+  },
+  "source_blend_reopened": true,
+  "limits": [
+    "Visual fidelity not final; text/props/buttons differ from reference",
+    "Automated UMG events; no human physical mouse or audio certification",
+    "Silent sampled video, separate capture overhead",
+    "No new standalone package or default map replacement"
+  ],
+  "sha256": {
+    "unreal/Condominio13/Content/Bunker/MainMenu/L_MainMenu.umap": "071af3e98340962a412aa32d40515b6c8dee2dbcad676dfa55d99302323d1174",
+    "blender/Menu_Respirator_v001.blend": "f251594af9019b2e061cde033ec43413133b4de90a4665e6f41b0dae2d9e5754",
+    "scripts/install_cinematic_menu.py": "e4e712cde69cf6500865b47bcac63d34562256744d802086829189063cce48ba",
+    "unreal/Condominio13/Source/Condominio13/CinematicMenu.cpp": "9478283ed0834d6843b154fa108d06880d546da52dacc40058a3c6ac9dedacbf",
+    "unreal/Condominio13/Source/Condominio13/CinematicMenu.h": "2229f08927c3e655ff8e58f3128fe57850108acbedc24bdd368e91a4e0bb4788",
+    "screenshots/cinematic_menu/1920x1080.png": "6b44ac89ee213a2f2c2f5c50403b19d8203052affd411a32bd6d27e369c66748",
+    "output/Condominio13_Menu_Cinematico.mp4": "a0b36c08ef8d94b600ddace00cec7ab3f827fb6f29a04bc8f1bef68eb9104d44"
+  }
+}

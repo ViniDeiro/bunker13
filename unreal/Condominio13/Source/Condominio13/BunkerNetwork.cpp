@@ -1,4 +1,6 @@
 #include "BunkerNetwork.h"
+#include "BedroomRestCamera.h"
+#include "BedroomRestPose.h"
 #include "BunkerInfrastructure.h"
 #include "BunkerReferenceCabinet.h"
 #include "BunkerObservedAction.h"
@@ -8,6 +10,7 @@
 #include "BunkerRound.h"
 #include "GameFramework/PlayerStart.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/PlayerInput.h"
 #include "InputKeyEventArgs.h"
 #include "EngineUtils.h"
@@ -33,6 +36,7 @@ void ABunkerPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     DOREPLIFETIME_CONDITION(ABunkerPlayerState, Food, COND_OwnerOnly);
     DOREPLIFETIME_CONDITION(ABunkerPlayerState, Water, COND_OwnerOnly);
     DOREPLIFETIME_CONDITION(ABunkerPlayerState, Energy, COND_OwnerOnly);
+    DOREPLIFETIME_CONDITION(ABunkerPlayerState, RadiationBurden, COND_OwnerOnly);
 }
 ABunkerGameMode::ABunkerGameMode()
 {
@@ -77,6 +81,8 @@ void ABunkerPlayerController::SetupInputComponent()
     InputComponent->BindKey(EKeys::E, IE_Pressed, this, &ABunkerPlayerController::Interact);
     InputComponent->BindKey(EKeys::E, IE_Released, this, &ABunkerPlayerController::ServerCancelRoundRelease);
     InputComponent->BindKey(EKeys::R, IE_Pressed, this, &ABunkerPlayerController::ServerStartRound);
+    InputComponent->BindKey(EKeys::Enter, IE_Pressed, this, &ABunkerPlayerController::StartFromLobby);
+    InputComponent->BindKey(EKeys::LeftMouseButton, IE_Pressed, this, &ABunkerPlayerController::ClickLobby);
     InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ABunkerPlayerController::LeaveBed);
     InputComponent->BindKey(EKeys::I,IE_Pressed,this,&ABunkerPlayerController::ToggleInventory);
     InputComponent->BindKey(EKeys::Up,IE_Pressed,this,&ABunkerPlayerController::InventoryUp);
@@ -87,6 +93,14 @@ void ABunkerPlayerController::SetupInputComponent()
     InputComponent->BindKey(EKeys::G,IE_Pressed,this,&ABunkerPlayerController::DropSelected);
     InputComponent->BindAxisKey(EKeys::MouseX, this, &ABunkerPlayerController::LookYaw);
     InputComponent->BindAxisKey(EKeys::MouseY, this, &ABunkerPlayerController::LookPitch);
+}
+void ABunkerPlayerController::StartFromLobby()
+{
+    if(const auto* HUD=GetHUD<ABunkerHUD>(); HUD && HUD->IsLobbyVisible()) ServerStartRound();
+}
+void ABunkerPlayerController::ClickLobby()
+{
+    if(const auto* HUD=GetHUD<ABunkerHUD>(); HUD && HUD->IsLobbyButtonHovered()) StartFromLobby();
 }
 void ABunkerPlayerController::MoveForward(float V)
 {
@@ -132,7 +146,11 @@ void ABunkerPlayerController::PlayerTick(float DT)
             return;
         }
     if (!IsLocalController() || !GetPawn() || !PlayerCameraManager) return;
+    if (GetWorld()->GetMapName().Contains(TEXT("Bedroom_Study")) &&
+        !PlayerCameraManager->FindCameraModifierByClass(UBedroomRestCamera::StaticClass()))
+        PlayerCameraManager->AddNewCameraModifier(UBedroomRestCamera::StaticClass());
     auto* PS = GetPlayerState<ABunkerPlayerState>();
+    if (const auto* HUD=GetHUD<ABunkerHUD>(); HUD && HUD->IsLobbyVisible()) {Focused.Reset();return;}
     if (bInventoryOpen) { Focused.Reset(); return; }
     if (PS && (PS->RestingBed || PS->Health<=0)) { Focused.Reset(); return; }
     MoveForward(float(IsInputKeyDown(EKeys::W)) - float(IsInputKeyDown(EKeys::S)));
@@ -251,14 +269,18 @@ void ABunkerPlayerController::ServerInteract_Implementation(ABunkerInteractable*
         break;
     }
     case EBunkerInteraction::Bed:
+    {
         if (Target->Occupant) { ClientNotice(TEXT("Esta cama está ocupada.")); return; }
         RestExit = Character->GetActorLocation();
+        const FTransform RestStandingMesh=Character->GetMesh()->GetComponentTransform();
         if (!Character->SetActorLocation(Target->GetActorLocation()+FVector(0,0,72), false, nullptr, ETeleportType::TeleportPhysics)) return;
+        ABedroomRestPose::StartFor(Character,Target,RestStandingMesh);
         Target->Occupant = PS; PS->RestingBed = Target;
         Character->GetCharacterMovement()->DisableMovement();
         Character->ForceNetUpdate(); Target->ForceNetUpdate(); PS->ForceNetUpdate();
         ClientNotice(TEXT("Descansando: energia se recuperando | F levantar"));
         break;
+    }
     case EBunkerInteraction::Generator:
         Target->bActive = !Target->bActive; Target->ForceNetUpdate();
         ClientNotice(Target->bActive ? TEXT("Gerador: comando ligado (circuitos em desenvolvimento)") : TEXT("Gerador: comando desligado (circuitos em desenvolvimento)"));
@@ -289,6 +311,7 @@ void ABunkerPlayerController::ReleaseBed(bool bDisconnect)
     PS->RestingBed->Occupant = nullptr; PS->RestingBed->ForceNetUpdate(); PS->RestingBed = nullptr;
     if (C && !bDisconnect)
     {
+        ABedroomRestPose::LeaveFor(C,Exit);
         C->SetActorLocation(Exit, false, nullptr, ETeleportType::TeleportPhysics);
         C->GetCharacterMovement()->SetMovementMode(MOVE_Walking); C->ForceNetUpdate();
     }
@@ -408,6 +431,16 @@ void ABunkerGameMode::BeginPlay()
         GetWorld()->SpawnActor<ABunkerInfrastructure>();
     }
     StartPersistence();
+    if(GetWorld()->URL.HasOption(TEXT("C13MenuStart")))
+    {
+        FTimerHandle Intro;
+        GetWorldTimerManager().SetTimer(Intro,FTimerDelegate::CreateWeakLambda(this,[this]()
+        {
+            if(auto* PC=Cast<ABunkerPlayerController>(UGameplayStatics::GetPlayerController(this,0)))
+                if(auto* R=ABunkerRound::Find(GetWorld()))R->Start(PC);
+        }),1.5f,false);
+    }
+
     StartDoorValidation();
     StartSurvivalValidation();
     StartHandsValidation();

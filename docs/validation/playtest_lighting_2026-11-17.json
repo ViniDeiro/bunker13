@@ -1,0 +1,93 @@
+{
+  "bedroom": {
+    "passed": true,
+    "checks": {
+      "C13_BEDROOM_REST": true,
+      "C13_BEDROOM_RELEASE": true,
+      "C13_BEDROOM_WALK": true,
+      "C13_BEDROOM_REST_CAMERA": true,
+      "C13_BEDROOM_CAMERA_BLEND": true,
+      "overview": true,
+      "rest": true,
+      "clean_exit": true,
+      "no_campaign_save": true,
+      "fps": true
+    },
+    "fps": {
+      "samples": 596,
+      "mean": 29.79,
+      "p95_ms": 33.33
+    }
+  },
+  "expedition": {
+    "passed": true,
+    "mode": "full",
+    "checks": {
+      "host_exit_clean": true,
+      "no_runtime_timeout": true,
+      "valid_checkpoint": true,
+      "all_processes_started": true,
+      "packet_emulation": true,
+      "restored_generator": true,
+      "physical_return": true,
+      "consumed_exactly_two": true,
+      "all_clients_see_power": true,
+      "strict_schema": true,
+      "outdoor_dose": true,
+      "shelter_dose_stable_and_health_falls": true
+    },
+    "ids": {
+      "SupplyV1_0": {
+        "id": "2127DEB26B477929530F7EB94890D022",
+        "active": 0
+      },
+      "SupplyV1_1": {
+        "id": "606F4BDDF942E8B8FB015E8A50957215",
+        "active": 1
+      },
+      "SupplyV1_2": {
+        "id": "76260AF1244612405566CCAD1F251C99",
+        "active": 0
+      },
+      "SupplyV1_3": {
+        "id": "313E352B86474D4655CD059DFCEC0DE8",
+        "active": 1
+      },
+      "SupplyV1_4": {
+        "id": "2E9728FD474123258971E19BC5F7A587",
+        "active": 1
+      },
+      "SupplyV1_5": {
+        "id": "296EE521964B6653C47ACCBE6CDB44CC",
+        "active": 1
+      }
+    },
+    "fps": [
+      {
+        "role": "host",
+        "samples": 480,
+        "fps": 30.0,
+        "p95_ms": 33.4
+      }
+    ],
+    "connections": 1,
+    "resolution": "960x540",
+    "rendered_instances": 1,
+    "exit_codes": [
+      0
+    ],
+    "limits": [
+      "Automated local processes, not human playtest or Internet.",
+      "Initial fixture creates a reproducible crisis; no teleports between departure, cache and return.",
+      "Host restart is intentional in seed/continue; remote processes are closed after host exits.",
+      "Radiation, enemies, combat and death remain separate milestones."
+    ]
+  },
+  "same_session_return": true,
+  "asset_manifest": {
+    "matches": 448,
+    "divergence": "painter/SM_Hero_BlastDoor.spp"
+  },
+  "capture_directory": "screenshots/playtest_bright",
+  "limits": "One rendered local instance per test. No new standalone build."
+}

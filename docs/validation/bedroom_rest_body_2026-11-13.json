@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-13",
+  "scope": "First skeletal resting presentation in isolated bedroom v003, not commercial animation approval",
+  "passed": true,
+  "runtime": {
+    "driver_error": null,
+    "passed": true,
+    "checks": {
+      "driver_completed": true,
+      "clean_exit": true,
+      "client_joined": true,
+      "no_campaign_write": true,
+      "occupied_rejected": true,
+      "host_actual_bones_lying": true,
+      "host_restores_after_each_exit": true,
+      "host_inventory_unchanged": true,
+      "host_energy_increases": true,
+      "client_actual_bones_lying": true,
+      "client_restores_after_each_exit": true,
+      "client_inventory_unchanged": true,
+      "client_energy_increases": true,
+      "mid_transition_enter": true,
+      "mid_transition_leave": true,
+      "no_orphan_pose_actors": true,
+      "remote_captures": true,
+      "fps_recorded": true
+    },
+    "fps": {
+      "host": [
+        {
+          "samples": 587,
+          "mean": 25.08,
+          "p95_ms": 48.79
+        }
+      ],
+      "client": [
+        {
+          "samples": 624,
+          "mean": 27.11,
+          "p95_ms": 44.3
+        }
+      ]
+    },
+    "captures": [
+      "restpose_host_04.png",
+      "restpose_host_standing.png",
+      "restpose_host_09.png"
+    ],
+    "profile": {
+      "host_window": [
+        960,
+        540
+      ],
+      "client_window": [
+        800,
+        450
+      ],
+      "internal_percentage": 70,
+      "cap": 30,
+      "shadows": 0,
+      "ao": 0
+    },
+    "headless_client": true,
+    "scope": "Two simultaneous local Editor game instances (client optionally headless) with scripted inputs, real skeletal bones and screenshots; not a human, internet or packaged test."
+  },
+  "source_validation": {
+    "passed": true,
+    "bones": 89,
+    "frames": 36,
+    "reopened_position_error_cm": 0,
+    "quaternion_dot_error": 1.3052119307577215e-07,
+    "original_import_data_restored": true
+  },
+  "old_source_maps_preserved": {
+    "blender/Bedroom_StyleStudy_v001.blend": true,
+    "unreal/Condominio13/Content/Bunker/BedroomStudy/Lvl_Bedroom_Study.umap": true,
+    "blender/Bedroom_StyleStudy_v002.blend": true,
+    "unreal/Condominio13/Content/Bunker/BedroomCabinet/Lvl_Bedroom_Study_Cabinet.umap": true
+  },
+  "baseline_assets_unchanged": 449,
+  "bone_positions_cm": {
+    "head": [
+      117,
+      -388.575,
+      72.661
+    ],
+    "feet_average": [
+      117,
+      -234.417,
+      66.028
+    ]
+  },
+  "sha256": {
+    "blender/Bedroom_Rest_Animation_v001.blend": "3c595e7e52fb3ecf7a8f28718224f802636ad5a0840f15f7bfb64f77645d5652",
+    "exports/bedroom_rest_rig.json": "a6ff983537d6ef34fc23eecb437e074f4c020432286b954254352b016e3ab23c",
+    "exports/bedroom_rest_animation.json": "529bbe30e2c36adfa9189e09e4454a4641d2233af0eec0b97f5957d7d2680e5c",
+    "unreal/Condominio13/Content/Bunker/BedroomRest/A_Bedroom_Rest.uasset": "ef34f5498e6864ec91bdf028abc1808124e9afa39db3e652be4a85d1b354ccc0",
+    "unreal/Condominio13/Content/Bunker/BedroomRest/Lvl_Bedroom_Study_Rest.umap": "addc95b6bc4c45c4a42e1ff03b47f70d262b35aaf4a214de234f5df4dc4114b3",
+    "screenshots/restpose_host_09.png": "e3514b9ff3f306143171f10c7b32384d793b4af9c075738ce88178d10dc36077"
+  },
+  "limits": [
+    "One rendered host plus one headless client; two rendered views not validated",
+    "No four-player, human, internet or reconnection test",
+    "Temporary mannequin, no IK/contact simulation, original upright collision capsule",
+    "No new video, packaged executable or GitHub publication",
+    "Earlier save regression preserved; not rerun this turn because save schema and storage transactions were unchanged"
+  ]
+}

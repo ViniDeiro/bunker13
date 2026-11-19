@@ -22,6 +22,7 @@ public:
     UPROPERTY(Replicated,BlueprintReadOnly) float Food = 100;
     UPROPERTY(Replicated,BlueprintReadOnly) float Water = 100;
     UPROPERTY(Replicated,BlueprintReadOnly) float Energy = 100;
+    UPROPERTY(Replicated,BlueprintReadOnly) float RadiationBurden=0;
     UPROPERTY(ReplicatedUsing=OnRep_SessionReady) bool bSessionReady=true;
     UFUNCTION() void OnRep_SessionReady();
     UPROPERTY() TObjectPtr<UBunkerSurvivalRules> Rules;
@@ -48,6 +49,8 @@ public:
     UFUNCTION(Client, Reliable) void ClientNotice(const FString& Message);
     UFUNCTION(Exec) void C13Save();
     UFUNCTION(Server,Reliable) void ServerStartRound();
+    void StartFromLobby();
+    void ClickLobby();
     UFUNCTION(Server,Reliable) void ServerCancelRoundRelease();
     UFUNCTION(Server,Reliable) void ServerRoundProbe(int32 Step);
     UFUNCTION(Server,Reliable) void ServerInfrastructureProbe(int32 Step);

@@ -1,0 +1,191 @@
+{
+  "palette": {
+    "Ivory": [
+      [
+        0.65,
+        0.61,
+        0.48
+      ],
+      0,
+      0.57
+    ],
+    "Green": [
+      [
+        0.055,
+        0.16,
+        0.12
+      ],
+      0,
+      0.46
+    ],
+    "Graphite": [
+      [
+        0.035,
+        0.048,
+        0.05
+      ],
+      0.35,
+      0.4
+    ],
+    "Steel": [
+      [
+        0.18,
+        0.22,
+        0.23
+      ],
+      0.8,
+      0.32
+    ],
+    "Rubber": [
+      [
+        0.012,
+        0.018,
+        0.018
+      ],
+      0,
+      0.88
+    ],
+    "Teal": [
+      [
+        0.025,
+        0.27,
+        0.3
+      ],
+      0,
+      0.85
+    ],
+    "Linen": [
+      [
+        0.66,
+        0.62,
+        0.48
+      ],
+      0,
+      0.94
+    ],
+    "Ochre": [
+      [
+        0.6,
+        0.27,
+        0.045
+      ],
+      0,
+      0.46
+    ],
+    "Wood": [
+      [
+        0.28,
+        0.13,
+        0.055
+      ],
+      0,
+      0.57
+    ],
+    "Floor": [
+      [
+        0.28,
+        0.28,
+        0.235
+      ],
+      0,
+      0.8
+    ],
+    "Paper": [
+      [
+        0.77,
+        0.7,
+        0.5
+      ],
+      0,
+      0.95
+    ],
+    "Light": [
+      [
+        0.95,
+        0.76,
+        0.43
+      ],
+      0,
+      0.35
+    ],
+    "Blue": [
+      [
+        0.025,
+        0.2,
+        0.48
+      ],
+      0,
+      0.38
+    ]
+  },
+  "meshes": {
+    "SM_Bedroom_Architecture": {
+      "objects": 88,
+      "triangles": 16544,
+      "materials": [
+        "M_Bedroom_Floor",
+        "M_Bedroom_Graphite",
+        "M_Bedroom_Green",
+        "M_Bedroom_Ivory"
+      ]
+    },
+    "SM_Bedroom_Ceiling": {
+      "objects": 4,
+      "triangles": 752,
+      "materials": [
+        "M_Bedroom_Graphite",
+        "M_Bedroom_Ivory"
+      ]
+    },
+    "SM_Bedroom_Bed": {
+      "objects": 11,
+      "triangles": 3576,
+      "materials": [
+        "M_Bedroom_Graphite",
+        "M_Bedroom_Green",
+        "M_Bedroom_Linen",
+        "M_Bedroom_Teal"
+      ]
+    },
+    "SM_Bedroom_Furniture": {
+      "objects": 36,
+      "triangles": 6768,
+      "materials": [
+        "M_Bedroom_Graphite",
+        "M_Bedroom_Green",
+        "M_Bedroom_Ochre",
+        "M_Bedroom_Rubber",
+        "M_Bedroom_Wood"
+      ]
+    },
+    "SM_Bedroom_Details": {
+      "objects": 33,
+      "triangles": 5436,
+      "materials": [
+        "M_Bedroom_Blue",
+        "M_Bedroom_Graphite",
+        "M_Bedroom_Green",
+        "M_Bedroom_Ivory",
+        "M_Bedroom_Steel",
+        "M_Bedroom_Teal"
+      ]
+    },
+    "SM_Bedroom_Signs": {
+      "objects": 5,
+      "triangles": 10756,
+      "materials": [
+        "M_Bedroom_Graphite",
+        "M_Bedroom_Green",
+        "M_Bedroom_Paper"
+      ]
+    },
+    "SM_Bedroom_Fixtures": {
+      "objects": 6,
+      "triangles": 1128,
+      "materials": [
+        "M_Bedroom_Graphite",
+        "M_Bedroom_Light"
+      ]
+    }
+  }
+}

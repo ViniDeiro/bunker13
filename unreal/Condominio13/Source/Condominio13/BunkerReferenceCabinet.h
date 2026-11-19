@@ -4,6 +4,19 @@
 class UBoxComponent;
 class USoundBase;
 
+// Authoring data is separate from the existing runtime/save inventory schema.
+USTRUCT(BlueprintType)
+struct FBunkerCabinetSeed
+{
+    GENERATED_BODY()
+    UPROPERTY(EditAnywhere) FGuid Id;
+    UPROPERTY(EditAnywhere) FName ItemType;
+    UPROPERTY(EditAnywhere) FString Name;
+    UPROPERTY(EditAnywhere) int32 StorageSlot=-1;
+    UPROPERTY(EditAnywhere) TObjectPtr<UStaticMesh> WorldMesh;
+    UPROPERTY(EditAnywhere) FVector WorldScale=FVector::OneVector;
+};
+
 // Additive reference-room fixture. Logical slot addresses never depend on array order.
 UCLASS()
 class CONDOMINIO13_API ABunkerReferenceCabinet : public ABunkerContainer
@@ -22,6 +35,9 @@ public:
     UPROPERTY() TObjectPtr<class USoundAttenuation> FoleyAttenuation;
     UPROPERTY(EditAnywhere) TObjectPtr<USoundBase> OpenSound;
     UPROPERTY(EditAnywhere) TObjectPtr<USoundBase> CloseSound;
+    // Keep the legacy default so existing checkpoints still address the original cabinet.
+    UPROPERTY(EditAnywhere,Category="Storage") FString PersistentKey=TEXT("C13_Reference_CommonCabinet_v1");
+    UPROPERTY(EditAnywhere,Category="Storage") TArray<FBunkerCabinetSeed> StartingItems;
     virtual void BeginPlay() override;
     virtual void Tick(float DT) override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;

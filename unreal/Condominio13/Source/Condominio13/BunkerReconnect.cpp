@@ -38,7 +38,7 @@ FString ProfileSlot()
     if(FParse::Param(FCommandLine::Get(),TEXT("C13Round")))
     {
         int32 Index=0;FParse::Value(FCommandLine::Get(),TEXT("C13RoundProfile="),Index);
-        if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))return FString::Printf(TEXT("C13_TestRoundProfile_%d"),FMath::Clamp(Index,0,8));
+        if(FParse::Param(FCommandLine::Get(),TEXT("C13RoundTest")))return FString::Printf(TEXT("%s_%d"),FParse::Param(FCommandLine::Get(),TEXT("C13RadiationTest"))?TEXT("C13_TestRadiationProfile"):TEXT("C13_TestRoundProfile"),FMath::Clamp(Index,0,8));
         return TEXT("C13_MvpRoundProfile");
     }
     return TEXT("C13_ReconnectProfile");
@@ -77,7 +77,7 @@ UBunkerReconnectProfile* ReadProfile(bool& bDamaged)
 void Capture(ABunkerPlayerController* PC,FBunkerSavedPlayer& R)
 {
     auto* PS=PC->GetPlayerState<ABunkerPlayerState>();
-    R.Inventory=PS->Inventory;R.Health=PS->Health;R.Food=PS->Food;R.Water=PS->Water;R.Energy=PS->Energy;
+    R.Inventory=PS->Inventory;R.Health=PS->Health;R.Food=PS->Food;R.Water=PS->Water;R.Energy=PS->Energy;R.RadiationBurden=PS->RadiationBurden;
     R.Location=PC->CheckpointLocation();R.Rotation=PC->GetControlRotation();
 }
 void Reject(ABunkerGameMode* GM,ABunkerPlayerController* PC,const TCHAR* Reason)
@@ -213,7 +213,7 @@ void ABunkerGameMode::ConfirmReconnect(ABunkerPlayerController* PC,bool bStored)
     if (!PS || !C || PS->bSessionReady) return;
     auto* R=RemotePlayers.FindByPredicate([&](const auto& P){return P.Key==PC->SessionPlayerKey;});
     if (!bStored || !R) {Reject(this,PC,TEXT("profile"));return;}
-    PS->Inventory=R->Inventory;PS->Health=R->Health;PS->Food=R->Food;PS->Water=R->Water;PS->Energy=R->Energy;
+    PS->Inventory=R->Inventory;PS->Health=R->Health;PS->Food=R->Food;PS->Water=R->Water;PS->Energy=R->Energy;PS->RadiationBurden=R->RadiationBurden;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(ReconnectPosition),false,C);FHitResult Floor;
     const auto Shape=FCollisionShape::MakeCapsule(C->GetCapsuleComponent()->GetScaledCapsuleRadius(),C->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()-2);
     const bool Safe=!GetWorld()->OverlapBlockingTestByChannel(R->Location,FQuat::Identity,ECC_Pawn,Shape,Query) &&
